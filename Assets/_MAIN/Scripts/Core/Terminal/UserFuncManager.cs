@@ -1,0 +1,141 @@
+using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class UserFunc
+{
+
+    public string code;
+    public int index;
+    public string name;
+
+    public UserFunc(string code, int index, string name = "")
+    {
+        this.code = code;
+        this.index = index;
+        this.name = name;
+    }
+}
+
+public class UserFuncManager : MonoBehaviour
+{
+    public TMP_InputField terminalInput;
+    public GameObject userFuncPrefab;
+    public UserFuncSlot[] functionItemSlots;
+    [Header("User Funcs Lists")]
+    public List<UserFunc> userFuncs = new();
+    public TextMeshProUGUI text;
+    public Interpreter interpreter;
+    public UserFuncItemClone[] funcItem;
+    public FunctionsArea functionsArea;
+    public GameObject saveBtn;
+    private UserFuncItem editingItem;
+
+
+    void Start()
+    {
+        saveBtn.SetActive(false);
+    }
+
+    public void AddFunc()
+    {
+        if (terminalInput.text == "" || terminalInput.text == null)
+        {
+            Debug.LogError("Can't add empty code");
+            return;
+
+        }
+
+        for (int i = 0; i < functionItemSlots.Length; i++)
+        {
+            UserFuncSlot slot = functionItemSlots[i];
+            UserFuncItem funcInSlot = slot.GetComponentInChildren<UserFuncItem>();
+
+            if (funcInSlot == null)
+            {
+                UserFunc newFunc = new UserFunc(terminalInput.text, userFuncs.Count);
+                userFuncs.Add(newFunc);
+
+                GameObject userFuncItemObj = Instantiate(userFuncPrefab, slot.transform);
+                userFuncItemObj.transform.localPosition = Vector3.zero;
+                UserFuncItem userFuncItem = userFuncItemObj.GetComponent<UserFuncItem>();
+
+                userFuncItem.InitItem(newFunc, functionsArea);
+
+
+
+                userFuncItem.OnClickEdit.AddListener(Editing);
+
+                return;
+            }
+        }
+
+
+    }
+    private void ViewFunctionsList()
+    {
+        for (int i = 0; i < userFuncs.Count; i++)
+        {
+            Debug.Log(userFuncs[i]);
+        }
+    }
+
+
+
+    public void ExecFuncs()
+    {
+        FunctionsArea funcArea = GetComponentInChildren<FunctionsArea>();
+        funcItem = funcArea.GetComponentsInChildren<UserFuncItemClone>();
+
+        List<string> codes = new();
+        for (int i = 0; i < funcItem.Length; i++)
+        {
+
+            if (funcItem != null)
+            {
+                codes.Add(funcItem[i].cloneUserFunc.code);
+            }
+
+
+        }
+        string inputCode = string.Join("\n", codes);
+
+
+        interpreter.ExecuteCode(inputCode);
+
+    }
+
+    public void Editing(UserFuncItem funcItem, bool editing)
+    {
+        editingItem = funcItem;
+        UserFunc userFunc = funcItem.userFunc;
+        terminalInput.ActivateInputField();
+        terminalInput.text = userFunc.code;
+
+        saveBtn.SetActive(true);
+    }
+
+    public void SaveChangesFunc()
+    {
+
+        editingItem.userFunc.code = terminalInput.text;
+        editingItem.childTxt.text = terminalInput.text;
+        Debug.Log(editingItem.userFunc.code);
+
+
+
+
+        editingItem.UpdateClones(editingItem.userFunc);
+        terminalInput.text = "";
+
+        saveBtn.SetActive(false);
+    }
+
+    public void DisplayResult(string res)
+    {
+        text.text = res;
+    }
+}

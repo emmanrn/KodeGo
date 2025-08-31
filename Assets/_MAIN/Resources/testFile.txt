@@ -1,0 +1,12 @@
+
+
+Kode " I shall fix it with \"Hello World\"" playSong("Intro Song" -v 0.75 p 1)
+
+[wait]process1("10"), lambda_p1("after the process1 command")
+Pseudo as ??? at [0: Mysterious, 1: Proud] "Nice! Good job Kode!{a} You fixed Hello World!{wc 1} Lets do it again!" fade("out" -s 0.5)
+Kode "Hehe thanks."
+
+Narrator at 0.5, 0.9 "And with that concludes this story.{c} Or \"is it?\" is what they call it right?" fade(out -d 0.5)
+
+Kode "I dont know about this.{c} Maybe we shouldn't do this.{a} I don't like this feeling of mine"
+Pseudo at 0 as ??? "Hey it's going to be okay.{wa 0.2} Here how about I brighten up the mood.{a} With a lighter!"
