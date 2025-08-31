@@ -1,5 +1,6 @@
 CreateCharacter(Kode), CreateCharacter(Pseudo)
 
+ShowDB()
 Narrator "Showing Kode Charcter"
 Narrator "Test narrator line 1"
 Kode.Show()
@@ -20,3 +21,5 @@ Kode "I am calm! You calm down!"
 
 [wait]Kode.Show(), [wait]Kode.Hide()
 Narrator "The end."
+[wait]HideDB()
+ShowDB()

@@ -36,6 +36,7 @@ namespace DIALOGUE
             }
 
             CO_Showing = DialogueSystem.instance.StartCoroutine(Fading(1));
+            rootCG.gameObject.SetActive(true);
             return CO_Showing;
 
         }
@@ -51,6 +52,7 @@ namespace DIALOGUE
             }
 
             CO_Hiding = DialogueSystem.instance.StartCoroutine(Fading(0));
+            rootCG.gameObject.SetActive(false);
             return CO_Hiding;
 
 
@@ -59,6 +61,7 @@ namespace DIALOGUE
         private IEnumerator Fading(float alpha)
         {
             CanvasGroup cg = rootCG;
+
 
             while (cg.alpha != alpha)
             {
