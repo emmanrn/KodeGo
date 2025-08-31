@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4574c71a285ecc648bfcc73aff9d31fe, type: 3}
+  m_Name: Charcter Config Asset
+  m_EditorClassIdentifier: 
+  characters:
+  - name: Kode
+    alias: KD
+    characterType: 2
+    nameColor: {r: 0.9377117, g: 1, b: 0, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+  - name: Pseudo
+    alias: Ps
+    characterType: 0
+    nameColor: {r: 0.13003778, g: 1, b: 0, a: 1}
+    dialogueColor: {r: 1, g: 1, b: 1, a: 1}
+  - name: Emmanuel
+    alias: Em
+    characterType: 0
+    nameColor: {r: 1, g: 0.44498214, b: 0, a: 1}
+    dialogueColor: {r: 0.9622642, g: 0.90977395, b: 0.503827, a: 1}

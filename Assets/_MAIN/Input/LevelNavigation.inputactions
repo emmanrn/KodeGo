@@ -1,0 +1,84 @@
+{
+    "name": "LevelNavigation",
+    "maps": [
+        {
+            "name": "NextLevel",
+            "id": "0b465e79-72a2-4396-8c1e-776e43ed9133",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "3dddb028-1442-4551-8966-c44908d49e93",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b61fb879-5a6e-42f5-94ec-629d5a1450cd",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3dabe77f-1051-49b8-9d3a-e76998a56824",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PrevLevel",
+            "id": "3ccd4a9d-8055-423a-a992-ab90887ce8f8",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "0a3f2849-70fe-446c-bac8-40a5fa825009",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f9c3cfb8-3839-484b-8195-fae340a17322",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8811d362-ea5d-48a9-a3b5-740685c90ffb",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
