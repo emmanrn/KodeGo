@@ -34,10 +34,10 @@ namespace DIALOGUE
 
         }
 
-        private void OnEnable()
-        {
-            PlayerInputManager.instance.EnableGeneral(GeneralActionMap.DIALOGUE);
-        }
+        //private void OnEnable()
+        //{
+        //    PlayerInputManager.instance.EnableGeneral(GeneralActionMap.DIALOGUE);
+        //}
 
         private void OnDisable()
         {

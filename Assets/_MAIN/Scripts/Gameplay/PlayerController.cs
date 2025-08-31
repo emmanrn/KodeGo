@@ -21,7 +21,12 @@ public class PlayerController : MonoBehaviour
             playerInputManager.EnablePlayerMovement();
     }
 
-    public void Move(InputAction.CallbackContext c) => horizontalMovement = c.ReadValue<Vector2>().x;
+    public void Move(InputAction.CallbackContext c)
+    {
+        Debug.Log("Move");
+        horizontalMovement = c.ReadValue<Vector2>().x;
+    }
+
     public void Jump(InputAction.CallbackContext c)
     {
         if (c.performed)
