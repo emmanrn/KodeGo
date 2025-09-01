@@ -7,6 +7,8 @@ using UnityEngine;
 public class Interactable : MonoBehaviour
 {
     private GameObject interactObj;
+    private bool hasTlked;
+    [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead = null;
 
     void Start()
@@ -16,22 +18,26 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !other.isTrigger)
+        if (other.CompareTag("Player") && !other.isTrigger && !hasTlked)
         {
-            Debug.Log("Start Dialogue");
-            StartConversation();
-
+            StartCoroutine(StartConversation());
         }
     }
 
-    private void StartConversation()
+    private IEnumerator StartConversation()
     {
-        PlayerInputManager.instance.EnableGeneral(GeneralActionMap.DIALOGUE);
-        List<string> lines = FileManager.ReadTxtAsset(fileToRead);
-        DialogueSystem.instance.Say(lines);
+        // set input action map to the general ui where the next prompt button is at
+        inputReader.SetGeneral();
 
+        List<string> lines = FileManager.ReadTxtAsset(fileToRead);
+        yield return DialogueSystem.instance.Say(lines);
+
+        // once the dialogue is done set the player controls back
+        inputReader.SetPlayerMovement();
+        hasTlked = true;
 
     }
+
 
 
 }

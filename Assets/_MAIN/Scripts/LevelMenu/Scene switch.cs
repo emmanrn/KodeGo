@@ -17,4 +17,9 @@ public class SceneManagerScript : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay");
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

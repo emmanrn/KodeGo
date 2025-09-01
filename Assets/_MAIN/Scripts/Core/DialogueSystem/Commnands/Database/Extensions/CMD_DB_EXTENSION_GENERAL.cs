@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using DIALOGUE;
 using UnityEngine;
 
@@ -13,6 +14,7 @@ namespace COMMANDS
             database.AddCommand("wait", new Func<string, IEnumerator>(Wait));
             database.AddCommand("showdb", new Func<IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedb", new Func<IEnumerator>(HideDialogueBox));
+            database.AddCommand("stopdialogue", new Action(StopDialogue));
 
         }
 
@@ -33,6 +35,12 @@ namespace COMMANDS
         private static IEnumerator HideDialogueBox()
         {
             yield return DialogueSystem.instance.dialogueContainer.Hide();
+        }
+
+        private static void StopDialogue()
+        {
+            DialogueSystem.instance.StopDialogue();
+            Debug.Log("top dilogue");
         }
     }
 

@@ -1,37 +1,53 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
-    private DIALOGUE.PlayerInputManager playerInputManager => DIALOGUE.PlayerInputManager.instance;
     public float moveSpeed = 5f;
     public float jumpPower = 5f;
+    [SerializeField] private InputReader input;
 
-    float horizontalMovement;
+    private Vector2 moveDirection;
+    private bool isJumping;
+
+    void OnEnable()
+    {
+        input.SetPlayerMovement();
+        input.MoveEvent += HandleMove;
+        input.JumpEvent += HandleJump;
+        input.JumpCancelledEvent += HandleCancelledJump;
+    }
+    void OnDisable()
+    {
+        input.MoveEvent -= HandleMove;
+        input.JumpEvent -= HandleJump;
+        input.JumpCancelledEvent -= HandleCancelledJump;
+    }
 
     void Update()
     {
-        rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
+        Move();
     }
 
-    private void OnEnable()
+    private void HandleMove(Vector2 direction)
     {
-        if (playerInputManager != null)
-            playerInputManager.EnablePlayerMovement();
+        moveDirection = direction;
+    }
+    private void HandleJump()
+    {
+        isJumping = true;
+        rb.velocity = new Vector2(rb.velocity.y, jumpPower);
     }
 
-    public void Move(InputAction.CallbackContext c)
+    private void HandleCancelledJump()
     {
-        Debug.Log("Move");
-        horizontalMovement = c.ReadValue<Vector2>().x;
+        isJumping = false;
     }
 
-    public void Jump(InputAction.CallbackContext c)
+    private void Move()
     {
-        if (c.performed)
-        {
-            rb.velocity = new Vector2(rb.velocity.y, jumpPower);
-        }
+
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
     }
+
 }

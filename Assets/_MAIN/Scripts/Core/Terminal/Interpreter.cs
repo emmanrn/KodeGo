@@ -1,11 +1,15 @@
 using UnityEngine;
 using Python.Runtime;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Interpreter : MonoBehaviour
 {
     [SerializeField] private UserFuncManager userFuncManager;
     Player player;
+    private Queue<IEnumerator> commandQueue = new();
+    private bool isRunning = false;
     dynamic np;
     void Start()
     {
@@ -47,9 +51,24 @@ public class Interpreter : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (!isRunning && commandQueue.Count > 0)
+        {
+            StartCoroutine(RunCommand(commandQueue.Dequeue()));
+        }
+    }
 
+    private IEnumerator RunCommand(IEnumerator command)
+    {
+        isRunning = true;
+        yield return StartCoroutine(command); // waits until PlayerMoveRight/Left finishes
+        isRunning = false;
+    }
+
+    private void EnqueueCommand(IEnumerator command)
+    {
+        commandQueue.Enqueue(command);
     }
 
     public void Greet()
@@ -67,7 +86,11 @@ public class Interpreter : MonoBehaviour
 
     private void MoveRight()
     {
-        player.StartCoroutine(player.PlayerMoveRight());
+        EnqueueCommand(player.PlayerMoveRight());
+    }
+    private void MoveLeft()
+    {
+        EnqueueCommand(player.PlayerMoveLeft());
     }
 
 
@@ -94,6 +117,7 @@ public class Interpreter : MonoBehaviour
                     {
                         scope.Set("ChangeText", new Action<string>(this.ChangeText));
                         scope.Set("moveRight", new Action(MoveRight));
+                        scope.Set("moveLeft", new Action(MoveLeft));
                         scope.Exec(code);
                         string res = output.getvalue().ToString();
                         sys.stdout = sys.__stdout__;
