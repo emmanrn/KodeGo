@@ -108,6 +108,8 @@ namespace DIALOGUE
         {
             return conversationManager.StartConversation(conversation);
         }
+
+        public void StopDialogue() => conversationManager.StopConversation();
     }
 
 }

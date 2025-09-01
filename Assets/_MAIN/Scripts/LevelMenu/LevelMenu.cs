@@ -8,12 +8,21 @@ public class LevelMenu : MonoBehaviour
     float scrollPos = 0;
     private int currentIdx = 0;
     float[] pos;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private InputReader inputReader;
+
+    private void OnEnable()
     {
+        inputReader.SetGeneral();
+        inputReader.NextLevelEvent += Next;
+        inputReader.PrevLevelEvent += Previous;
     }
 
-    // Update is called once per frame
+    private void OnDisable()
+    {
+        inputReader.NextLevelEvent -= Next;
+        inputReader.PrevLevelEvent -= Previous;
+    }
+
     void Update()
     {
         Swipe();
@@ -74,26 +83,6 @@ public class LevelMenu : MonoBehaviour
 
         }
 
-    }
-
-    private void OnEnable()
-    {
-        if (PlayerInputManager.instance != null)
-        {
-            PlayerInputManager.instance.EnableGeneral(GeneralActionMap.LEVEL_MENU);
-            PlayerInputManager.instance.OnNextLevelEvent += Next;
-            PlayerInputManager.instance.OnPrevLevelEvent += Previous;
-
-        }
-    }
-    private void OnDisable()
-    {
-        if (PlayerInputManager.instance != null)
-        {
-            PlayerInputManager.instance.OnNextLevelEvent -= Next;
-            PlayerInputManager.instance.OnPrevLevelEvent -= Previous;
-
-        }
     }
 
     private void Next()

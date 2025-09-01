@@ -38,7 +38,11 @@ namespace DIALOGUE
                 return;
 
             dialogueSystem.StopCoroutine(process);
+
             process = null;
+            Debug.Log("Stop");
+            Debug.Log(isRunning);
+
         }
 
         IEnumerator RunningConversation(List<string> conversation)
@@ -68,6 +72,8 @@ namespace DIALOGUE
                 }
 
             }
+            process = null;
+            Debug.Log("Dilogue done");
         }
 
         IEnumerator LineRunDialogue(DIALOGUE_LINES line)

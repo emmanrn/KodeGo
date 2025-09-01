@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,15 +10,31 @@ namespace DIALOGUE
         LEVEL_MENU,
         DIALOGUE,
     }
+    public class ActionMapEntry
+    {
+        public string name { get; set; }
+        public string group { get; set; }
+        public InputAction action { get; set; }
+        public Action<InputAction.CallbackContext> command { get; set; }
+
+        public ActionMapEntry(string name, InputAction action, Action<InputAction.CallbackContext> command, string group = "")
+        {
+            this.name = name;
+            this.group = group;
+            this.action = action;
+            this.command = command;
+        }
+    }
     public class PlayerInputManager : MonoBehaviour
     {
         private PlayerInput input;
-        private List<(InputAction action, Action<InputAction.CallbackContext> command)> actions = new List<(InputAction action, Action<InputAction.CallbackContext> command)>();
+        private List<ActionMapEntry> actionMaps = new();
         public static PlayerInputManager instance;
         private HashSet<string> activeActionGroups = new();
 
         public event Action OnNextLevelEvent;
         public event Action OnPrevLevelEvent;
+        public event Action<InputAction.CallbackContext> OnMoveEvent;
         void Awake()
         {
             //input.actions["Next"].performed += PromptAdvance;
@@ -37,63 +52,14 @@ namespace DIALOGUE
 
         private void InitializeActions()
         {
-            actions.Add((input.actions["Next"], OnNextPrompt));
-            actions.Add((input.actions["NextLevel"], OnLevelNext));
-            actions.Add((input.actions["PrevLevel"], OnLevelPrev));
+            // General Action Map
+            //actionMaps.Add(new ActionMapEntry("General", input.actions["Next"], OnNextPrompt, group: "DIALOGUE"));
+            //actionMaps.Add(new ActionMapEntry("General", input.actions["NextLevel"], OnLevelNext, group: "LEVEL_MENU"));
+            //actionMaps.Add(new ActionMapEntry("General", input.actions["PrevLevel"], OnLevelPrev, group: "LEVEL_MENU"));
+            //actionMaps.Add(new ActionMapEntry("General", input.actions["MenuOPEN"], OnLevelPrev));
 
-        }
+            //Player Action Map
 
-        public void EnablePlayerMovement()
-        {
-            Debug.Log("Enabled Movement");
-            input.actions.FindActionMap("Player")?.Enable();
-            input.actions.FindActionMap("General")?.Disable();
-
-            Unsubscribe();
-        }
-
-        public void EnableGeneral(GeneralActionMap subState)
-        {
-            input.actions.FindActionMap("Player")?.Disable();
-
-            var generalActionMap = input.actions.FindActionMap("General");
-            if (generalActionMap == null)
-                return;
-
-            generalActionMap.Enable();
-            foreach (var (action, _) in actions)
-                action?.Disable();
-
-            Unsubscribe();
-
-            switch (subState)
-            {
-                case GeneralActionMap.DIALOGUE:
-                    SubscribeToAction("Next", OnNextPrompt);
-                    break;
-                case GeneralActionMap.LEVEL_MENU:
-                    SubscribeToAction("NextLevel", OnLevelNext);
-                    SubscribeToAction("PrevLevel", OnLevelPrev);
-                    break;
-
-            }
-        }
-
-        private void SubscribeToAction(string actionName, Action<InputAction.CallbackContext> callback)
-        {
-            var inputActions = actions.Find(a => a.action?.name == actionName);
-
-            if (inputActions.action != null)
-            {
-                inputActions.action.Enable();
-                inputActions.action.performed += callback;
-            }
-        }
-
-
-        private void OnEnable()
-        {
-            InitializeActions();
         }
 
         private void OnDisable()
@@ -103,36 +69,82 @@ namespace DIALOGUE
 
         private void Unsubscribe()
         {
-            for (int i = 0; i < actions.Count; i++)
+
+            for (int i = 0; i < actionMaps.Count; i++)
             {
-                var inputAction = actions[i];
+                var inputAction = actionMaps[i];
                 inputAction.action.performed -= inputAction.command;
+            }
+        }
+
+        public void EnableActionMap(string actionMapName, string groupName = "", bool enableGroup = false)
+        {
+            input.actions.FindActionMap(actionMapName)?.Enable();
+
+            Debug.Log("Enabled");
+
+
+            if (enableGroup)
+            {
+                EnableGroup(actionMapName, groupName);
+                return;
+            }
+
+            for (int i = 0; i < actionMaps.Count; i++)
+            {
+                var inputAction = actionMaps[i];
+                if (actionMapName == inputAction.name)
+                    SubscribeToAction(inputAction);
             }
 
         }
 
-        public void EnableGroup(string groupName)
+        public void DisableActionMap(string actionMapName)
         {
-            activeActionGroups.Clear();
-            activeActionGroups.Add(groupName);
+            if (input == null)
+            {
+                Debug.Log("Diaabled");
+                return;
 
-            Unsubscribe();
+            }
+            input.actions.FindActionMap(actionMapName)?.Disable();
+
         }
 
-        // if we want to have multiple actions groups enabled e.g dialogue + level menu
-        private void AddGroup(string groupName)
+        private void EnableGroup(string actionMapName, string groupName)
         {
-            activeActionGroups.Add(groupName);
-            Unsubscribe();
+            DisableGroup(actionMapName);
+
+            for (int i = 0; i < actionMaps.Count; i++)
+            {
+                var inputAction = actionMaps[i];
+
+                if (groupName == inputAction.group)
+                    SubscribeToAction(inputAction);
+            }
+
         }
 
-        public void UnsubscribeAll()
+
+        private void DisableGroup(string actionMapName)
         {
-            activeActionGroups.Clear();
-            Unsubscribe();
+            for (int i = 0; i < actionMaps.Count; i++)
+            {
+                var inputAction = actionMaps[i];
+
+                if (inputAction.name == actionMapName)
+                    UnsubscribeToAction(inputAction);
+
+            }
         }
 
+        private void SubscribeToAction(ActionMapEntry inputAction) => inputAction.action.performed += inputAction.command;
+        private void UnsubscribeToAction(ActionMapEntry inputAction) => inputAction.action.performed -= inputAction.command;
+
+
+        private void OnMove(InputAction.CallbackContext c) => OnMoveEvent?.Invoke(c);
         private void OnLevelNext(InputAction.CallbackContext c) => OnNextLevelEvent?.Invoke();
+
         private void OnLevelPrev(InputAction.CallbackContext c) => OnPrevLevelEvent?.Invoke();
         public void OnNextPrompt(InputAction.CallbackContext c) => DialogueSystem.instance.OnUserPromptNext();
 
@@ -155,4 +167,5 @@ namespace DIALOGUE
         //    }
         //}
     }
+
 }

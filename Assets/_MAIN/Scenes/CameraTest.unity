@@ -1076,14 +1076,6 @@ MonoBehaviour:
     m_ActionId: f8b71bb2-4760-4db0-bae2-182718dd23db
     m_ActionName: General/Next[/Keyboard/space,/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a967bf60-edfc-4a2e-b64c-d6d808da1b79
-    m_ActionName: General/PrevLevel[/Keyboard/a,/Keyboard/leftArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f6acf6f7-b8fa-4a1f-b099-e8c0c8d0a397
-    m_ActionName: General/NextLevel[/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2025448505}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
@@ -1115,6 +1107,58 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: df9067cf-dcf8-47ab-a237-b57b811392b0
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ed65b5c-775d-4ffa-813e-69dcfb933753
+    m_ActionName: General/NextLevel[/Keyboard/rightArrow,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5f1ccf6f-298c-4f1d-a8c5-f6f702c31d7f
+    m_ActionName: General/PrevLevel[/Keyboard/leftArrow,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ffa1bf9e-f77d-4073-8723-4999884f0711
+    m_ActionName: General/MenuOPEN[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7316552b-2307-4608-bd46-1ed299816813
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 27c03e98-cdc3-475f-aa53-b4c0c8394d7d
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b25657a-11b5-4861-84dc-a3e2ff2b7a97
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eb46a533-b567-4f3e-b749-9841b97bafa6
+    m_ActionName: UI/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d046aca-b544-4449-92a4-e04bc94b831f
+    m_ActionName: UI/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5eea8b32-3823-4f4c-a522-011b8be2ee43
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0dcc46f-4048-4293-9889-6ec316ce78a9
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 617c2709-bb09-4256-9d75-3557d2e3f20e
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 102a0059-9478-4260-bd79-c8d8442efade
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f379ba9b-e1da-49ed-99a5-cc1c6d37acbb
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: General
