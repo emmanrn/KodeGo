@@ -4,21 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class UserFunc
-{
-
-    public string code;
-    public int index;
-    public string name;
-
-    public UserFunc(string code, int index, string name = "")
-    {
-        this.code = code;
-        this.index = index;
-        this.name = name;
-    }
-}
 
 public class UserFuncManager : MonoBehaviour
 {
@@ -28,7 +13,7 @@ public class UserFuncManager : MonoBehaviour
     [Header("User Funcs Lists")]
     public List<UserFunc> userFuncs = new();
     public TextMeshProUGUI text;
-    public Interpreter interpreter;
+    [SerializeField] private Interpreter interpreter;
     public UserFuncItemClone[] funcItem;
     public FunctionsArea functionsArea;
     public GameObject saveBtn;
@@ -90,21 +75,38 @@ public class UserFuncManager : MonoBehaviour
         FunctionsArea funcArea = GetComponentInChildren<FunctionsArea>();
         funcItem = funcArea.GetComponentsInChildren<UserFuncItemClone>();
 
-        List<string> codes = new();
-        for (int i = 0; i < funcItem.Length; i++)
+        if (funcItem == null || funcItem.Length == 0)
         {
-
-            if (funcItem != null)
-            {
-                codes.Add(funcItem[i].cloneUserFunc.code);
-            }
-
-
+            Debug.LogWarning("No functions to execute");
+            return;
         }
-        string inputCode = string.Join("\n", codes);
 
+        interpreter.ClearOutput();
 
-        interpreter.ExecuteCode(inputCode);
+        foreach (var func in funcItem)
+        {
+            if (func == null || func.cloneUserFunc == null) continue;
+
+            string codeBlock = func.cloneUserFunc.code;
+
+            if (!string.IsNullOrWhiteSpace(codeBlock))
+            {
+                try
+                {
+                    interpreter.ExecuteCode(codeBlock);
+
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogError($"Error executing block:\n{codeBlock}\n{ex.Message}");
+                }
+            }
+        }
+
+        string result = interpreter.GetOutput();
+        if (!string.IsNullOrEmpty(result))
+            DisplayResult(result);
+
 
     }
 

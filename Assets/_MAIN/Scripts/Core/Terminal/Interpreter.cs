@@ -3,45 +3,109 @@ using Python.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using COMMANDS;
+using Unity.VisualScripting;
 
 public class Interpreter : MonoBehaviour
 {
     [SerializeField] private UserFuncManager userFuncManager;
-    Player player;
-    private Queue<IEnumerator> commandQueue = new();
-    private bool isRunning = false;
-    dynamic np;
+    [SerializeField] private Player player;
+
+
+    [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
+    [DoNotSerialize] private Queue<IEnumerator> commandQueue = new();
+    [DoNotSerialize] private bool isRunning = false;
+    [DoNotSerialize] dynamic np;
+    [DoNotSerialize] private PyModule scope;
+    private GameStateManager gameState => GameStateManager.instance;
     void Start()
     {
-        player = GetComponent<Player>();
 
         Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/embedded_python/python313.dll";
         PythonEngine.Initialize();
 
 
-        try
+
+        using (Py.GIL())
         {
-            dynamic sys = PyModule.Import("sys");
-            print("Python version: " + sys.version);
+            scope = Py.CreateScope();
+            pythonOutputRedirector = new PythonOutputRedirector();
 
-            dynamic math = PyModule.Import("math");
-            print("math.pi: " + math.pi);
+            dynamic sys = Py.Import("sys");
+            dynamic io = Py.Import("io");
+            dynamic output = io.StringIO();
+            sys.stdout = PyObject.FromManagedObject(pythonOutputRedirector);
+            sys.stderr = PyObject.FromManagedObject(pythonOutputRedirector);
 
-            dynamic os = PyModule.Import("os");
-            print("Current directory: " + os.getcwd());
+            try
+            {
+                scope.Set("ChangeText", new Action<string>(this.ChangeText));
+                scope.Set("moveRight", new Action(MoveRight));
+                scope.Set("moveLeft", new Action(MoveLeft));
+                scope.Set("jump", new Action(Jump));
 
-
+            }
+            catch (Exception e)
+            {
+                print(e);
+            }
         }
-        catch (Exception e)
-        {
-            print(e);
-            print(e.StackTrace);
-        }
 
-
+        StartCoroutine(CommandProcessor());
 
     }
 
+    private IEnumerator CommandProcessor()
+    {
+        while (true)
+        {
+            if (gameState.isPaused || isRunning || gameState.isRunningDialogue || commandQueue.Count == 0)
+            {
+                yield return null;
+                continue;
+            }
+            yield return StartCoroutine(RunCommand(commandQueue.Dequeue()));
+        }
+    }
+    public void ClearOutput() => pythonOutputRedirector.Clear();
+    public string GetOutput() => pythonOutputRedirector.GetOutput();
+
+
+    private IEnumerator RunCommand(IEnumerator command)
+    {
+        isRunning = true;
+        yield return new WaitUntil(() => !player.isMoving);
+
+        yield return StartCoroutine(command);
+        isRunning = false;
+
+    }
+
+
+    public void ExecuteCode(string input)
+    {
+        if (gameState.isPaused || gameState.isRunningDialogue || isRunning || player.isMoving)
+        {
+            Debug.Log("Interpreter is busy, skipping code.");
+            return;
+        }
+        if (!PythonEngine.IsInitialized) return;
+
+        using (Py.GIL())
+        {
+            try
+            {
+                scope.Exec(input);
+
+
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e);
+            }
+        }
+
+    }
     public void OnApplicationQuit()
     {
         if (PythonEngine.IsInitialized)
@@ -50,91 +114,12 @@ public class Interpreter : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (!isRunning && commandQueue.Count > 0)
-        {
-            StartCoroutine(RunCommand(commandQueue.Dequeue()));
-        }
-    }
 
-    private IEnumerator RunCommand(IEnumerator command)
-    {
-        isRunning = true;
-        yield return StartCoroutine(command); // waits until PlayerMoveRight/Left finishes
-        isRunning = false;
-    }
-
-    private void EnqueueCommand(IEnumerator command)
-    {
-        commandQueue.Enqueue(command);
-    }
-
-    public void Greet()
-    {
-        Debug.Log("Hello from C#!");
-    }
-
-    public void ChangeText(string sampleText)
-    {
-
-        Debug.Log(sampleText);
-
-
-    }
-
-    private void MoveRight()
-    {
-        EnqueueCommand(player.PlayerMoveRight());
-    }
-    private void MoveLeft()
-    {
-        EnqueueCommand(player.PlayerMoveLeft());
-    }
-
-
-
-
-
-    public void ExecuteCode(string input)
-    {
-        string code = input;
-        Debug.Log(code);
-
-        if (PythonEngine.IsInitialized)
-        {
-            using (Py.GIL())
-            {
-                dynamic sys = Py.Import("sys");
-                dynamic io = Py.Import("io");
-                dynamic output = io.StringIO();
-                sys.stdout = output;
-
-                using (var scope = Py.CreateScope())
-                {
-                    try
-                    {
-                        scope.Set("ChangeText", new Action<string>(this.ChangeText));
-                        scope.Set("moveRight", new Action(MoveRight));
-                        scope.Set("moveLeft", new Action(MoveLeft));
-                        scope.Exec(code);
-                        string res = output.getvalue().ToString();
-                        sys.stdout = sys.__stdout__;
-                        userFuncManager.DisplayResult(res);
-
-
-
-                    }
-                    catch (Exception e)
-                    {
-                        print(e);
-                    }
-                }
-            }
-        }
-
-    }
+    private void Greet() => Debug.Log("Hello from C#");
+    private void ChangeText(string text) => Debug.Log(text);
+    private void MoveRight() => commandQueue.Enqueue(player.PlayerMoveRight());
+    private void MoveLeft() => commandQueue.Enqueue(player.PlayerMoveLeft());
+    private void Jump() => commandQueue.Enqueue(player.Jump());
 
 
 }
