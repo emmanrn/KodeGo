@@ -208,6 +208,10 @@ namespace MOVEMENT
                 isDashing = true;
                 canDash = false;
 
+                // forcefully set isGrounded here to false after we dash
+                // idk the cause on why canDash is still true after dashing, but after i jump and dash then it consumes it
+                isGrounded = false;
+
                 StartCoroutine(StopDashing());
             }
         }
