@@ -42,12 +42,15 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
     }
 
     public event Action<Vector2> MoveEvent;
+    public event Action JumpPressed;
     public event Action JumpEvent;
     public event Action JumpCancelledEvent;
+    public event Action DashEvent;
     public event Action PauseEvent;
     public event Action ResumeEvent;
     public event Action NextLevelEvent;
     public event Action PrevLevelEvent;
+    public event Action InteractEvent;
     public void OnCancel(InputAction.CallbackContext context)
     {
     }
@@ -58,15 +61,15 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (context.phase == InputActionPhase.Started)
+            JumpPressed?.Invoke();
+
         if (context.phase == InputActionPhase.Performed)
-        {
             JumpEvent?.Invoke();
-        }
 
         if (context.phase == InputActionPhase.Canceled)
-        {
             JumpCancelledEvent?.Invoke();
-        }
+
     }
 
     public void OnMenuOPEN(InputAction.CallbackContext context)
@@ -157,5 +160,17 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
             PauseEvent?.Invoke();
             SetGeneral();
         }
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            DashEvent?.Invoke();
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            InteractEvent?.Invoke();
     }
 }

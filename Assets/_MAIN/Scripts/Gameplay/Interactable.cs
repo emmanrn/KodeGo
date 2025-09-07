@@ -6,15 +6,9 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    private GameObject interactObj;
     private bool hasTlked;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead = null;
-
-    void Start()
-    {
-        interactObj = gameObject;
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
