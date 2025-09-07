@@ -28,3 +28,8 @@ MonoBehaviour:
     characterType: 0
     nameColor: {r: 1, g: 0.44498214, b: 0, a: 1}
     dialogueColor: {r: 0.9622642, g: 0.90977395, b: 0.503827, a: 1}
+  - name: TestNPC
+    alias: npc
+    characterType: 0
+    nameColor: {r: 1, g: 0, b: 0.55672026, a: 1}
+    dialogueColor: {r: 0.04513645, g: 1, b: 0, a: 1}

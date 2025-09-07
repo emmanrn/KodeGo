@@ -60,15 +60,6 @@ public class UserFuncManager : MonoBehaviour
 
 
     }
-    private void ViewFunctionsList()
-    {
-        for (int i = 0; i < userFuncs.Count; i++)
-        {
-            Debug.Log(userFuncs[i]);
-        }
-    }
-
-
 
     public void ExecFuncs()
     {

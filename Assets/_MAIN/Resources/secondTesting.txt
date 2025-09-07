@@ -1,4 +1,4 @@
-CreateCharacter(Kode), CreateCharacter(Pseudo)
+CreateCharacter(Kode), CreateCharacter(Pseudo), CreateCharacter(TestNPC)
 
 ShowDB()
 Narrator "Showing Kode Charcter"
@@ -9,8 +9,9 @@ Kode.Show()
 Kode "Oh no!"
 Kode as You "First Line"
 Kode as You [0:A24]"Hello World!!!"
-Kode as You [A21]"Hello World!!!"
 Kode.Hide()
+TestNPC as test "Hello World!!!"
+Kode.Show()
 Narrator "And then he continued on"
 
 Pseudo as ??? "Well.{wa 0.75} calm down there buddy." 

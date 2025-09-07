@@ -115,6 +115,7 @@ public class Interpreter : MonoBehaviour
     }
 
 
+    // add pre defined functions here
     private void Greet() => Debug.Log("Hello from C#");
     private void ChangeText(string text) => Debug.Log(text);
     private void MoveRight() => commandQueue.Enqueue(player.PlayerMoveRight());
