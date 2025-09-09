@@ -1,23 +1,26 @@
 using UnityEngine;
 using Python.Runtime;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using COMMANDS;
 using Unity.VisualScripting;
+using TMPro;
 
 public class Interpreter : MonoBehaviour
 {
-    [SerializeField] private UserFuncManager userFuncManager;
-    [SerializeField] private Player player;
 
 
     [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
-    [DoNotSerialize] private Queue<IEnumerator> commandQueue = new();
     [DoNotSerialize] private bool isRunning = false;
     [DoNotSerialize] dynamic np;
+    [SerializeField] private GameObject content;
+    [SerializeField] private TextMeshProUGUI outputCode;
     [DoNotSerialize] private PyModule scope;
-    private GameStateManager gameState => GameStateManager.instance;
+
+    private GameStateManager gameState;
+
+    void Awake()
+    {
+        gameState = GameStateManager.instance;
+    }
     void Start()
     {
 
@@ -32,63 +35,31 @@ public class Interpreter : MonoBehaviour
             pythonOutputRedirector = new PythonOutputRedirector();
 
             dynamic sys = Py.Import("sys");
-            dynamic io = Py.Import("io");
-            dynamic output = io.StringIO();
             sys.stdout = PyObject.FromManagedObject(pythonOutputRedirector);
             sys.stderr = PyObject.FromManagedObject(pythonOutputRedirector);
 
-            try
-            {
-                scope.Set("ChangeText", new Action<string>(this.ChangeText));
-                scope.Set("moveRight", new Action(MoveRight));
-                scope.Set("moveLeft", new Action(MoveLeft));
-                scope.Set("jump", new Action(Jump));
-
-            }
-            catch (Exception e)
-            {
-                print(e);
-            }
         }
 
-        StartCoroutine(CommandProcessor());
 
     }
 
-    private IEnumerator CommandProcessor()
+    public void GetCode()
     {
-        while (true)
-        {
-            if (gameState.isPaused || isRunning || gameState.isRunningDialogue || commandQueue.Count == 0)
-            {
-                yield return null;
-                continue;
-            }
-            yield return StartCoroutine(RunCommand(commandQueue.Dequeue()));
-        }
+        TextMeshProUGUI[] codes = content.GetComponentsInChildren<TextMeshProUGUI>();
+        string[] lines = new string[codes.Length];
+
+        for (int i = 0; i < lines.Length; i++)
+            lines[i] = codes[i].text;
+
+        string inputCode = string.Join("\n", lines);
+        ExecuteCode(inputCode);
     }
-    public void ClearOutput() => pythonOutputRedirector.Clear();
-    public string GetOutput() => pythonOutputRedirector.GetOutput();
-
-
-    private IEnumerator RunCommand(IEnumerator command)
-    {
-        isRunning = true;
-        yield return new WaitUntil(() => !player.isMoving);
-
-        yield return StartCoroutine(command);
-        isRunning = false;
-
-    }
-
 
     public void ExecuteCode(string input)
     {
-        if (gameState.isPaused || gameState.isRunningDialogue || isRunning || player.isMoving)
-        {
-            Debug.Log("Interpreter is busy, skipping code.");
-            return;
-        }
+        // if (gameState.isPaused || gameState.isRunningDialogue)
+        //     return;
+
         if (!PythonEngine.IsInitialized) return;
 
         using (Py.GIL())
@@ -97,6 +68,13 @@ public class Interpreter : MonoBehaviour
             {
                 scope.Exec(input);
 
+                string pyOut = pythonOutputRedirector.GetOutput();
+                if (!string.IsNullOrWhiteSpace(pyOut))
+                    Debug.Log(pyOut);
+
+                outputCode.text = pyOut;
+
+
 
             }
             catch (Exception e)
@@ -104,6 +82,8 @@ public class Interpreter : MonoBehaviour
                 Debug.LogError(e);
             }
         }
+
+
 
     }
     public void OnApplicationQuit()
@@ -118,9 +98,7 @@ public class Interpreter : MonoBehaviour
     // add pre defined functions here
     private void Greet() => Debug.Log("Hello from C#");
     private void ChangeText(string text) => Debug.Log(text);
-    private void MoveRight() => commandQueue.Enqueue(player.PlayerMoveRight());
-    private void MoveLeft() => commandQueue.Enqueue(player.PlayerMoveLeft());
-    private void Jump() => commandQueue.Enqueue(player.Jump());
+
 
 
 }

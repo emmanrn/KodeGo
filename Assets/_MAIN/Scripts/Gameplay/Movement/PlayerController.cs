@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MOVEMENT
@@ -9,7 +11,7 @@ namespace MOVEMENT
         public float moveSpeed = 7f;
         public float jumpPower = 10f;
         [SerializeField] private InputReader input;
-        [SerializeField] private LayerMask mask;
+        [SerializeField] private LayerMask groundLayer;
 
         private Vector2 moveDirection;
         private Vector2 playerSize;
@@ -21,12 +23,12 @@ namespace MOVEMENT
         private float groundDecelerate = 60f;
         private float airDecelerate = 30f;
         private Vector2 facingDirection;
+        private bool isFacingRight = true;
 
         [Header("Jump")]
         private float fallMultiplier = 7f;
         private float lowJumpMultiplier = 7f;
         private float jumpVelocityFallOff = 8f;
-        private bool isGrounded;
         private int maxJumps = 1;
         private int jumpsRemaining;
         private bool isJumpHeld;
@@ -39,13 +41,24 @@ namespace MOVEMENT
 
         [Header("Dashing")]
         private float dashingVelocity = 20f;
-        private float dashingTime = 0.5f;
-        private Vector2 dashingDir;
-        private bool isDashing;
+        public bool isDashing { get; set; }
         private bool canDash = true;
 
         [Header("Interaction")]
-        [SerializeField] private InteractionDetector interaction;
+        private InteractionDetector interaction;
+
+        [Header("Walls Movement and Checks")]
+        [SerializeField] private Transform wallCheckPos;
+        public Vector2 wallCheckSize = new Vector2(0.49f, 0.03f);
+        public LayerMask wallLayer;
+        private float wallSlideSpeed = 2f;
+        private bool isWallSliding;
+        private bool isWallJumping;
+        private float wallJumpDir;
+        private float wallJumpTime = 0.5f;
+        private float wallJumpTimer;
+        public Vector2 wallJumpPower = new Vector2(5f, 10f);
+
 
 
         void Awake()
@@ -76,18 +89,12 @@ namespace MOVEMENT
 
         void Update()
         {
-        }
-        void FixedUpdate()
-        {
-
-            Move();
-
-            if (isGrounded)
+            if (isGrounded())
             {
                 coyoteCounter = coyoteTime;
                 canDash = true;
                 jumpsRemaining = maxJumps;
-
+                isWallJumping = false;
             }
             else
                 coyoteCounter -= Time.deltaTime;
@@ -95,29 +102,46 @@ namespace MOVEMENT
             if (jumpBufferCounter > 0)
                 jumpBufferCounter -= Time.deltaTime;
 
-            if (coyoteCounter > 0f && jumpBufferCounter > 0f && isGrounded)
+            if (coyoteCounter > 0f && jumpBufferCounter > 0f)
                 Jump();
 
-            // if (jumpBufferCounter > 0f && jumpsRemaining > 0)
-            //     Jump();
+            if (wallJumpTimer > 0f && jumpBufferCounter > 0f)
+                Jump();
 
+            WallSlide();
+            WallJump();
 
+        }
+        void FixedUpdate()
+        {
             if (isDashing)
             {
+                canDash = false;
                 rb.velocity = facingDirection.normalized * dashingVelocity;
                 return;
             }
 
+            Gravity();
 
+            if (!isWallJumping)
+            {
+                Move();
+                Flip();
+            }
+        }
 
-
+        public bool isGrounded()
+        {
             Vector2 boxMidPoint = (Vector2)transform.position + Vector2.down * (playerSize.y + boxSize.y) * 0.5f;
-            isGrounded = (Physics2D.OverlapBox(boxMidPoint, boxSize, 0, mask) != null);
-            Falling();
-
-
+            return (Physics2D.OverlapBox(boxMidPoint, boxSize, 0, groundLayer) != null);
 
         }
+
+        public bool isOnWall()
+        {
+            return Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
+        }
+
 
         #region Handlers
         private void HandleMove(Vector2 direction)
@@ -151,11 +175,11 @@ namespace MOVEMENT
         private void Move()
         {
 
-            TurnCheck();
+            Flip();
             // rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
             if (moveDirection == Vector2.zero)
             {
-                float deceleration = isGrounded ? groundDecelerate : airDecelerate;
+                float deceleration = isGrounded() ? groundDecelerate : airDecelerate;
                 rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.deltaTime), rb.velocity.y);
             }
             else
@@ -164,28 +188,57 @@ namespace MOVEMENT
 
             }
         }
-        private void TurnCheck()
+        private void Flip()
         {
             if (moveDirection == Vector2.zero)
                 return;
 
-            if (moveDirection.x < 0)
-                GetComponent<SpriteRenderer>().flipX = true;
-            else if (moveDirection.x > 0)
-                GetComponent<SpriteRenderer>().flipX = false;
+            // this is whats making our player turn in the direction they're going 
+            // by checking the moveDirection.x (horizontal movement) if it's less than then we're going left and greater then if we're going right
+            // then just basically flip our chaaracter transform scale depending on direction
+            if (isFacingRight && moveDirection.x < 0 || !isFacingRight && moveDirection.x > 0)
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 ls = transform.localScale;
+                ls.x *= -1f;
+                transform.localScale = ls;
+            }
         }
         #endregion
 
         #region Jump
         private void Jump()
         {
+            // this is for the wall jump
+            if (!isGrounded() && wallJumpTimer > 0)
+            {
+                isWallJumping = true;
+                rb.velocity = new Vector2(wallJumpDir * wallJumpPower.x, wallJumpPower.y);
+                wallJumpTimer = 0;
+
+                if (transform.localScale.x != wallJumpDir)
+                {
+                    isFacingRight = !isFacingRight;
+                    Vector3 ls = transform.localScale;
+                    ls.x *= -1f;
+                    transform.localScale = ls;
+                }
+
+                // wall jump would last for 0.5s
+                // then we can jump again after 0.6s
+                Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f);
+                return;
+            }
+
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             jumpBufferCounter = 0;
-            isGrounded = false;
-            jumpsRemaining--;
+
+            // test to see if the double jump bug thing with coyote timer is fixed
+            // jumpsRemaining--;
+
 
         }
-        private void Falling()
+        private void Gravity()
         {
             // if we are falling
             if (rb.velocity.y < 0)
@@ -208,9 +261,10 @@ namespace MOVEMENT
                 isDashing = true;
                 canDash = false;
 
+
                 // forcefully set isGrounded here to false after we dash
                 // idk the cause on why canDash is still true after dashing, but after i jump and dash then it consumes it
-                isGrounded = false;
+                // isGrounded = false;
 
                 StartCoroutine(StopDashing());
             }
@@ -231,10 +285,52 @@ namespace MOVEMENT
 
         public void OnInteract()
         {
-            Debug.Log("Interacti");
             interaction.interactableRange?.Interact();
         }
         #endregion
+
+        #region Wall Jump
+        private void WallSlide()
+        {
+            if (!isGrounded() && isOnWall() && moveDirection.x != 0)
+            {
+                isWallSliding = true;
+                rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -wallSlideSpeed));
+            }
+            else
+                isWallSliding = false;
+        }
+
+        private void WallJump()
+        {
+            if (isWallSliding)
+            {
+                Debug.Log("Wll jumping");
+                isWallJumping = false;
+                wallJumpDir = -transform.localScale.x;
+                wallJumpTimer = wallJumpTime;
+
+                CancelInvoke(nameof(CancelWallJump));
+            }
+            else if (wallJumpTimer > 0f)
+            {
+                wallJumpTimer -= Time.deltaTime;
+            }
+        }
+
+        private void CancelWallJump()
+        {
+            isWallJumping = false;
+        }
+
+        #endregion
+
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(wallCheckPos.position, wallCheckSize);
+        }
 
 
 
