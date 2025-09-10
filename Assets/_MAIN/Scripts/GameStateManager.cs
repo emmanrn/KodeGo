@@ -28,13 +28,13 @@ public class GameStateManager : MonoBehaviour
         input.ResumeEvent -= HandleResume;
     }
 
-    private void HandlePause()
+    public void HandlePause()
     {
         isPaused = true;
         pauseMenu.SetActive(true);
     }
 
-    private void HandleResume()
+    public void HandleResume()
     {
         isPaused = false;
         pauseMenu.SetActive(false);
