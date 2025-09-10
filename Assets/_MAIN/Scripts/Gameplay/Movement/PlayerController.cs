@@ -305,7 +305,6 @@ namespace MOVEMENT
         {
             if (isWallSliding)
             {
-                Debug.Log("Wll jumping");
                 isWallJumping = false;
                 wallJumpDir = -transform.localScale.x;
                 wallJumpTimer = wallJumpTime;
