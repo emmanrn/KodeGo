@@ -15,11 +15,12 @@ public class Interpreter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI outputCode;
     [DoNotSerialize] private PyModule scope;
 
-    private GameStateManager gameState;
+    // private GameStateManager gameState;
 
     void Awake()
     {
-        gameState = GameStateManager.instance;
+
+        // gameState = GameStateManager.instance;
     }
     void Start()
     {
