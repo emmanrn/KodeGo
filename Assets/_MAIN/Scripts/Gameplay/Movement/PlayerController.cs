@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
@@ -59,6 +60,9 @@ namespace MOVEMENT
         private float wallJumpTimer;
         public Vector2 wallJumpPower = new Vector2(5f, 10f);
 
+        [Header("Animations")]
+        private Animator animator;
+
 
 
         void Awake()
@@ -66,6 +70,7 @@ namespace MOVEMENT
             playerSize = GetComponent<BoxCollider2D>().size;
             interaction = GetComponentInChildren<InteractionDetector>();
             boxSize = new Vector2(playerSize.x * 0.8f, groundedThreshold);
+            animator = GetComponent<Animator>();
         }
 
         void OnEnable()
@@ -110,6 +115,8 @@ namespace MOVEMENT
 
             WallSlide();
             WallJump();
+            animator.SetFloat("yVelocity", rb.velocity.y);
+            animator.SetFloat("magnitude", rb.velocity.magnitude);
 
         }
         void FixedUpdate()
@@ -128,6 +135,9 @@ namespace MOVEMENT
                 Move();
                 Flip();
             }
+            animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
+            animator.SetFloat("yVelocity", rb.velocity.y);
+
         }
 
         public bool isGrounded()
@@ -215,6 +225,7 @@ namespace MOVEMENT
                 isWallJumping = true;
                 rb.velocity = new Vector2(wallJumpDir * wallJumpPower.x, wallJumpPower.y);
                 wallJumpTimer = 0;
+                animator.SetTrigger("Jump");
 
                 if (transform.localScale.x != wallJumpDir)
                 {
@@ -232,6 +243,7 @@ namespace MOVEMENT
 
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
             jumpBufferCounter = 0;
+            animator.SetTrigger("Jump");
 
             // test to see if the double jump bug thing with coyote timer is fixed
             // jumpsRemaining--;
