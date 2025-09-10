@@ -540,6 +540,7 @@ GameObject:
   - component: {fileID: 219027705}
   - component: {fileID: 219027707}
   - component: {fileID: 219027706}
+  - component: {fileID: 219027709}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -713,6 +714,27 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   wallJumpPower: {x: 5, y: 10}
+--- !u!95 &219027709
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219027703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e165f5f95030897408104ac311f66946, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &306037063
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +3008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1338487879
 Transform:
   m_ObjectHideFlags: 0
@@ -3848,7 +3870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1937079603
 Transform:
   m_ObjectHideFlags: 0
@@ -3876,8 +3898,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbabc31da0c01a4295049c5b024b81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 0}
-  outputCode: {fileID: 0}
+  content: {fileID: 5084391568643399113}
+  outputCode: {fileID: 5084391568643399112}
 --- !u!1 &1941996908
 GameObject:
   m_ObjectHideFlags: 0
@@ -4445,7 +4467,7 @@ Transform:
   m_GameObject: {fileID: 2086630577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2859547, y: -0.20197964, z: -9}
+  m_LocalPosition: {x: 24.917784, y: -0.24020052, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5088,7 +5110,7 @@ PrefabInstance:
       objectReference: {fileID: 2086630578}
     - target: {fileID: 6530782834467058481, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -64.70021
+      value: -64.700195
       objectReference: {fileID: 0}
     - target: {fileID: 6957952893939284972, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
       propertyPath: m_AnchorMax.y
@@ -5130,6 +5152,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7659202288150567004, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1937079604}
+    - target: {fileID: 7659202288150567004, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GetCode
+      objectReference: {fileID: 0}
     - target: {fileID: 7768236256313101056, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
       propertyPath: m_RaycastTarget
       value: 1
@@ -5159,6 +5189,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
+--- !u!114 &5084391568643399112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 993729130810155416, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
+  m_PrefabInstance: {fileID: 5084391568643399111}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5084391568643399113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1841582937893293944, guid: 1e738df673efcdb489edf8bcc4ed6dba, type: 3}
+  m_PrefabInstance: {fileID: 5084391568643399111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
