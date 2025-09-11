@@ -7,11 +7,13 @@ public class CodeBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     private Image image;
     private TextMeshProUGUI textMeshPro;
     [SerializeField] private Camera camera;
+    public string code { get; set; }
 
     void Start()
     {
         image = GetComponent<Image>();
         textMeshPro = GetComponentInChildren<TextMeshProUGUI>();
+        code = textMeshPro.text;
 
     }
 
