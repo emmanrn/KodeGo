@@ -6,7 +6,7 @@ public class CodeBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 {
     private Image image;
     private TextMeshProUGUI textMeshPro;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera cam;
     public string code { get; set; }
 
     void Start()
@@ -26,7 +26,7 @@ public class CodeBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = (Vector2)camera.ScreenToWorldPoint(Input.mousePosition);
+        this.transform.position = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
     }
 
     public void OnEndDrag(PointerEventData eventData)
