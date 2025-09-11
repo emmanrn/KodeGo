@@ -3,6 +3,7 @@ using Python.Runtime;
 using System;
 using Unity.VisualScripting;
 using TMPro;
+using System.Collections.Generic;
 
 public class Interpreter : MonoBehaviour
 {
@@ -46,14 +47,74 @@ public class Interpreter : MonoBehaviour
 
     public void GetCode()
     {
-        TextMeshProUGUI[] codes = content.GetComponentsInChildren<TextMeshProUGUI>();
-        string[] lines = new string[codes.Length];
+        LineSlot[] slots = content.GetComponentsInChildren<LineSlot>();
+        List<string> linesOfCodes = new List<string>();
 
-        for (int i = 0; i < lines.Length; i++)
-            lines[i] = codes[i].text;
+        // now this is a convoluted mess just to deal with the fuvking tabs or indentation in the python code my god
+        // so the reason why this looks the way it does is because that since python uses indentation for scope unity should be able to read the \t escape character
+        // the problem however arised when trying to visulize the indent because the textmeshpro in the inspector doesnt show the \t (tab) so this happened as
+        // a work around i guess. 
+        // So basically how the terminal works is that you have slots, in those slots you have a bunch of texts which contains parts of the line, it could be 
+        // hardcoded already or the player has to drag and drop the code block to it. The thing is that the one where the players drops the code is separate part
+        // in the line, basically it has its own game object representing it. The structure goes liek this.
+        //
+        // Line Slot
+        // > Line 
+        // >> Line Part
+        // >> Input Line Part - 1
+        //
+        // so they're separate.
+        // since the \t cant be visualized through the game, we have to put a basiclly dummy line part that only contains the \t then add a margin to it, so that
+        // we can visualize the indent.
+        // after doing that we have this code. Which bsically gets all the line slots, looks through all its line parts
+        // then we check if it has a \t on it, if it has more than one line part meaning one input and one hardcodded line part
+        // we would then check if that has an indent, if it has exactly one indent then we combine the two strings WITH NO SPACES SEPARATING THEM.
+        // otherwise if theres more than one indent, we first combine the indent with the next line part next to it, then combine the remaining parts into one string
+        // THEN after that combine the combined part with tabs and the combined remaining into oone string, and separate i twith spaces AND THEN WE CAN ADD IT TO THE LIST
+        // OF LINES THAT NEEDS TO BE EXECUTED.
+        for (int i = 0; i < slots.Length; i++)
+        {
+            LineSlot slot = slots[i];
+            if (slot.lines.Length > 1)
+            {
+                string line = slot.lines[0];
+                string word = "";
+                string wordWithTab;
+                string[] lineWithTabs = new string[2];
+                if (slot.GetNumberOfTabs() == 1)
+                {
+                    wordWithTab = line + slot.lines[1];
+                    linesOfCodes.Add(wordWithTab);
+                    continue;
+                }
+                else if (slot.GetNumberOfTabs() > 1)
+                {
+                    wordWithTab = line + slot.lines[1];
+                    lineWithTabs[0] = wordWithTab;
 
-        string inputCode = string.Join("\n", lines);
-        ExecuteCode(inputCode);
+                    for (int j = 2; j < slot.lines.Length; j++)
+                    {
+                        word += slot.lines[j];
+                    }
+                    lineWithTabs[1] = string.Join(' ', lineWithTabs);
+                    string res = string.Join(' ', lineWithTabs);
+                    linesOfCodes.Add(res);
+                    continue;
+
+                }
+                word = string.Join(' ', slot.lines);
+                linesOfCodes.Add(word);
+
+
+                continue;
+            }
+
+            linesOfCodes.Add(slot.lines[0]);
+        }
+
+        string result = string.Join("\n", linesOfCodes);
+        Debug.Log(result);
+        ExecuteCode(result);
     }
 
     public void ExecuteCode(string input)
