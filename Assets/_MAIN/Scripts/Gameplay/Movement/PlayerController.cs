@@ -135,8 +135,6 @@ namespace MOVEMENT
                 Move();
                 Flip();
             }
-            animator.SetFloat("xVelocity", Math.Abs(rb.velocity.x));
-            animator.SetFloat("yVelocity", rb.velocity.y);
 
         }
 

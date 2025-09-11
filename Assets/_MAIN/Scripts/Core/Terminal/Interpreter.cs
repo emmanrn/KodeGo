@@ -10,7 +10,6 @@ public class Interpreter : MonoBehaviour
 
 
     [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
-    [DoNotSerialize] private bool isRunning = false;
     [DoNotSerialize] dynamic np;
     [SerializeField] private GameObject content;
     [SerializeField] private TextMeshProUGUI outputCode;
