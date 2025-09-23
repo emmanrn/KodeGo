@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using CHARACTERS;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ namespace DIALOGUE
         // add a feature that also changes the player icons as well (fuck thts gonna be hard i think)
         [SerializeField] private DialogueSysConfig_SO _config;
         public DialogueSysConfig_SO config => _config;
-        public DialogueContainer dialogueContainer = new();
-        private ConversationManager conversationManager;
+        public DialogueContainer dialogueContainer = new DialogueContainer();
+        public ConversationManager conversationManager { get; private set; }
         private TextArchitect archi;
         private AutoReader autoReader;
         public static DialogueSystem instance { get; private set; }
@@ -33,11 +34,6 @@ namespace DIALOGUE
                 DestroyImmediate(gameObject);
 
         }
-
-        //private void OnEnable()
-        //{
-        //    PlayerInputManager.instance.EnableGeneral(GeneralActionMap.DIALOGUE);
-        //}
 
         private void OnDisable()
         {
@@ -104,7 +100,13 @@ namespace DIALOGUE
             return Say(conversation);
         }
 
-        public Coroutine Say(List<string> conversation)
+        public Coroutine Say(List<string> lines)
+        {
+            Conversation conversation = new Conversation(lines);
+            return conversationManager.StartConversation(conversation);
+        }
+
+        public Coroutine Say(Conversation conversation)
         {
             return conversationManager.StartConversation(conversation);
         }

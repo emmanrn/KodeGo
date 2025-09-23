@@ -8,7 +8,7 @@ namespace COMMANDS
 
     public class CommandDatabase
     {
-        private Dictionary<string, Delegate> database = new();
+        private Dictionary<string, Delegate> database = new Dictionary<string, Delegate>();
 
         public bool hasCommand(string cmdName) => database.ContainsKey(cmdName.ToLower());
 

@@ -48,13 +48,11 @@ namespace TESTING
                 }
                 else
                 {
-                    //architect.Build(lines[Random.Range(0, lines.Length)]);
                     architect.Build(longLine);
                 }
             }
             else if (Input.GetKeyDown(KeyCode.A))
             {
-                //architect.Append(lines[Random.Range(0, lines.Length)]);
                 architect.Append(longLine);
             }
         }

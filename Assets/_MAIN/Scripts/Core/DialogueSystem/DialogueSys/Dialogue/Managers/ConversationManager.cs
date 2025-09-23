@@ -13,22 +13,34 @@ namespace DIALOGUE
         public bool isRunning => process != null;
         public TextArchitect archi = null;
         private bool userPrompt = false;
+        public Conversation conversation => (conversationQueue.isEmpty() ? null : conversationQueue.top);
+
+        private ConversationQueue conversationQueue;
+
+
         public ConversationManager(TextArchitect archi)
         {
             this.archi = archi;
             dialogueSystem.onUserPromptNext += OnUserPromptNext;
+
+            conversationQueue = new ConversationQueue();
         }
+
+        public void Enqueue(Conversation conversation) => conversationQueue.Enqueue(conversation);
+        public void EnqueuePriority(Conversation conversation) => conversationQueue.EnqueuePriority(conversation);
 
         private void OnUserPromptNext()
         {
             userPrompt = true;
         }
 
-        public Coroutine StartConversation(List<string> conversation)
+        public Coroutine StartConversation(Conversation conversation)
         {
             StopConversation();
 
-            process = dialogueSystem.StartCoroutine(RunningConversation(conversation));
+            Enqueue(conversation);
+
+            process = dialogueSystem.StartCoroutine(RunningConversation());
             return process;
         }
 
@@ -40,19 +52,22 @@ namespace DIALOGUE
             dialogueSystem.StopCoroutine(process);
 
             process = null;
-            Debug.Log("Stop");
-            Debug.Log(isRunning);
-
         }
 
-        IEnumerator RunningConversation(List<string> conversation)
+        IEnumerator RunningConversation()
         {
-            for (int i = 0; i < conversation.Count; i++)
+            while (!conversationQueue.isEmpty())
             {
-                if (string.IsNullOrWhiteSpace(conversation[i]))
-                    continue;
+                Conversation currentConversation = conversation;
+                string rawLine = currentConversation.CurrentLine();
 
-                DIALOGUE_LINES line = DialogueParser.Parse(conversation[i]);
+                if (string.IsNullOrWhiteSpace(rawLine))
+                {
+                    TryAdvanceCurrentConverstion(currentConversation);
+                    continue;
+                }
+
+                DIALOGUE_LINES line = DialogueParser.Parse(rawLine);
 
                 //show dialogue
                 if (line.hasDialogue)
@@ -71,9 +86,18 @@ namespace DIALOGUE
                     CommandManager.instance.StopAllProcesses();
                 }
 
+                TryAdvanceCurrentConverstion(currentConversation);
+
             }
             process = null;
-            Debug.Log("Dilogue done");
+        }
+
+        private void TryAdvanceCurrentConverstion(Conversation conversation)
+        {
+            conversation.IncrementProgress();
+
+            if (conversation.HasReachedEnd())
+                conversationQueue.Dequeue();
         }
 
         IEnumerator LineRunDialogue(DIALOGUE_LINES line)

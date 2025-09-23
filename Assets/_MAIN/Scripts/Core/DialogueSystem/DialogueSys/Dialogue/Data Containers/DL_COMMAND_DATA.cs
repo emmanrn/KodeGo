@@ -27,7 +27,7 @@ namespace DIALOGUE
         public List<Command> RipCommands(string rawCmd)
         {
             string[] data = rawCmd.Split(COMMAND_SPLITTER_ID, System.StringSplitOptions.RemoveEmptyEntries);
-            List<Command> res = new();
+            List<Command> res = new List<Command>();
 
             foreach (string cmd in data)
             {
@@ -55,8 +55,8 @@ namespace DIALOGUE
 
         private string[] GetArgs(string args)
         {
-            List<string> argsList = new();
-            StringBuilder currentArg = new();
+            List<string> argsList = new List<string>();
+            StringBuilder currentArg = new StringBuilder();
             bool inQuotes = false;
 
             for (int i = 0; i < args.Length; i++)
