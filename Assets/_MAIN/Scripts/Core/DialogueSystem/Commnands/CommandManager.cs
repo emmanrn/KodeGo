@@ -17,8 +17,8 @@ namespace COMMANDS
         public const string DATABASE_CHARACTERS_SPRITE = "characters_sprite";
         public static CommandManager instance { get; private set; }
         private CommandDatabase database;
-        private Dictionary<string, CommandDatabase> subDatabases = new();
-        private List<CommandProcess> activeProcesses = new();
+        private Dictionary<string, CommandDatabase> subDatabases = new Dictionary<string, CommandDatabase>();
+        private List<CommandProcess> activeProcesses = new List<CommandProcess>();
         private CommandProcess topProcess => activeProcesses.Last();
         void Awake()
         {

@@ -23,7 +23,7 @@ namespace DIALOGUE
 
         public List<DIALOGUE_SEGMENT> RipSegments(string rawDialogue)
         {
-            List<DIALOGUE_SEGMENT> segments = new();
+            List<DIALOGUE_SEGMENT> segments = new List<DIALOGUE_SEGMENT>();
             MatchCollection matches = Regex.Matches(rawDialogue, segmentIdentifierPattern);
 
             int lastIndex = 0;

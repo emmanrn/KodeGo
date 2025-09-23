@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace MOVEMENT
         public Rigidbody2D rb;
         public float moveSpeed = 7f;
         public float jumpPower = 10f;
+        private bool isDying = false;
         [SerializeField] private InputReader input;
         [SerializeField] private LayerMask groundLayer;
 
@@ -25,25 +27,32 @@ namespace MOVEMENT
         private float airDecelerate = 30f;
         private Vector2 facingDirection;
         private bool isFacingRight = true;
+        public bool isPressingDown { get { return moveDirection.y < -0.5f; } }
 
         [Header("Jump")]
         private float fallMultiplier = 7f;
         private float lowJumpMultiplier = 7f;
         private float jumpVelocityFallOff = 8f;
-        private int maxJumps = 1;
-        private int jumpsRemaining;
         private bool isJumpHeld;
+        private float postDashLock = 0.1f;
+        private float jumpLockTimer;
         private float groundedThreshold = 0.05f;
         [Header("Coyote Time and Jump Buffer")]
-        private float coyoteTime = 0.2f;
+        private float coyoteTime = 0.15f;
         private float coyoteCounter;
         private float jumpBufferTime = 0.2f;
         private float jumpBufferCounter;
 
         [Header("Dashing")]
-        private float dashingVelocity = 20f;
+        private float dashingVelocity = 18f;
         public bool isDashing { get; set; }
         private bool canDash = true;
+        private Vector2 dashDirection;
+        [SerializeField] private float dashDuration = 0.15f;
+        [SerializeField] private float postDashInputLock = 0.12f; // tweak
+        [SerializeField] private int postDashIgnoreFrames = 2;    // robust across frames
+        private float postDashLockUntil = 0f;
+        private int postDashIgnoreFramesCounter = 0;
 
         [Header("Interaction")]
         private InteractionDetector interaction;
@@ -62,6 +71,12 @@ namespace MOVEMENT
 
         [Header("Animations")]
         private Animator animator;
+
+        [Header("Spawnpoint")]
+        [SerializeField] private Transform startingPoint;
+        [SerializeField] private CinemachineVirtualCamera roomCamera;
+
+        [SerializeField] private CircleTransition circleTransition;
 
 
 
@@ -94,11 +109,12 @@ namespace MOVEMENT
 
         void Update()
         {
-            if (isGrounded())
+            if (postDashIgnoreFramesCounter > 0)
+                postDashIgnoreFramesCounter--;
+            if (isGrounded() && !isDashing)
             {
                 coyoteCounter = coyoteTime;
                 canDash = true;
-                jumpsRemaining = maxJumps;
                 isWallJumping = false;
             }
             else
@@ -107,10 +123,10 @@ namespace MOVEMENT
             if (jumpBufferCounter > 0)
                 jumpBufferCounter -= Time.deltaTime;
 
-            if (coyoteCounter > 0f && jumpBufferCounter > 0f)
+            if (coyoteCounter > 0f && jumpBufferCounter > 0f && !isDashing)
                 Jump();
 
-            if (wallJumpTimer > 0f && jumpBufferCounter > 0f)
+            if (wallJumpTimer > 0f && jumpBufferCounter > 0f && !isDashing)
                 Jump();
 
             WallSlide();
@@ -124,7 +140,8 @@ namespace MOVEMENT
             if (isDashing)
             {
                 canDash = false;
-                rb.velocity = facingDirection.normalized * dashingVelocity;
+                rb.velocity = dashDirection * dashingVelocity;
+
                 return;
             }
 
@@ -145,25 +162,29 @@ namespace MOVEMENT
 
         }
 
-        public bool isOnWall()
-        {
-            return Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
-        }
+        public bool isOnWall() => Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
 
 
         #region Handlers
         private void HandleMove(Vector2 direction)
         {
-            moveDirection = direction;
+            moveDirection = new Vector2(direction.x, direction.y);
+
+            if (Mathf.Abs(moveDirection.x) > 0.01f)
+                moveDirection.x = Mathf.Sign(moveDirection.x);
             if (direction != Vector2.zero)
                 facingDirection = direction;
+
+
         }
         private void HandleJumpPressed()
         {
+            if (isDashing || Time.time < postDashLockUntil || postDashIgnoreFramesCounter > 0) return;
             jumpBufferCounter = jumpBufferTime;
         }
         private void HandleJump()
         {
+            if (isDashing || Time.time < postDashLockUntil || postDashIgnoreFramesCounter > 0) return;
             isJumpHeld = true;
 
         }
@@ -185,14 +206,15 @@ namespace MOVEMENT
 
             Flip();
             // rb.velocity = new Vector2(moveDirection.x * moveSpeed, rb.velocity.y);
-            if (moveDirection == Vector2.zero)
+            float targetSpeed = moveDirection.x * moveSpeed;
+            if (Mathf.Abs(moveDirection.x) < 0.01f)
             {
                 float deceleration = isGrounded() ? groundDecelerate : airDecelerate;
                 rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, 0, deceleration * Time.deltaTime), rb.velocity.y);
             }
             else
             {
-                rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, moveDirection.x * moveSpeed, acceleration * Time.deltaTime), rb.velocity.y);
+                rb.velocity = new Vector2(Mathf.MoveTowards(rb.velocity.x, targetSpeed, acceleration * Time.deltaTime), rb.velocity.y);
 
             }
         }
@@ -217,6 +239,12 @@ namespace MOVEMENT
         #region Jump
         private void Jump()
         {
+            if (isDashing)
+            {
+                jumpBufferCounter = 0f; // flush any buffered jump that might have snuck through
+                return;
+            }
+            Debug.Log("Jump called");
             // this is for the wall jump
             if (!isGrounded() && wallJumpTimer > 0)
             {
@@ -240,7 +268,7 @@ namespace MOVEMENT
             }
 
             rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-            jumpBufferCounter = 0;
+            jumpBufferCounter = 0f;
             animator.SetTrigger("Jump");
 
             // test to see if the double jump bug thing with coyote timer is fixed
@@ -267,14 +295,13 @@ namespace MOVEMENT
         {
             if (canDash)
             {
+                dashDirection = facingDirection.normalized;
                 rb.velocity = Vector2.zero;
                 isDashing = true;
                 canDash = false;
 
-
-                // forcefully set isGrounded here to false after we dash
-                // idk the cause on why canDash is still true after dashing, but after i jump and dash then it consumes it
-                // isGrounded = false;
+                postDashLockUntil = Time.time + postDashInputLock;
+                postDashIgnoreFramesCounter = postDashIgnoreFrames;
 
                 StartCoroutine(StopDashing());
             }
@@ -282,11 +309,15 @@ namespace MOVEMENT
         private IEnumerator StopDashing()
         {
             rb.gravityScale = 0;
-            input.SetUI();
             yield return new WaitForSeconds(0.15f);
             rb.gravityScale = 1;
-            input.SetPlayerMovement();
             isDashing = false;
+
+
+            postDashLockUntil = Time.time + postDashInputLock;
+            postDashIgnoreFramesCounter = postDashIgnoreFrames;
+
+
         }
 
         #endregion
@@ -335,6 +366,41 @@ namespace MOVEMENT
         #endregion
 
 
+        #region Player Respawn
+        public void Die()
+        {
+            if (isDying) return;
+            StartCoroutine(Respawn());
+        }
+        public IEnumerator Respawn()
+        {
+            isDying = true;
+            input.SetUI();
+            // this will make the player stop and stay where they died so it can play a death animation
+            rb.velocity = Vector2.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            Color alpha = this.GetComponent<SpriteRenderer>().color;
+            alpha.a = 1;
+
+            this.GetComponent<SpriteRenderer>().color = alpha;
+
+            yield return StartCoroutine(circleTransition.CloseCircle());
+            transform.position = startingPoint.position;
+
+            alpha.a = 1;
+            this.GetComponent<SpriteRenderer>().color = alpha;
+
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            input.SetPlayerMovement();
+
+            CameraManager.SwitchCamera(roomCamera);
+
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(circleTransition.OpenCircle());
+            isDying = false;
+        }
+        #endregion 
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;

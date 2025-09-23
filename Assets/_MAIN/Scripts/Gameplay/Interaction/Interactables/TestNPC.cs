@@ -7,11 +7,11 @@ public class TestNPC : MonoBehaviour, IInteractable
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead;
-    private GameStateManager gameState;
+    private GameManager gameState;
 
     void Awake()
     {
-        gameState = GameStateManager.instance;
+        gameState = GameManager.instance;
     }
 
     public bool isInteractable() => !gameState.isRunningDialogue;

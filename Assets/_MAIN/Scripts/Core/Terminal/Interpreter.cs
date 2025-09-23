@@ -78,7 +78,7 @@ public class Interpreter : MonoBehaviour
             {
                 string line = slot.lines[0];
                 string word = "";
-                string wordWithTab;
+                string wordWithTab = "";
                 string[] lineWithTabs = new string[2];
                 if (slot.GetNumberOfTabs() == 1)
                 {
@@ -88,10 +88,15 @@ public class Interpreter : MonoBehaviour
                 }
                 else if (slot.GetNumberOfTabs() > 1)
                 {
-                    wordWithTab = line + slot.lines[1];
+                    // thi i how we get if there are multiple tab
+                    for (int k = 0; k < slot.GetNumberOfTabs(); k++)
+                        wordWithTab += slot.lines[k];
+
+
+                    wordWithTab += slot.lines[slot.GetNumberOfTabs()];
                     lineWithTabs[0] = wordWithTab;
 
-                    for (int j = 2; j < slot.lines.Length; j++)
+                    for (int j = slot.GetNumberOfTabs() + 1; j < slot.lines.Length; j++)
                     {
                         word += slot.lines[j];
                     }
@@ -156,9 +161,6 @@ public class Interpreter : MonoBehaviour
     }
 
 
-    // add pre defined functions here
-    private void Greet() => Debug.Log("Hello from C#");
-    private void ChangeText(string text) => Debug.Log(text);
 
 
 

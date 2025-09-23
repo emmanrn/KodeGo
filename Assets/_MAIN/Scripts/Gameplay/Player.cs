@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private float jumpForce = 10f;
     [SerializeField] private Vector2 boxSize;
     [SerializeField] private float castDistance = 0.5f;
-    private GameStateManager gameState => GameStateManager.instance;
+    private GameManager gameState => GameManager.instance;
     private bool isJumping { get; set; }
     private float distance = 5f;
     public bool isMoving = false;
@@ -91,10 +91,6 @@ public class Player : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position - transform.up * castDistance, boxSize);
-    }
 
 
 }

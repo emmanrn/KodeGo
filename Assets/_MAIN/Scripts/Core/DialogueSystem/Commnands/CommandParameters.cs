@@ -8,8 +8,8 @@ namespace COMMANDS
     public class CommandParameters
     {
         private const char PARAMETER_IDENTIFIER = '-';
-        private Dictionary<string, string> parameters = new();
-        private List<string> unlabeledParams = new();
+        private Dictionary<string, string> parameters = new Dictionary<string, string>();
+        private List<string> unlabeledParams = new List<string>();
 
         public CommandParameters(string[] parameters, int startingIndex = 0)
         {

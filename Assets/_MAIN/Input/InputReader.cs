@@ -74,7 +74,7 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnMenuOPEN(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed && !GameStateManager.instance.isPaused)
+        if (context.phase == InputActionPhase.Performed && !GameManager.instance.isPaused)
         {
             PauseEvent?.Invoke();
             SetGeneral();
@@ -96,7 +96,7 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnNext(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed && DialogueSystem.instance != null && DialogueSystem.instance.isRunningConversation && !GameStateManager.instance.isPaused)
+        if (context.phase == InputActionPhase.Performed && DialogueSystem.instance != null && DialogueSystem.instance.isRunningConversation && !GameManager.instance.isPaused)
             DialogueSystem.instance.OnUserPromptNext();
     }
 
@@ -138,7 +138,7 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnResume(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed && GameStateManager.instance.isPaused)
+        if (context.phase == InputActionPhase.Performed && GameManager.instance.isPaused)
         {
             Debug.Log("Unpuse");
             ResumeEvent?.Invoke();
@@ -154,7 +154,7 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed && !GameStateManager.instance.isPaused)
+        if (context.phase == InputActionPhase.Performed && !GameManager.instance.isPaused)
         {
             Debug.Log("Pauesd");
             PauseEvent?.Invoke();

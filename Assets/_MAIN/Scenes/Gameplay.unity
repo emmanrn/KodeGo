@@ -973,12 +973,18 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  dashDuration: 0.15
+  postDashInputLock: 0.12
+  postDashIgnoreFrames: 2
   wallCheckPos: {fileID: 448916642}
   wallCheckSize: {x: 0.07, y: 0.98}
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
   wallJumpPower: {x: 5, y: 10}
+  startingPoint: {fileID: 0}
+  roomCamera: {fileID: 0}
+  circleTransition: {fileID: 0}
 --- !u!1 &244830068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,8 +3002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1033a4191e4bcb84b8aedd8037a1a589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 11400000, guid: 816a122a43e23c049bc45f17cda10f76, type: 2}
-  pauseMenu: {fileID: 1720835250}
 --- !u!1 &888885418
 GameObject:
   m_ObjectHideFlags: 0
@@ -6745,7 +6749,7 @@ Transform:
   m_GameObject: {fileID: 2086630577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.016721496, y: -0.24035311, z: -9}
+  m_LocalPosition: {x: -0.54084134, y: -0.22088099, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
