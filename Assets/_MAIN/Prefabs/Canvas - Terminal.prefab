@@ -887,7 +887,7 @@ GameObject:
   - component: {fileID: 6944328874486136187}
   - component: {fileID: 8065100506489673727}
   - component: {fileID: 1645931473427985008}
-  - component: {fileID: 6222543229466137346}
+  - component: {fileID: 8943573893835564235}
   m_Layer: 5
   m_Name: Input Line - 1
   m_TagString: Untagged
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &6222543229466137346
+--- !u!114 &8943573893835564235
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2511705176691356583}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b006312f7b00b4bb7fba741a124e00, type: 3}
+  m_Script: {fileID: 11500000, guid: 8182a0bc6d810bc459cdb6be61ba638d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UpdateEvent:
@@ -1511,8 +1511,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Terminal, Assembly-CSharp
-        m_MethodName: CloseWindow
+        m_TargetAssemblyTypeName: FinalTerminal, Assembly-CSharp
+        m_MethodName: Run
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1605,7 +1605,7 @@ GameObject:
   - component: {fileID: 5050236137177903785}
   - component: {fileID: 2395371741649715561}
   - component: {fileID: 1203051200555839796}
-  - component: {fileID: 1034731126656668625}
+  - component: {fileID: 518631850040873018}
   m_Layer: 5
   m_Name: Input Line - 1
   m_TagString: Untagged
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1034731126656668625
+--- !u!114 &518631850040873018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1738,7 +1738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3706419623613906705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b006312f7b00b4bb7fba741a124e00, type: 3}
+  m_Script: {fileID: 11500000, guid: 8182a0bc6d810bc459cdb6be61ba638d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UpdateEvent:
@@ -1958,7 +1958,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 613.07294, y: -30.205002}
+  m_AnchoredPosition: {x: 613.0729, y: -30.205017}
   m_SizeDelta: {x: 1226.1459, y: 60.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7047560440197471770
@@ -2468,8 +2468,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Interpreter, Assembly-CSharp
-        m_MethodName: GetCode
+        m_TargetAssemblyTypeName: FinalTerminal, Assembly-CSharp
+        m_MethodName: Run
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2513,7 +2513,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 613.07294, y: -135.41}
+  m_AnchoredPosition: {x: 613.0729, y: -135.41}
   m_SizeDelta: {x: 1226.1459, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216439471748324608
@@ -2674,7 +2674,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 613.07294, y: -192.08}
+  m_AnchoredPosition: {x: 613.0729, y: -192.08}
   m_SizeDelta: {x: 1226.1459, y: 63.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &26405166032413804
@@ -2805,7 +2805,7 @@ GameObject:
   - component: {fileID: 8004356103581446884}
   - component: {fileID: 4892367324128255180}
   - component: {fileID: 6326544830202956687}
-  - component: {fileID: 119948722235595455}
+  - component: {fileID: 6915754169250106910}
   m_Layer: 5
   m_Name: Input Line - 1
   m_TagString: Untagged
@@ -2929,7 +2929,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &119948722235595455
+--- !u!114 &6915754169250106910
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2938,7 +2938,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6203290977589328224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b006312f7b00b4bb7fba741a124e00, type: 3}
+  m_Script: {fileID: 11500000, guid: 8182a0bc6d810bc459cdb6be61ba638d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UpdateEvent:
@@ -3112,7 +3112,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 613.07294, y: -85.41}
+  m_AnchoredPosition: {x: 613.0729, y: -85.41}
   m_SizeDelta: {x: 1226.1459, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6493851045728313761

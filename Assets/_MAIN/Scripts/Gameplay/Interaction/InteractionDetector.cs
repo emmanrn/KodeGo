@@ -8,17 +8,14 @@ public class InteractionDetector : MonoBehaviour
     void Start()
     {
         interactionIcon.SetActive(false);
-
     }
 
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("in range");
         if (other.TryGetComponent(out IInteractable interactable) && interactable.isInteractable())
         {
-            Debug.Log("Cn interaact");
             interactableRange = interactable;
             interactionIcon.SetActive(true);
         }

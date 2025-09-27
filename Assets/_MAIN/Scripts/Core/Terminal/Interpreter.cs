@@ -4,15 +4,14 @@ using System;
 using Unity.VisualScripting;
 using TMPro;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 
 public class Interpreter : MonoBehaviour
 {
-
-
     [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
     [DoNotSerialize] dynamic np;
-    [SerializeField] private GameObject content;
-    [SerializeField] private TextMeshProUGUI outputCode;
+    // [SerializeField] private GameObject content;
+    // [SerializeField] private TextMeshProUGUI outputCode;
     [DoNotSerialize] private PyModule scope;
 
     // private GameStateManager gameState;
@@ -44,7 +43,7 @@ public class Interpreter : MonoBehaviour
 
     }
 
-    public void GetCode()
+    public string RunCode(GameObject content)
     {
         LineSlot[] slots = content.GetComponentsInChildren<LineSlot>();
         List<string> linesOfCodes = new List<string>();
@@ -117,28 +116,32 @@ public class Interpreter : MonoBehaviour
         }
 
         string result = string.Join("\n", linesOfCodes);
-        Debug.Log(result);
-        ExecuteCode(result);
+        return result;
     }
 
-    public void ExecuteCode(string input)
+    public string ExecuteCode(string input)
     {
         // if (gameState.isPaused || gameState.isRunningDialogue)
         //     return;
 
-        if (!PythonEngine.IsInitialized) return;
+        if (!PythonEngine.IsInitialized) return null;
 
         using (Py.GIL())
         {
             try
             {
+                pythonOutputRedirector.Clear();
                 scope.Exec(input);
 
+
                 string pyOut = pythonOutputRedirector.GetOutput();
+
+
                 if (!string.IsNullOrWhiteSpace(pyOut))
                     Debug.Log(pyOut);
 
-                outputCode.text = pyOut;
+
+                return pyOut;
 
 
 
@@ -146,12 +149,15 @@ public class Interpreter : MonoBehaviour
             catch (Exception e)
             {
                 Debug.LogError(e);
+                return e.ToString();
             }
         }
 
 
 
     }
+
+
     public void OnApplicationQuit()
     {
         if (PythonEngine.IsInitialized)
