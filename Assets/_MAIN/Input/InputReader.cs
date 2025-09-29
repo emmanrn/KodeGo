@@ -41,6 +41,10 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
         dialogueInput.UI.Enable();
     }
 
+    public void Disable() => dialogueInput.Disable();
+    public void Enable() => dialogueInput.Enable();
+
+
     public event Action<Vector2> MoveEvent;
     public event Action JumpPressed;
     public event Action JumpEvent;

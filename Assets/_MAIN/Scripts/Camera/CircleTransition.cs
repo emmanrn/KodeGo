@@ -21,6 +21,7 @@ public class CircleTransition : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         blackScreen = GetComponentInChildren<Image>();
+        blackScreen.gameObject.SetActive(false);
     }
 
     void Update()
@@ -32,19 +33,21 @@ public class CircleTransition : MonoBehaviour
     }
 
 
-    public IEnumerator OpenCircle()
+    public IEnumerator OpenCircle(bool center = false)
     {
-        DrawBlackScreen();
+        DrawBlackScreen(center);
         yield return StartCoroutine(Transition(1, 0, 1.5f));
+        blackScreen.gameObject.SetActive(false);
     }
 
-    public IEnumerator CloseCircle()
+    public IEnumerator CloseCircle(bool center = false)
     {
-        DrawBlackScreen();
+        blackScreen.gameObject.SetActive(true);
+        DrawBlackScreen(center);
         yield return StartCoroutine(Transition(1, 1.5f, 0));
     }
 
-    private void DrawBlackScreen()
+    private void DrawBlackScreen(bool center)
     {
         float screenWidth = Screen.width;
         float screenHeight = Screen.height;
@@ -53,6 +56,26 @@ public class CircleTransition : MonoBehaviour
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         float canvasWidth = canvasRect.rect.width;
         float canvasHeight = canvasRect.rect.height;
+        float squareValue;
+        Material mat;
+
+        if (center)
+        {
+            if (canvasWidth > canvasHeight)
+            {
+                squareValue = canvasWidth;
+            }
+            else
+            {
+                squareValue = canvasHeight;
+            }
+            mat = blackScreen.material;
+            mat.SetFloat(CENTER_X, 0.5f);
+            mat.SetFloat(CENTER_Y, 0.5f);
+
+            blackScreen.rectTransform.sizeDelta = new Vector2(squareValue, squareValue);
+            return;
+        }
         // Vector3 playerPos = cam.ScreenToWorldPoint(player.position);
 
         // playerCanvasPos = new Vector2
@@ -69,25 +92,16 @@ public class CircleTransition : MonoBehaviour
             out playerCanvasPos
         );
 
-        // if (canvasWidth > canvasHeight)
-        // {
-        //     squareValue = canvasWidth;
-        //     playerCanvasPos.y += (canvasWidth - canvasHeight) * 0.5f;
-        // }
-        // else
-        // {
-        //     squareValue = canvasHeight;
-        //     playerCanvasPos.x += (canvasHeight - canvasHeight) * 0.5f;
-        // }
+
 
         playerCanvasPos.x = (playerCanvasPos.x / canvasRect.rect.width) + 0.5f;
         playerCanvasPos.y = (playerCanvasPos.y / canvasRect.rect.height) + 0.5f;
 
-        Material mat = blackScreen.material;
+        mat = blackScreen.material;
         mat.SetFloat(CENTER_X, playerCanvasPos.x);
         mat.SetFloat(CENTER_Y, playerCanvasPos.y);
 
-        float squareValue = Mathf.Max(canvasRect.rect.width, canvasRect.rect.height);
+        squareValue = Mathf.Max(canvasRect.rect.width, canvasRect.rect.height);
         blackScreen.rectTransform.sizeDelta = new Vector2(squareValue, squareValue);
 
 
@@ -95,6 +109,7 @@ public class CircleTransition : MonoBehaviour
 
     private IEnumerator Transition(float duration, float beginRadius, float endRadius)
     {
+
         var mat = blackScreen.material;
         var time = 0f;
         while (time <= duration)
@@ -107,5 +122,6 @@ public class CircleTransition : MonoBehaviour
 
             yield return null;
         }
+
     }
 }
