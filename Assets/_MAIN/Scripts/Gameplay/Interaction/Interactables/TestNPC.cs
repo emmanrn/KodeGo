@@ -21,7 +21,7 @@ public class TestNPC : MonoBehaviour, IInteractable
         if (gameState.isPaused && !gameState.isRunningDialogue)
             return;
 
-        if (!gameState.isRunningDialogue && isInteractable())
+        if (isInteractable())
             StartCoroutine(StartConversation());
 
     }

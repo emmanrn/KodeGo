@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PracticeTerminal : Terminal
@@ -7,6 +8,15 @@ public class PracticeTerminal : Terminal
     public override void Awake()
     {
         expectedOutputTerminal.text = outputCode;
+        outputTerminal.text = "";
+        rootContainer.SetActive(false);
+
+        GameEvents.OnPlayerDied += PlayerDied;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnPlayerDied -= PlayerDied;
     }
     public override void Run()
     {
@@ -45,6 +55,12 @@ public class PracticeTerminal : Terminal
             GameManager.instance.Player?.TakeDamage(1);
         }
 
+    }
+
+    private void PlayerDied()
+    {
+        CloseWindow();
+        outputTerminal.text = "";
     }
 
 

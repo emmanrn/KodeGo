@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 namespace PLAYER
 {
@@ -20,27 +21,34 @@ namespace PLAYER
             roomCamera = cam;
         }
 
-        public void Die()
+        public void Die(bool terminalDeath = false)
         {
             if (isDying) return;
-            StartCoroutine(Respawn());
+            StartCoroutine(Respawn(terminalDeath));
         }
 
-        private IEnumerator Respawn()
+        private IEnumerator Respawn(bool terminalDeath = false)
         {
             isDying = true;
 
             rb.velocity = Vector2.zero;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-            yield return StartCoroutine(circleTransition.CloseCircle());
+            if (terminalDeath)
+                yield return StartCoroutine(circleTransition.CloseCircle(terminalDeath));
+            else
+                yield return StartCoroutine(circleTransition.CloseCircle());
             transform.position = startingPoint.position;
 
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             CameraManager.SwitchCamera(roomCamera);
 
             yield return new WaitForSeconds(1f);
-            yield return StartCoroutine(circleTransition.OpenCircle());
+            if (terminalDeath)
+                yield return StartCoroutine(circleTransition.OpenCircle(terminalDeath));
+            else
+                yield return StartCoroutine(circleTransition.OpenCircle());
+
             isDying = false;
         }
     }

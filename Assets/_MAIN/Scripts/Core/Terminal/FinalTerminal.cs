@@ -7,6 +7,7 @@ public class FinalTerminal : Terminal
     public override void Awake()
     {
         expectedOutputTerminal.text = outputCode;
+        rootContainer.SetActive(false);
     }
     public override void CheckOutput(string output, string outputCode)
     {

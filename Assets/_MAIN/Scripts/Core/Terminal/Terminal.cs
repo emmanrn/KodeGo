@@ -17,8 +17,11 @@ public abstract class Terminal : MonoBehaviour, IInteractable
     public virtual void Awake() { }
     public void Interact()
     {
-        inputReader.SetUI();
-        rootContainer.SetActive(true);
+        if (isInteractable())
+        {
+            inputReader.SetUI();
+            rootContainer.SetActive(true);
+        }
     }
     public void CloseWindow()
     {

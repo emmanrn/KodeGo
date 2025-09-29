@@ -24,6 +24,7 @@ namespace PLAYER
         private PlayerInteraction interaction;
         private PlayerAnimation anim;
         private PlayerRespawn respawn;
+        private PlayerLife life;
 
         private bool grounded;
         private bool dashLocked;
@@ -40,6 +41,7 @@ namespace PLAYER
             interaction = GetComponent<PlayerInteraction>();
             anim = GetComponent<PlayerAnimation>();
             respawn = GetComponent<PlayerRespawn>();
+            life = GetComponent<PlayerLife>();
 
         }
 
@@ -51,6 +53,7 @@ namespace PLAYER
             wallJump.Initialize(rb);
             anim.Initialize(rb);
             respawn.Initialize(rb, startingPoint, circleTransition, roomCamera);
+            life.Initialize(respawn);
         }
 
         private void OnEnable()
