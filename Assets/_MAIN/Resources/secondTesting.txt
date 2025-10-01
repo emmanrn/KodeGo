@@ -1,4 +1,6 @@
-CreateCharacter(Kode), CreateCharacter(Pseudo), CreateCharacter(TestNPC)
+CreateCharacter(Kode)
+CreateCharacter(Pseudo)
+CreateCharacter(TestNPC)
 
 ShowDB()
 Narrator "Showing Kode Charcter"
@@ -13,8 +15,13 @@ Kode.Hide()
 TestNPC as test "Hello World!!!"
 Kode.Show()
 Narrator "And then he continued on"
+Kode.Hide()
 
+Pseudo.Show()
 Pseudo as ??? "Well.{wa 0.75} calm down there buddy." 
+Pseudo "Why hello there"
+Pseudo "The name's Pseudo"
+Pseudo.Hide()
 
 Kode.Show()
 Kode.SetSprite(A5)
@@ -22,6 +29,7 @@ Kode "I am calm! You calm down!"
 
 [wait]Kode.Show(), [wait]Kode.Hide()
 Narrator "The end."
+TestNPC "NOOOOOOOOO"
 [wait]HideDB()
 [wait]ShowDB()
 HideDB()

@@ -69,6 +69,18 @@ public class TextArchitect
         return buildProcess;
     }
 
+    public void SetText(string text)
+    {
+        preTxt = "";
+        targetTxt = text;
+
+        Stop();
+
+        tmpro.text = targetTxt;
+        ForceComplete();
+
+    }
+
     private Coroutine buildProcess = null;
     public bool isBuilding => buildProcess != null;
 
@@ -110,6 +122,7 @@ public class TextArchitect
         switch (buildMethod)
         {
             case BuildMethod.TYPEWRITER:
+                tmpro.ForceMeshUpdate();
                 tmpro.maxVisibleCharacters = tmpro.textInfo.characterCount;
                 break;
             case BuildMethod.FADE:

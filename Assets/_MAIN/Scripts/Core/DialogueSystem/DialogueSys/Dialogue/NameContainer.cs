@@ -12,7 +12,7 @@ namespace DIALOGUE
         // the box that holds the name txt on screen.
 
         [SerializeField] private GameObject root;
-        [SerializeField] private TextMeshProUGUI nameTxt;
+        [field: SerializeField] public TextMeshProUGUI nameTxt { get; private set; }
         public void Show(string nameToShow = "")
         {
             root.SetActive(true);
@@ -26,6 +26,7 @@ namespace DIALOGUE
         }
 
         public void SetNameColor(Color color) => nameTxt.color = color;
+        public void SetNameFontSize(float size) => nameTxt.fontSize = size;
     }
 
 }

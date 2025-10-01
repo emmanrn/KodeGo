@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using DIALOGUE;
 using Microsoft.SqlServer.Server;
 using TMPro;
@@ -17,6 +18,12 @@ namespace CHARACTERS
         public Color nameColor;
         public Color dialogueColor;
 
+        public float nameFontScale = 1f;
+        public float dialogueFontScale = 1f;
+
+        [SerializedDictionary("Path / ID", "Sprite")]
+        public SerializedDictionary<string, Sprite> sprites = new SerializedDictionary<string, Sprite>();
+
         public CharacterConfigData Copy()
         {
             CharacterConfigData data = new();
@@ -27,6 +34,9 @@ namespace CHARACTERS
 
             data.nameColor = new Color(nameColor.r, nameColor.g, nameColor.b, nameColor.a = 1);
             data.dialogueColor = new Color(dialogueColor.r, dialogueColor.g, dialogueColor.b, dialogueColor.a = 1);
+
+            data.dialogueFontScale = dialogueFontScale;
+            data.nameFontScale = nameFontScale;
 
             return data;
         }
@@ -45,6 +55,9 @@ namespace CHARACTERS
 
                 data.nameColor = defaultColor;
                 data.dialogueColor = defaultColor;
+
+                data.dialogueFontScale = 1f;
+                data.nameFontScale = 1f;
 
                 return data;
 

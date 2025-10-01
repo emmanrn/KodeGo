@@ -24,6 +24,7 @@ namespace DIALOGUE
         public bool isVisible => CO_Showing != null || rootCG.alpha > 0;
 
         public void SetDialogueColor(Color color) => dialogueTxt.color = color;
+        public void SetDialogueFontSize(float size) => dialogueTxt.fontSize = size;
 
         public Coroutine Show()
         {

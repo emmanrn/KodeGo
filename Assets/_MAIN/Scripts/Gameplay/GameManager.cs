@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     public bool isPaused { get; private set; } = false;
     public bool isRunningDialogue => DialogueSystem.instance.isRunningConversation;
-    public static GameManager instance { get; private set; }
+    public static GameManager instance { get; set; }
     public IDamageable Player { get; private set; }
 
     void Awake()

@@ -25,6 +25,7 @@ namespace PLAYER
         private PlayerAnimation anim;
         private PlayerRespawn respawn;
         private PlayerLife life;
+        private PlayerToggleHistoryLogs toggleHistory;
 
         private bool grounded;
         private bool dashLocked;
@@ -42,6 +43,7 @@ namespace PLAYER
             anim = GetComponent<PlayerAnimation>();
             respawn = GetComponent<PlayerRespawn>();
             life = GetComponent<PlayerLife>();
+            toggleHistory = GetComponent<PlayerToggleHistoryLogs>();
 
         }
 
@@ -66,6 +68,7 @@ namespace PLAYER
             input.JumpCancelledEvent += jump.OnJumpReleased;
             input.DashEvent += dash.OnDash;
             input.InteractEvent += interaction.OnInteract;
+            input.ToggleHistoryLogsEvent += toggleHistory.OnToggleHistoryLog;
 
         }
 
@@ -77,6 +80,7 @@ namespace PLAYER
             input.JumpCancelledEvent -= jump.OnJumpReleased;
             input.DashEvent -= dash.OnDash;
             input.InteractEvent -= interaction.OnInteract;
+            input.ToggleHistoryLogsEvent -= toggleHistory.OnToggleHistoryLog;
 
         }
 
