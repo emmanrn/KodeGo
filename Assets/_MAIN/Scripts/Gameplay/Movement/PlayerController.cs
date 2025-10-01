@@ -34,8 +34,6 @@ namespace MOVEMENT
         private float lowJumpMultiplier = 7f;
         private float jumpVelocityFallOff = 8f;
         private bool isJumpHeld;
-        private float postDashLock = 0.1f;
-        private float jumpLockTimer;
         private float groundedThreshold = 0.05f;
         [Header("Coyote Time and Jump Buffer")]
         private float coyoteTime = 0.15f;
@@ -48,7 +46,6 @@ namespace MOVEMENT
         public bool isDashing { get; set; }
         private bool canDash = true;
         private Vector2 dashDirection;
-        [SerializeField] private float dashDuration = 0.15f;
         [SerializeField] private float postDashInputLock = 0.12f; // tweak
         [SerializeField] private int postDashIgnoreFrames = 2;    // robust across frames
         private float postDashLockUntil = 0f;

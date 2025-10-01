@@ -18,6 +18,7 @@ namespace PLAYER
         private GroundChecker groundChecker;
 
         private PlayerMovement movement;
+        public bool isPressingDown => movement.isPressingDown;
         private PlayerJump jump;
         private PlayerDash dash;
         private PlayerWall wallJump;
@@ -29,6 +30,7 @@ namespace PLAYER
 
         private bool grounded;
         private bool dashLocked;
+        private bool jumped;
 
         private void Awake()
         {
@@ -50,7 +52,7 @@ namespace PLAYER
         private void Start()
         {
             movement.Initialize(rb);
-            jump.Initialize(rb, wallJump);
+            jump.Initialize(rb, wallJump, anim.Jump);
             dash.Initialize(rb, movement);
             wallJump.Initialize(rb);
             anim.Initialize(rb);
@@ -86,30 +88,29 @@ namespace PLAYER
 
         private void Update()
         {
-            grounded = groundChecker.isGrounded();
             dashLocked = dash.IsDashing || Time.time < dash.PostDashLockUntil || dash.PostDashIgnoreFramesCounter > 0;
 
-            dash.Tick(grounded);
-            wallJump.Tick(movement.MoveDirection, grounded);
+            dash.Tick(groundChecker.isGrounded());
+            wallJump.Tick(movement.MoveDirection, groundChecker.isGrounded());
 
             if (dashLocked)
             {
                 jump.ClearJumpBuffer();
             }
 
-            if (!dashLocked && jump.IsJumpBuffered)
+            if (!dashLocked)
             {
                 // If airborne and wall jump is possible, then trigger a wall jump.
-                if (!grounded && wallJump.CanWallJump)
+                if (!grounded && wallJump.CanWallJump && jump.IsJumpBuffered)
                 {
                     wallJump.TriggerWallJump();
                     movement.isFacingRight = !movement.isFacingRight;
                     anim.Jump();
                     return;
                 }
-                jump.Tick(grounded);
-                anim.Jump();
+                jump.Tick(groundChecker.isGrounded());
             }
+
 
 
             anim.Tick();
@@ -122,9 +123,9 @@ namespace PLAYER
             dash.FixedTick();
 
             if (!wallJump.IsWallJumping)
-                movement.FixedTick(grounded);
+                movement.FixedTick(groundChecker.isGrounded());
 
-            if (!grounded)
+            if (!dash.IsDashing)
                 jump.FixedTick();
         }
 

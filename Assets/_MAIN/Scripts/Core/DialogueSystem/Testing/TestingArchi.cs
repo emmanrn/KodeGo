@@ -25,7 +25,6 @@ namespace TESTING
         {
             ds = DialogueSystem.instance;
             architect = new TextArchitect(ds.dialogueContainer.dialogueTxt);
-            architect.buildMethod = TextArchitect.BuildMethod.TYPEWRITER;
             architect.speed = 0.5f;
         }
 

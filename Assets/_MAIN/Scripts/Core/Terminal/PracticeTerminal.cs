@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class PracticeTerminal : Terminal
@@ -11,13 +8,8 @@ public class PracticeTerminal : Terminal
         outputTerminal.text = "";
         rootContainer.SetActive(false);
 
-        GameEvents.OnPlayerDied += PlayerDied;
     }
 
-    private void OnDestroy()
-    {
-        GameEvents.OnPlayerDied -= PlayerDied;
-    }
     public override void Run()
     {
         string result = interpreter.RunCode(content);
@@ -52,16 +44,10 @@ public class PracticeTerminal : Terminal
             outputTerminal.color = Color.red;
             outputTerminal.text = output;
 
-            GameManager.instance.Player?.TakeDamage(1);
         }
 
     }
 
-    private void PlayerDied()
-    {
-        CloseWindow();
-        outputTerminal.text = "";
-    }
 
 
 

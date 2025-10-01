@@ -47,7 +47,7 @@ namespace DIALOGUE
             if (initialized)
                 return;
 
-            archi = new TextArchitect(dialogueContainer.dialogueTxt);
+            archi = new TextArchitect(dialogueContainer.dialogueTxt, TABuilder.BuilderTypes.FADE);
             conversationManager = new ConversationManager(archi);
 
             if (TryGetComponent(out autoReader))
