@@ -57,7 +57,7 @@ namespace DIALOGUE
                 yield break;
             }
 
-            if (!archi.isBuilding && archi.currentTxt != string.Empty)
+            if (!archi.isBuilding && archi.currentText != string.Empty)
                 DialogueSystem.instance.OnSystemPromptNext();
 
             while (conversationManager.isRunning)

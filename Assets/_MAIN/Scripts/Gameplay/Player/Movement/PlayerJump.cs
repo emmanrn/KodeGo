@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace PLAYER
@@ -20,12 +21,15 @@ namespace PLAYER
         private float coyoteCounter;
         private float jumpBufferCounter;
         private bool isJumpHeld;
+        private bool jumpQueued;
         public bool IsJumpBuffered => jumpBufferCounter > 0f;
+        private Action jump;
 
-        public void Initialize(Rigidbody2D rbRef, PlayerWall wallJumpRef)
+        public void Initialize(Rigidbody2D rbRef, PlayerWall wallJumpRef, System.Action jump)
         {
             rb = rbRef;
             wallJump = wallJumpRef;
+            this.jump = jump;
         }
 
         public void Tick(bool grounded)
@@ -41,13 +45,23 @@ namespace PLAYER
                 jumpBufferCounter -= Time.deltaTime;
 
             if (coyoteCounter > 0f && jumpBufferCounter > 0f)
-                Jump();
+            {
+                jumpQueued = true;
+                jumpBufferCounter = 0f; // consume buffer
+                jump();
+            }
 
         }
 
         public void FixedTick()
         {
             ApplyGravity();
+
+            if (jumpQueued)
+            {
+                Jump();
+                jumpQueued = false;
+            }
         }
 
         public void OnJumpPressed() => jumpBufferCounter = jumpBufferTime;

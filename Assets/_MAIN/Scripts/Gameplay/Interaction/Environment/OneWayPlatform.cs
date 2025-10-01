@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using MOVEMENT;
+using PLAYER;
 using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
@@ -60,10 +59,9 @@ public class OneWayPlatform : MonoBehaviour
         Physics2D.IgnoreCollision(playerCol, col, true);
 
         // Wait until player is fully below platform
-        float timer = 0.25f; // quarter-second window
-        while (timer > 0f && player.isPressingDown)
+        // float timer = 0.25f; // quarter-second window
+        while (playerCol.bounds.max.y > col.bounds.min.y)
         {
-            timer -= Time.deltaTime;
             yield return null;
         }
 

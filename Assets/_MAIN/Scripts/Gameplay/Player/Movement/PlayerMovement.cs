@@ -16,6 +16,7 @@ namespace PLAYER
         public Vector2 facingDirection { get; set; }
 
         public Vector2 MoveDirection => moveDirection;
+        public bool isPressingDown { get { return moveDirection.y < -0.5f; } }
 
         public void Initialize(Rigidbody2D rbRef) => rb = rbRef;
 
