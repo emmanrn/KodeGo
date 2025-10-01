@@ -15,6 +15,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "HistoryLog",
+                    "type": "Button",
+                    "id": "04f99ceb-7091-459d-bd83-a4cb388fa292",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "NextLevel",
                     "type": "Button",
                     "id": "8ed65b5c-775d-4ffa-813e-69dcfb933753",
@@ -139,6 +148,17 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "20e0e6ee-3f44-4cbc-ba23-8df33917bd4c",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HistoryLog",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -186,6 +206,15 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "d6113fe3-0241-48d3-bb38-72da8813f2e8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HistoryLog",
+                    "type": "Button",
+                    "id": "8333806b-92d4-4c00-bd65-67ecc04e43bb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -333,6 +362,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "192f5b7c-522e-4467-9d22-52cb476265c4",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HistoryLog",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

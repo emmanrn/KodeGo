@@ -1,5 +1,6 @@
 using System;
 using DIALOGUE;
+using HISTORY;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -55,6 +56,7 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
     public event Action NextLevelEvent;
     public event Action PrevLevelEvent;
     public event Action InteractEvent;
+    public event Action ToggleHistoryLogsEvent;
     public void OnCancel(InputAction.CallbackContext context)
     {
     }
@@ -176,5 +178,11 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
     {
         if (context.phase == InputActionPhase.Performed)
             InteractEvent?.Invoke();
+    }
+
+    public void OnHistoryLog(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+            ToggleHistoryLogsEvent?.Invoke();
     }
 }

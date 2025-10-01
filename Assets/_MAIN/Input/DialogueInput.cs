@@ -37,6 +37,15 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""HistoryLog"",
+                    ""type"": ""Button"",
+                    ""id"": ""04f99ceb-7091-459d-bd83-a4cb388fa292"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""NextLevel"",
                     ""type"": ""Button"",
                     ""id"": ""8ed65b5c-775d-4ffa-813e-69dcfb933753"",
@@ -161,6 +170,17 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20e0e6ee-3f44-4cbc-ba23-8df33917bd4c"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HistoryLog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -208,6 +228,15 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""d6113fe3-0241-48d3-bb38-72da8813f2e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HistoryLog"",
+                    ""type"": ""Button"",
+                    ""id"": ""8333806b-92d4-4c00-bd65-67ecc04e43bb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -355,6 +384,17 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""192f5b7c-522e-4467-9d22-52cb476265c4"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HistoryLog"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -882,6 +922,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_Next = m_General.FindAction("Next", throwIfNotFound: true);
+        m_General_HistoryLog = m_General.FindAction("HistoryLog", throwIfNotFound: true);
         m_General_NextLevel = m_General.FindAction("NextLevel", throwIfNotFound: true);
         m_General_PrevLevel = m_General.FindAction("PrevLevel", throwIfNotFound: true);
         m_General_Resume = m_General.FindAction("Resume", throwIfNotFound: true);
@@ -893,6 +934,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_HistoryLog = m_Player.FindAction("HistoryLog", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -967,6 +1009,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
     private readonly InputAction m_General_Next;
+    private readonly InputAction m_General_HistoryLog;
     private readonly InputAction m_General_NextLevel;
     private readonly InputAction m_General_PrevLevel;
     private readonly InputAction m_General_Resume;
@@ -976,6 +1019,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
         private @DialogueInput m_Wrapper;
         public GeneralActions(@DialogueInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Next => m_Wrapper.m_General_Next;
+        public InputAction @HistoryLog => m_Wrapper.m_General_HistoryLog;
         public InputAction @NextLevel => m_Wrapper.m_General_NextLevel;
         public InputAction @PrevLevel => m_Wrapper.m_General_PrevLevel;
         public InputAction @Resume => m_Wrapper.m_General_Resume;
@@ -992,6 +1036,9 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
             @Next.started += instance.OnNext;
             @Next.performed += instance.OnNext;
             @Next.canceled += instance.OnNext;
+            @HistoryLog.started += instance.OnHistoryLog;
+            @HistoryLog.performed += instance.OnHistoryLog;
+            @HistoryLog.canceled += instance.OnHistoryLog;
             @NextLevel.started += instance.OnNextLevel;
             @NextLevel.performed += instance.OnNextLevel;
             @NextLevel.canceled += instance.OnNextLevel;
@@ -1011,6 +1058,9 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
             @Next.started -= instance.OnNext;
             @Next.performed -= instance.OnNext;
             @Next.canceled -= instance.OnNext;
+            @HistoryLog.started -= instance.OnHistoryLog;
+            @HistoryLog.performed -= instance.OnHistoryLog;
+            @HistoryLog.canceled -= instance.OnHistoryLog;
             @NextLevel.started -= instance.OnNextLevel;
             @NextLevel.performed -= instance.OnNextLevel;
             @NextLevel.canceled -= instance.OnNextLevel;
@@ -1049,6 +1099,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_HistoryLog;
     public struct PlayerActions
     {
         private @DialogueInput m_Wrapper;
@@ -1058,6 +1109,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @HistoryLog => m_Wrapper.m_Player_HistoryLog;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1082,6 +1134,9 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @HistoryLog.started += instance.OnHistoryLog;
+            @HistoryLog.performed += instance.OnHistoryLog;
+            @HistoryLog.canceled += instance.OnHistoryLog;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1101,6 +1156,9 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @HistoryLog.started -= instance.OnHistoryLog;
+            @HistoryLog.performed -= instance.OnHistoryLog;
+            @HistoryLog.canceled -= instance.OnHistoryLog;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1239,6 +1297,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
     public interface IGeneralActions
     {
         void OnNext(InputAction.CallbackContext context);
+        void OnHistoryLog(InputAction.CallbackContext context);
         void OnNextLevel(InputAction.CallbackContext context);
         void OnPrevLevel(InputAction.CallbackContext context);
         void OnResume(InputAction.CallbackContext context);
@@ -1251,6 +1310,7 @@ public partial class @DialogueInput: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnHistoryLog(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

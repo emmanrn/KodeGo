@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using DIALOGUE;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestNPC : MonoBehaviour, IInteractable
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead;
-    private GameManager gameState;
 
     void Awake()
     {
-        gameState = GameManager.instance;
     }
 
-    public bool isInteractable() => !gameState.isRunningDialogue;
+    public bool isInteractable() => !GameManager.instance.isRunningDialogue;
     public void Interact()
     {
         Debug.Log("npc");
-        if (gameState.isPaused && !gameState.isRunningDialogue)
+        if (GameManager.instance.isPaused && !GameManager.instance.isRunningDialogue)
             return;
 
         if (isInteractable())

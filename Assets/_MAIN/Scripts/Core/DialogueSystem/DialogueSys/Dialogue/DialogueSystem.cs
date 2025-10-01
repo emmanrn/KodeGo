@@ -19,6 +19,7 @@ namespace DIALOGUE
         public static DialogueSystem instance { get; private set; }
         public delegate void DialogueSysEvent();
         public event DialogueSysEvent onUserPromptNext;
+        public event DialogueSysEvent onClear;
         public bool isRunningConversation => conversationManager.isRunning;
         public DialogueContinuePrompt prompt;
 
@@ -68,6 +69,28 @@ namespace DIALOGUE
             onUserPromptNext?.Invoke();
         }
 
+        public void OnSystemPromptClear()
+        {
+            onClear?.Invoke();
+        }
+
+        public void OnStartViewingHistory()
+        {
+            prompt.Hide();
+            autoReader.allowToggle = false;
+            conversationManager.allowUserPrompts = false;
+
+            if (autoReader.isOn)
+                autoReader.Disable();
+        }
+
+        public void OnStopViewingHistory()
+        {
+            prompt.Show();
+            autoReader.allowToggle = true;
+            conversationManager.allowUserPrompts = true;
+        }
+
 
         public void ApplySpeakerData(string speakerName)
         {
@@ -80,7 +103,11 @@ namespace DIALOGUE
         public void ApplySpeakerData(CharacterConfigData config)
         {
             dialogueContainer.SetDialogueColor(config.dialogueColor);
+            float fontSize = this.config.defaultDialogueFontSize * this.config.dialogueFontScale * config.dialogueFontScale;
+            dialogueContainer.SetDialogueFontSize(fontSize);
             dialogueContainer.nameContainer.SetNameColor(config.nameColor);
+            fontSize = this.config.defaultNameFontSize * config.nameFontScale;
+            dialogueContainer.nameContainer.SetNameFontSize(fontSize);
 
         }
         public void ShowSpeakerName(string speakerName = "")
@@ -88,7 +115,11 @@ namespace DIALOGUE
             if (speakerName.ToLower() != "narrator")
                 dialogueContainer.nameContainer.Show(speakerName);
             else
+            {
                 HideSpeakerName();
+                dialogueContainer.nameContainer.nameTxt.text = "";
+
+            }
         }
         public void HideSpeakerName() => dialogueContainer.nameContainer.Hide();
 

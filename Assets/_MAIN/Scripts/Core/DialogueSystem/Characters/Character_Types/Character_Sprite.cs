@@ -57,6 +57,13 @@ namespace CHARACTERS
 
         public Sprite GetSprite(string spriteName)
         {
+            // for the new dictioanry style of getting the sprites we can use this if block right here and the ones below are now needed anymore
+            // but im going to keep it just in case
+            if (config.sprites.Count > 0)
+            {
+                if (config.sprites.TryGetValue(spriteName, out Sprite sprite))
+                    return sprite;
+            }
             if (config.characterType == CharacterType.Spritesheet)
             {
                 string[] data = spriteName.Split(SPRITESHEET_TEXTURE_SPRITE_DELIMITTER);

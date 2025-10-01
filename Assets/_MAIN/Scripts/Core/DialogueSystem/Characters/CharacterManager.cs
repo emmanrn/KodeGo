@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DIALOGUE;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ namespace CHARACTERS
     public class CharacterManager : MonoBehaviour
     {
         public static CharacterManager instance { get; private set; }
-        private Dictionary<string, Character> characters = new();
+        private Dictionary<string, Character> characters = new Dictionary<string, Character>();
+        public Character[] allCharacters => characters.Values.ToArray();
 
         private CharacterConfig_SO config => DialogueSystem.instance.config.characterConfigAsset;
         private const string CHARACTER_CASTING_ID = " as ";
