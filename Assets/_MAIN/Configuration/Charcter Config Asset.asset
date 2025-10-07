@@ -70,6 +70,22 @@ MonoBehaviour:
         Value: {fileID: 1686440915, guid: 4b72e5ebde01c0542be447362ca151c7, type: 3}
       - Key: A24
         Value: {fileID: -678595251, guid: 4b72e5ebde01c0542be447362ca151c7, type: 3}
+      - Key: Icon
+        Value: {fileID: 21300000, guid: 21896e14229115547819e0b28b94f9a8, type: 3}
+      - Key: Kode-Go! (Logo)
+        Value: {fileID: 21300000, guid: ea7cfd7b2f0dee54e9cd63a23d2530dc, type: 3}
+      - Key: Kode (Fall)
+        Value: {fileID: 21300000, guid: 8e4f4a1b9bc5fc54aa9ac2331b480d18, type: 3}
+      - Key: Kode (Idle)
+        Value: {fileID: 21300000, guid: 79d7a0402fb65884085dba2fd4c826c1, type: 3}
+      - Key: Kode (Jump)
+        Value: {fileID: 21300000, guid: 1593ce7ed69005a49ad7df87a4f2a24f, type: 3}
+      - Key: Kode (Run Frame 1)
+        Value: {fileID: 21300000, guid: 4a276eaa96d62024ea1efd29bef8cc66, type: 3}
+      - Key: Kode (Run Frame 2)
+        Value: {fileID: 21300000, guid: 43f2010b3f026154480c216e415e3752, type: 3}
+      - Key: Kode (Run Frame 3)
+        Value: {fileID: 21300000, guid: b491a23081d73dd4c9e2468bde16246a, type: 3}
   - name: Pseudo
     alias: Ps
     characterType: 2

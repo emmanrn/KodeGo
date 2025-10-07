@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using DIALOGUE;
-using Unity.VisualScripting;
 using UnityEngine;
+using DIALOGUE;
 
-public class TestNPC : MonoBehaviour, IInteractable
+public class TestQuiz : MonoBehaviour, IInteractable
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead;
@@ -36,6 +35,4 @@ public class TestNPC : MonoBehaviour, IInteractable
         // once dialogue is done, set the player control back
         inputReader.SetPlayerMovement();
     }
-
-
 }

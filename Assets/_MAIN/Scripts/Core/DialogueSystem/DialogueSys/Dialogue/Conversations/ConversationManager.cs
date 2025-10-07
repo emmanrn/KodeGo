@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using CHARACTERS;
 using COMMANDS;
+using DIALOGUE.LogicalLines;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DIALOGUE
@@ -13,8 +15,11 @@ namespace DIALOGUE
         public bool isRunning => process != null;
         public TextArchitect archi = null;
         private bool userPrompt = false;
-        public Conversation conversation => (conversationQueue.isEmpty() ? null : conversationQueue.top);
 
+
+        private LogicalLineManager logicalLineManager;
+        public Conversation conversation => (conversationQueue.isEmpty() ? null : conversationQueue.top);
+        public int conversationPorgress => (conversationQueue.isEmpty() ? -1 : conversationQueue.top.GetProgress());
         private ConversationQueue conversationQueue;
 
         public bool allowUserPrompts = true;
@@ -25,6 +30,7 @@ namespace DIALOGUE
             this.archi = archi;
             dialogueSystem.onUserPromptNext += OnUserPromptNext;
 
+            logicalLineManager = new LogicalLineManager();
             conversationQueue = new ConversationQueue();
         }
 
@@ -40,6 +46,7 @@ namespace DIALOGUE
         public Coroutine StartConversation(Conversation conversation)
         {
             StopConversation();
+            conversationQueue.Clear();
 
             Enqueue(conversation);
 
@@ -62,6 +69,13 @@ namespace DIALOGUE
             while (!conversationQueue.isEmpty())
             {
                 Conversation currentConversation = conversation;
+
+                if (currentConversation.HasReachedEnd())
+                {
+                    conversationQueue.Dequeue();
+                    continue;
+                }
+
                 string rawLine = currentConversation.CurrentLine();
 
                 if (string.IsNullOrWhiteSpace(rawLine))
@@ -72,24 +86,32 @@ namespace DIALOGUE
 
                 DIALOGUE_LINES line = DialogueParser.Parse(rawLine);
 
-                //show dialogue
-                if (line.hasDialogue)
-                    yield return LineRunDialogue(line);
-
-                // run commands when the dialogue FINISHED NOT AFTER THE USER CLICKED TO GO NEXT DIALOGUE
-                if (line.hasCommands)
-                    yield return LineRunCmds(line);
-
-                // wait for user inout if dialogue was in this line
-                if (line.hasDialogue)
+                if (logicalLineManager.TryGetLogic(line, out Coroutine logic))
                 {
-                    // wait for user input to go next
-                    yield return WaitForUserInput();
-
-                    CommandManager.instance.StopAllProcesses();
-
-                    dialogueSystem.OnSystemPromptClear();
+                    yield return logic;
                 }
+                else
+                {
+                    //show dialogue
+                    if (line.hasDialogue)
+                        yield return LineRunDialogue(line);
+
+                    // run commands when the dialogue FINISHED NOT AFTER THE USER CLICKED TO GO NEXT DIALOGUE
+                    if (line.hasCommands)
+                        yield return LineRunCmds(line);
+
+                    // wait for user inout if dialogue was in this line
+                    if (line.hasDialogue)
+                    {
+                        // wait for user input to go next
+                        yield return WaitForUserInput();
+
+                        CommandManager.instance.StopAllProcesses();
+
+                        dialogueSystem.OnSystemPromptClear();
+                    }
+                }
+
 
                 TryAdvanceCurrentConverstion(currentConversation);
 
@@ -100,6 +122,9 @@ namespace DIALOGUE
         private void TryAdvanceCurrentConverstion(Conversation conversation)
         {
             conversation.IncrementProgress();
+
+            if (conversation != conversationQueue.top)
+                return;
 
             if (conversation.HasReachedEnd())
                 conversationQueue.Dequeue();
@@ -127,7 +152,10 @@ namespace DIALOGUE
             if (speakerData.makeCharEnter && (!character.isVisible && !character.isRevealing))
                 character.Show();
 
-            dialogueSystem.ShowSpeakerName(speakerData.displayName);
+            // add character name to the ui
+            dialogueSystem.ShowSpeakerName(TagManager.Inject(speakerData.displayName));
+
+            // customize the dialogue for this specific character's conig
             DialogueSystem.instance.ApplySpeakerData(speakerData.name);
 
             // cast expression
@@ -136,7 +164,6 @@ namespace DIALOGUE
                 foreach (var ce in speakerData.CastExpressions)
                 {
                     character.OnReceiveCastingExpr(ce.layer, ce.expression);
-
                 }
             }
 
@@ -211,6 +238,8 @@ namespace DIALOGUE
 
         IEnumerator BuildDialogue(string dialogue, bool append = false)
         {
+            // this will inject the tags into the dialogue
+            dialogue = TagManager.Inject(dialogue);
             // build dialogue 
             if (!append)
                 archi.Build(dialogue);
