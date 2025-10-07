@@ -15,7 +15,7 @@ namespace DIALOGUE
 
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
 
-            return new DIALOGUE_LINES(speaker, dialogue, commands);
+            return new DIALOGUE_LINES(rawLine, speaker, dialogue, commands);
 
         }
 

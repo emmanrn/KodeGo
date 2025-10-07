@@ -1,0 +1,8 @@
+$money = 15
+
+if ($money > 45)
+{
+    narrator"You got a lot of money"
+}
+
+narrator "Done with the condition"

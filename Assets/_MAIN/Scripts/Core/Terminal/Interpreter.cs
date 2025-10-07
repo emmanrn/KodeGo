@@ -157,7 +157,6 @@ public class Interpreter : MonoBehaviour
 
     }
 
-
     public void OnApplicationQuit()
     {
         if (PythonEngine.IsInitialized)
@@ -165,10 +164,5 @@ public class Interpreter : MonoBehaviour
             PythonEngine.Shutdown();
         }
     }
-
-
-
-
-
 }
 

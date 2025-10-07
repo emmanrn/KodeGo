@@ -15,6 +15,7 @@ namespace DIALOGUE
         public DialogueContainer dialogueContainer = new DialogueContainer();
         public ConversationManager conversationManager { get; private set; }
         private TextArchitect archi;
+        [SerializeField] private CanvasGroup mainCanvas;
         private AutoReader autoReader;
         public static DialogueSystem instance { get; private set; }
         public delegate void DialogueSysEvent();
@@ -22,6 +23,7 @@ namespace DIALOGUE
         public event DialogueSysEvent onClear;
         public bool isRunningConversation => conversationManager.isRunning;
         public DialogueContinuePrompt prompt;
+        private CanvasGroupController cgController;
 
         void Awake()
         {
@@ -36,11 +38,6 @@ namespace DIALOGUE
 
         }
 
-        private void OnDisable()
-        {
-
-        }
-
         bool initialized = false;
         private void Initialize()
         {
@@ -49,6 +46,9 @@ namespace DIALOGUE
 
             archi = new TextArchitect(dialogueContainer.dialogueTxt, TABuilder.BuilderTypes.FADE);
             conversationManager = new ConversationManager(archi);
+
+            cgController = new CanvasGroupController(this, mainCanvas);
+            dialogueContainer.Initialize();
 
             if (TryGetComponent(out autoReader))
                 autoReader.Initialize(conversationManager);
@@ -143,6 +143,9 @@ namespace DIALOGUE
         }
 
         public void StopDialogue() => conversationManager.StopConversation();
+        public bool isVisible => cgController.isVisible;
+        public Coroutine Show(float speed = 1f, bool immediate = false) => cgController.Show(speed, immediate);
+        public Coroutine Hide(float speed = 1f, bool immediate = false) => cgController.Hide(speed, immediate);
     }
 
 }

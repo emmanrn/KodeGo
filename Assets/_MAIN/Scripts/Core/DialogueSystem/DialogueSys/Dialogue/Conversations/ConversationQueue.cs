@@ -40,6 +40,8 @@ namespace DIALOGUE
 
         public bool isEmpty() => conversationQueue.Count == 0;
 
+        public void Clear() => conversationQueue.Clear();
+
     }
 
 }

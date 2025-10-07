@@ -8,6 +8,7 @@ namespace DIALOGUE
 
     public class DL_SPEAKER_DATA
     {
+        public string rawData { get; private set; } = string.Empty;
         public string name, castName;
         //this will basically determine which name to show if cast name is empty or not
         public string displayName => isCastingName ? castName : name;
@@ -37,7 +38,9 @@ namespace DIALOGUE
         }
         public DL_SPEAKER_DATA(string rawSpeaker)
         {
+            rawData = rawSpeaker;
             rawSpeaker = ProcessKeywords(rawSpeaker);
+
             string pattern = @$"{NAMECAST_ID}|{POSCAST_ID}|{EXPRESSION_CAST_ID.Insert(EXPRESSION_CAST_ID.Length - 1, @"\")}";
             MatchCollection matches = Regex.Matches(rawSpeaker, pattern);
             castName = "";

@@ -1,0 +1,12 @@
+CreateCharacter(Kode)
+
+Narrator "Once upon a time <mainChar> was born"
+
+Kode.Show()
+Kode [0:A13] "<tempVal1>"
+
+Narrator "The time when he was born was <time>"
+
+Kode "<tempVal1>!!!!!"
+
+HideUI()
