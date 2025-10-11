@@ -8,29 +8,14 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject emptyHolder;
 
-    private static GameObject codeLine;
-    private static GameObject codeChunk;
-    private static GameObject inputLine;
-    private static GameObject debugSlot;
-    private static GameObject codeBlock;
-    private static GameObject codeBlockSlot;
-    private static GameObject codeDrop;
     private static GameObject gameObjects;
 
     private static Dictionary<GameObject, ObjectPool<GameObject>> pools;
     private static Dictionary<GameObject, GameObject> clones;
-    // private static Dictionary<GameObject, PoolType> prefabToPoolTypes;
 
     public enum PoolType
     {
         GameObjects,
-        // CodeLine,
-        // CodeChunk,
-        // InputLine,
-        // DebugSlot,
-        // CodeBlock,
-        // CodeBlockSlot,
-        // CodeDrop
     }
 
     public static PoolType poolType;
@@ -39,7 +24,6 @@ public class ObjectPoolManager : MonoBehaviour
     {
         pools = new Dictionary<GameObject, ObjectPool<GameObject>>();
         clones = new Dictionary<GameObject, GameObject>();
-        // prefabToPoolTypes = new Dictionary<GameObject, PoolType>();
 
         SetupEmptyGameObjects();
     }
@@ -50,27 +34,6 @@ public class ObjectPoolManager : MonoBehaviour
 
         gameObjects = new GameObject("Game Objects");
         gameObjects.transform.SetParent(emptyHolder.transform);
-
-        // codeLine = new GameObject("Code Lines");
-        // codeLine.transform.SetParent(emptyHolder.transform);
-
-        // codeChunk = new GameObject("Code Chunks");
-        // codeChunk.transform.SetParent(emptyHolder.transform);
-
-        // codeBlock = new GameObject("Code Blocks");
-        // codeBlock.transform.SetParent(emptyHolder.transform);
-
-        // codeBlockSlot = new GameObject("Code Block Slots");
-        // codeBlockSlot.transform.SetParent(emptyHolder.transform);
-
-        // inputLine = new GameObject("Input Lines");
-        // inputLine.transform.SetParent(emptyHolder.transform);
-
-        // debugSlot = new GameObject("Debug Slots");
-        // debugSlot.transform.SetParent(emptyHolder.transform);
-
-        // codeDrop = new GameObject("Code Drop Slots");
-        // codeDrop.transform.SetParent(emptyHolder.transform);
 
         if (addDontDestroyOnLoad)
             DontDestroyOnLoad(gameObjects.transform.root);
@@ -98,7 +61,6 @@ public class ObjectPoolManager : MonoBehaviour
         );
 
         pools.Add(prefab, pool);
-        // prefabToPoolTypes[prefab] = poolType;
 
     }
 
