@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Pool;
+using UnityEngine.UI;
 
 namespace TERMINAL
 {
@@ -14,10 +17,13 @@ namespace TERMINAL
         [SerializeField] protected Transform codeContainer; // Vertical layout group
         [SerializeField] protected GameObject codeLinePrefab; // Horizontal line prefab
         [SerializeField] protected GameObject codeChunkPrefab; // Code text prefab
+        [SerializeField] protected Button closeBtn;
+        [SerializeField] protected Button runBtn;
 
-        public override void Awake()
+        protected override void InitializeTerminal()
         {
-            base.Awake();
+            // pool = PoolManager.instance;
+            closeBtn.onClick.AddListener(CloseWindow);
             BuildCodeUI();
         }
 
@@ -36,12 +42,15 @@ namespace TERMINAL
 
             // clear previous UI
             foreach (Transform child in codeContainer)
-                Destroy(child.gameObject);
+            {
+                ReturnObjectToPool(child.gameObject);
+            }
 
             // build code lines from config
             foreach (var line in config.codeLines)
             {
-                GameObject lineGO = Instantiate(codeLinePrefab, codeContainer);
+                GameObject lineGO = ObjectPoolManager.SpawnObject(codeLinePrefab, codeContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                lineGO.transform.localScale = Vector3.one;
                 BuildLine(lineGO.transform, line);
             }
         }
@@ -76,45 +85,12 @@ namespace TERMINAL
             return codeBuilder.ToString();
         }
 
+        protected void ReturnObjectToPool(GameObject container)
+        {
+            ObjectPoolManager.ReleaseRecursive(container.gameObject);
+        }
 
-
-        // public override void CheckOutput(string output, string outputCode)
-        // {
-        //     output = output.Replace("\r\n", "\n").Trim();
-        //     Debug.Log(outputCode);
-
-        //     if (output == outputCode)
-        //     {
-        //         Debug.Log("Correct");
-        //         outputTerminal.color = Color.green;
-        //         outputTerminal.text = output;
-        //     }
-        //     else
-        //     {
-        //         outputTerminal.color = Color.red;
-        //         outputTerminal.text = output;
-
-        //     }
-        // }
-
-        // public override void Run()
-        // {
-        //     string result = interpreter.RunCode(content);
-
-        //     if (ContainsRecursion(result))
-        //     {
-        //         outputTerminal.color = Color.yellow;
-        //         outputTerminal.text = "Error: Recursion is not allowed.";
-        //         return;
-        //     }
-
-        //     string output = interpreter.ExecuteCode(result);
-
-        //     outputTerminal.text = "";
-
-        //     CheckOutput(output, outputCode);
-        // }
 
     }
-
 }
+

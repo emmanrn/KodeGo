@@ -63,10 +63,12 @@ public class ChoicePanel : MonoBehaviour
         {
             ChoiceButton choiceButton;
 
+            // if there is already a button ready in the scene
             if (i < buttons.Count)
             {
                 choiceButton = buttons[i];
             }
+            // else make a new or add a new button to the scene and add it to the list
             else
             {
                 GameObject newButtonObj = Instantiate(choiceBtnPrefab, btnLayoutGroup.transform);
@@ -95,6 +97,7 @@ public class ChoicePanel : MonoBehaviour
             button.layout.preferredWidth = maxWidth;
         }
 
+        // only enable the buttons that are needed
         for (int i = 0; i < buttons.Count; i++)
         {
             bool show = i < choices.Length;

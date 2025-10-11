@@ -10,13 +10,15 @@ namespace TERMINAL
         [SerializeField] private GameObject codeBlockPrefab; // draggable block prefab
         [SerializeField] private GameObject slotPrefab;      // drop target prefab
 
-        private List<DebugSlot> slots = new List<DebugSlot>();
-        public override void Awake()
+        private List<DebugSlot> slots;
+        protected override void InitializeTerminal()
         {
-            base.Awake();
+            slots = new List<DebugSlot>();
+            runBtn.onClick.AddListener(Run);
+            base.InitializeTerminal();
+            rootContainer.SetActive(true);
             expectedOutputTerminal.text = config.expectedOutput;
             outputTerminal.text = "";
-            rootContainer.SetActive(false);
 
             BuildInitialBlocks();
         }
@@ -32,7 +34,7 @@ namespace TERMINAL
 
             for (int i = 0; i < slots.Count; i++)
             {
-                var blockGO = Instantiate(codeBlockPrefab, slots[i].transform);
+                var blockGO = ObjectPoolManager.SpawnObject(codeBlockPrefab, slots[i].transform, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                 blockGO.GetComponentInChildren<TextMeshProUGUI>().text = config.prefilledBlocks[i];
                 var codeBlock = blockGO.GetComponent<CodeBlock>();
                 codeBlock.code = config.prefilledBlocks[i];
@@ -92,7 +94,7 @@ namespace TERMINAL
                     string remaining = line.Substring(searchIndex);
                     if (!string.IsNullOrEmpty(remaining))
                     {
-                        var chunk = Instantiate(codeChunkPrefab, lineParent);
+                        var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                         chunk.GetComponentInChildren<TextMeshProUGUI>().text = remaining;
                     }
                     break;
@@ -102,12 +104,13 @@ namespace TERMINAL
                 string before = line.Substring(searchIndex, nextIndex - searchIndex);
                 if (!string.IsNullOrEmpty(before))
                 {
-                    var chunk = Instantiate(codeChunkPrefab, lineParent);
+                    // var chunk = Instantiate(codeChunkPrefab, lineParent);
+                    var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                     chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
                 }
 
                 // Create drop target slot
-                var slotGO = Instantiate(slotPrefab, lineParent);
+                var slotGO = ObjectPoolManager.SpawnObject(slotPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                 var slot = slotGO.GetComponent<DebugSlot>();
                 slots.Add(slot);
 
@@ -126,6 +129,16 @@ namespace TERMINAL
             }
 
             return BuildFullCode(inputs);
+        }
+
+        protected override void OnClose()
+        {
+            for (int i = codeContainer.childCount - 1; i >= 0; i--)
+            {
+                Transform child = codeContainer.GetChild(i);
+                ObjectPoolManager.ReleaseRecursive(child.gameObject);
+            }
+            slots.Clear();
         }
     }
 
