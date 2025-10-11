@@ -14,19 +14,28 @@ namespace TERMINAL
         private bool interactable = true;
         public bool isInteractable() => interactable;
 
-        public virtual void Awake() { }
+        void Awake()
+        {
+            rootContainer.SetActive(false);
+        }
+
         public void Interact()
         {
             if (isInteractable())
             {
                 inputReader.SetUI();
+                InitializeTerminal();
                 rootContainer.SetActive(true);
             }
         }
+
+        protected abstract void InitializeTerminal();
         public void CloseWindow()
         {
             inputReader.SetPlayerMovement();
             rootContainer.SetActive(false);
+
+            OnClose();
         }
         public abstract void Run();
         public abstract void CheckOutput(string output, string outputCode);
@@ -75,6 +84,7 @@ namespace TERMINAL
             return false;
         }
 
+        protected virtual void OnClose() { }
     }
 
 }
