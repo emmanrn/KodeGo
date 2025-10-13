@@ -24,7 +24,7 @@ namespace DIALOGUE.LogicalLines
             // getting the if data
             // ripHeaderandEncapsulator is false because we dont need to rip a title for this one since it's just an if statement
             // we only need the lines here
-            EncapsulatedData ifData = RipEncapsulationData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false);
+            EncapsulatedData ifData = RipEncapsulationData(currentConversation, currentProgress, ripHeaderAndEncapsulators: false, parentStartingIndex: currentConversation.fileStartIndex);
             EncapsulatedData elseData = new EncapsulatedData();
 
             if (ifData.endingIndex + 1 < currentConversation.Count)
@@ -32,17 +32,21 @@ namespace DIALOGUE.LogicalLines
                 string nextLine = currentConversation.GetLines()[ifData.endingIndex + 1].Trim();
                 if (nextLine == ELSE)
                 {
-                    elseData = RipEncapsulationData(currentConversation, ifData.endingIndex + 1, false);
-                    ifData.endingIndex = elseData.endingIndex;
+                    elseData = RipEncapsulationData(currentConversation, ifData.endingIndex + 1, false, parentStartingIndex: currentConversation.fileStartIndex);
                 }
             }
 
-            currentConversation.SetProgress(ifData.endingIndex);
+            currentConversation.SetProgress(elseData.isNull ? ifData.endingIndex : elseData.endingIndex);
+
             EncapsulatedData selectedData = conditionResult ? ifData : elseData;
 
             if (!selectedData.isNull && selectedData.lines.Count > 0)
             {
-                Conversation newConversation = new Conversation(selectedData.lines);
+                // Remove the header and encapsulator lines from the conversation indexes
+                selectedData.startingIndex += 2; // removing the header which is the if statement and the starting encapsulator which is the '{'
+                selectedData.endingIndex -= 1; // removing the ending encapsulator which is the '}'
+
+                Conversation newConversation = new Conversation(selectedData.lines, file: currentConversation.file, fileStartIndex: selectedData.startingIndex, fileEndIndex: selectedData.endingIndex);
                 DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
             }
 

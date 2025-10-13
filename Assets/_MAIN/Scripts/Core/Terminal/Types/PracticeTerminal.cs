@@ -12,6 +12,7 @@ namespace TERMINAL
         protected List<TMP_InputField> inputFields;
         protected override void InitializeTerminal()
         {
+            runBtn.onClick.RemoveListener(Run);
             inputFields = new List<TMP_InputField>();
             runBtn.onClick.AddListener(Run);
             base.InitializeTerminal();

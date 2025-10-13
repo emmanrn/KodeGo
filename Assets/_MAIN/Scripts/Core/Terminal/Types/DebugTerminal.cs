@@ -13,6 +13,7 @@ namespace TERMINAL
         private List<DebugSlot> slots;
         protected override void InitializeTerminal()
         {
+            runBtn.onClick.RemoveListener(Run);
             slots = new List<DebugSlot>();
             runBtn.onClick.AddListener(Run);
             base.InitializeTerminal();
@@ -49,7 +50,6 @@ namespace TERMINAL
         public override void Run()
         {
             string result = GetFullCode();
-            Debug.Log(result);
 
             if (ContainsRecursion(result))
             {

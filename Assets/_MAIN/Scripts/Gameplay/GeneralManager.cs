@@ -1,13 +1,13 @@
 using DIALOGUE;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GeneralManager : MonoBehaviour
 {
     [SerializeField] private InputReader input;
     [SerializeField] private GameObject pauseMenu;
     public bool isPaused { get; private set; } = false;
     public bool isRunningDialogue => DialogueSystem.instance.isRunningConversation;
-    public static GameManager instance { get; set; }
+    public static GeneralManager instance { get; set; }
     public IDamageable Player { get; private set; }
 
     void Awake()

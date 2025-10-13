@@ -74,7 +74,7 @@ public class VariableStore
     }
 
     // initialize our default database already
-    private static Dictionary<string, Database> databases = new Dictionary<string, Database> { { DEFAULT_DATABASE_NAME, new Database(DEFAULT_DATABASE_NAME) } };
+    public static Dictionary<string, Database> databases = new Dictionary<string, Database> { { DEFAULT_DATABASE_NAME, new Database(DEFAULT_DATABASE_NAME) } };
     // just grabbing the databse named "Default"
     private static Database defaultDatabase => databases[DEFAULT_DATABASE_NAME];
 

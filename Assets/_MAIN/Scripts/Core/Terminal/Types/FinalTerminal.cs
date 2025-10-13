@@ -17,6 +17,7 @@ namespace TERMINAL
         private List<CodeDropTarget> slots;
         protected override void InitializeTerminal()
         {
+            runBtn.onClick.RemoveListener(Run);
             slots = new List<CodeDropTarget>();
             runBtn.onClick.AddListener(Run);
             base.InitializeTerminal();
@@ -25,7 +26,16 @@ namespace TERMINAL
             expectedOutputTerminal.text = config.expectedOutput;
             outputTerminal.text = "";
 
+        }
+
+        private void OnEnable()
+        {
             GameEvents.OnPlayerDied += PlayerDied;
+        }
+
+        private void OnDisable()
+        {
+            GameEvents.OnPlayerDied -= PlayerDied;
         }
 
         private void BuildSidebar()
@@ -86,10 +96,6 @@ namespace TERMINAL
             return BuildFullCode(inputs);
         }
 
-        private void OnDestroy()
-        {
-            GameEvents.OnPlayerDied -= PlayerDied;
-        }
         public override void CheckOutput(string output, string outputCode)
         {
             output = output.Replace("\r\n", "\n").Trim();
@@ -106,7 +112,7 @@ namespace TERMINAL
                 outputTerminal.text = output;
 
 
-                GameManager.instance.Player?.TakeDamage(1);
+                GeneralManager.instance.Player?.TakeDamage(1);
             }
         }
 
