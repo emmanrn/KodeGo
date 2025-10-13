@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using DIALOGUE;
+using System.IO;
+using MAIN_GAME;
+using UnityEditor;
 using UnityEngine;
 
 public class TestNPC : MonoBehaviour, IInteractable
@@ -12,11 +13,11 @@ public class TestNPC : MonoBehaviour, IInteractable
     {
     }
 
-    public bool isInteractable() => !GameManager.instance.isRunningDialogue;
+    public bool isInteractable() => !GeneralManager.instance.isRunningDialogue;
     public void Interact()
     {
         Debug.Log("npc");
-        if (GameManager.instance.isPaused && !GameManager.instance.isRunningDialogue)
+        if (GeneralManager.instance.isPaused && !GeneralManager.instance.isRunningDialogue)
             return;
 
         if (isInteractable())
@@ -28,9 +29,17 @@ public class TestNPC : MonoBehaviour, IInteractable
     {
         // set the player control to the general so they can go to next line
         inputReader.SetGeneral();
+        string fullPath = AssetDatabase.GetAssetPath(fileToRead);
 
-        List<string> lines = FileManager.ReadTxtAsset(fileToRead);
-        yield return DialogueSystem.instance.Say(lines);
+        int resourcesIndex = fullPath.IndexOf("Resources/");
+        string relativePath = fullPath.Substring(resourcesIndex + 10);
+        string filePath = Path.ChangeExtension(relativePath, null);
+
+        // List<string> lines = FileManager.ReadTxtAsset(fileToRead);
+        // yield return DialogueSystem.instance.Say(lines);
+        GameManager.instance.LoadFile(filePath);
+        while (GeneralManager.instance.isRunningDialogue)
+            yield return null;
 
         // once dialogue is done, set the player control back
         inputReader.SetPlayerMovement();

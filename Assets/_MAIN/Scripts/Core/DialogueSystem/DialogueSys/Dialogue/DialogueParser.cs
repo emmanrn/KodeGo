@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using UnityEngine;
 
 namespace DIALOGUE
 {
@@ -14,6 +10,11 @@ namespace DIALOGUE
         {
 
             (string speaker, string dialogue, string commands) = RipContent(rawLine);
+
+            // In here we have to inject tags and variables into the speaker and dialogue separately because there are initial checks that have 
+            // to be performed
+            // But commands need no checks, so we can inject the variables in them right now
+            commands = TagManager.Inject(commands);
 
             return new DIALOGUE_LINES(rawLine, speaker, dialogue, commands);
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DIALOGUE;
 using UnityEngine;
 
@@ -28,6 +29,15 @@ namespace HISTORY
         public void LogCurrentState()
         {
             HistoryState state = HistoryState.Capture();
+
+            bool exists = history.Any(h => h.dialogue.progress == state.dialogue.progress && h.dialogue.currentDialogue == state.dialogue.currentDialogue && h.dialogue.currentSpeaker == state.dialogue.currentSpeaker);
+            // bool exists = history.Any(h => h == state);
+            if (exists)
+            {
+                Debug.Log("Dialogue already exists");
+                return;
+            }
+
             history.Add(state);
             logManager.AddLog(state);
 

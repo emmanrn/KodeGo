@@ -14,6 +14,7 @@ namespace HISTORY
 
         public Color speakerNameColor;
         public float speakerScale;
+        public int progress;
 
         public static DialogueData Capture()
         {
@@ -22,6 +23,9 @@ namespace HISTORY
             var ds = DialogueSystem.instance;
             var dialogueTxt = ds.dialogueContainer.dialogueTxt;
             var nameTxt = ds.dialogueContainer.nameContainer.nameTxt;
+            // added this to track which line this conversation line came from
+            // this is so that it can cover a case where if we have the same dialogue but happens at different times then the log manager can still log it
+            int progress = ds.conversationManager.conversationPorgress;
 
             data.currentDialogue = dialogueTxt.text;
             data.dialogueColor = dialogueTxt.color;
@@ -30,6 +34,7 @@ namespace HISTORY
             data.currentSpeaker = nameTxt.text;
             data.speakerNameColor = nameTxt.color;
             data.speakerScale = nameTxt.fontSize;
+            data.progress = progress;
 
             return data;
         }

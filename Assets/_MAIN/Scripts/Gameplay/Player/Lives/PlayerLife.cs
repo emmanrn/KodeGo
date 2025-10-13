@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerLife : MonoBehaviour, IDamageable
 {
-    private int maxLife = 3;
+    private const int MAX_LIFE = 3;
     private int currentLife;
     private PlayerRespawn respawn;
     public int CurrentLives => currentLife;
@@ -20,12 +20,11 @@ public class PlayerLife : MonoBehaviour, IDamageable
 
     void Start()
     {
-        currentLife = maxLife;
-        GameManager.instance.RegisterPlayer(this);
+        currentLife = MAX_LIFE;
+        GeneralManager.instance.RegisterPlayer(this);
         OnLivesChanged?.Invoke(currentLife);
     }
-    // TODO
-    // Make the lives UI update as well btw
+
     public void TakeDamage(int dmg)
     {
         currentLife -= dmg;
@@ -40,10 +39,11 @@ public class PlayerLife : MonoBehaviour, IDamageable
             Debug.Log("Dead Repaawn");
             respawn.Die(true);
 
-            currentLife = maxLife;
+            currentLife = MAX_LIFE;
             OnLivesChanged?.Invoke(currentLife);
 
             GameEvents.PlayerDied();
+
         }
     }
 

@@ -6,7 +6,7 @@ public class LivesUI : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.instance.Player is PlayerLife playerLife)
+        if (GeneralManager.instance.Player is PlayerLife playerLife)
         {
             playerLife.OnLivesChanged += UpdateLivesUI;
             UpdateLivesUI(playerLife.CurrentLives); // initial sync
@@ -15,7 +15,7 @@ public class LivesUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (GameManager.instance.Player is PlayerLife playerLife)
+        if (GeneralManager.instance.Player is PlayerLife playerLife)
         {
             playerLife.OnLivesChanged -= UpdateLivesUI;
         }

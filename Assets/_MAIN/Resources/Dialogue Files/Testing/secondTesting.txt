@@ -9,6 +9,8 @@ Kode.Show()
 
 
 Kode "Oh no!"
+Kode "This is a duplicate line"
+Kode "This is a duplicate line"
 Kode as You "First Line"
 Kode as You [0:A24]"Hello World!!!"
 Kode.Hide()

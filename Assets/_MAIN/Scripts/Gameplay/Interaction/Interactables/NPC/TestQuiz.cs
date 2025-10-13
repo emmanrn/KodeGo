@@ -12,11 +12,11 @@ public class TestQuiz : MonoBehaviour, IInteractable
     {
     }
 
-    public bool isInteractable() => !GameManager.instance.isRunningDialogue;
+    public bool isInteractable() => !GeneralManager.instance.isRunningDialogue;
     public void Interact()
     {
         Debug.Log("npc");
-        if (GameManager.instance.isPaused && !GameManager.instance.isRunningDialogue)
+        if (GeneralManager.instance.isPaused && !GeneralManager.instance.isRunningDialogue)
             return;
 
         if (isInteractable())

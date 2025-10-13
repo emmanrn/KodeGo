@@ -28,7 +28,9 @@ namespace COMMANDS
             // Load new dialogue file command
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
 
+
         }
+
 
         // added this just incase if we want to load new dialogue files for dynamic story paths
         // wont be using this but just in case we need something for this then this is already here

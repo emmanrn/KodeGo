@@ -86,6 +86,8 @@ namespace HISTORY
             log.dialogueTxt.fontSize = log.dialogueFontSize + textScaling;
 
             FitLogToTxt(log);
+
+
             logs.Add(log);
         }
 
@@ -127,6 +129,12 @@ namespace HISTORY
                 DestroyImmediate(logs[i].container);
 
             logs.Clear();
+        }
+
+        public void Rebuild()
+        {
+            foreach (var state in manager.history)
+                CreateLog(state);
         }
     }
 
