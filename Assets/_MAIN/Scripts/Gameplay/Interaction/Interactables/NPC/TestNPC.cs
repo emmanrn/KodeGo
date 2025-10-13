@@ -34,6 +34,7 @@ public class TestNPC : MonoBehaviour, IInteractable
         int resourcesIndex = fullPath.IndexOf("Resources/");
         string relativePath = fullPath.Substring(resourcesIndex + 10);
         string filePath = Path.ChangeExtension(relativePath, null);
+        Debug.Log(filePath);
 
         // List<string> lines = FileManager.ReadTxtAsset(fileToRead);
         // yield return DialogueSystem.instance.Say(lines);
