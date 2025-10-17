@@ -12,12 +12,15 @@ choice "What do you prefer?"
         Kode [0:A10] "Why 'def'? that's weird..."
         Kode.Hide()
         Narrator "I know right. Whoever thought of that didn't thought hard enough"
+        $Level1.Quiz_1 = true
         Load(secondTesting -enqueue true)
     -Hmm maybe it's func?
         Narrator "Nope that's actually the keyword for the programming language Go!"
         Narrator "Nt tho, I can see why you've chosen that"
+        $Level1.Quiz_1 = false
     -Ahhhh, I got it! it's fn!
         Narrator "Wrong! This is actually the keyword for the programming language Zig!"
+        $Level1.Quiz_1 = false
 }
 
 Narrator "Ok enough with that we're done here"

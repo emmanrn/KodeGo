@@ -13,6 +13,7 @@ namespace DIALOGUE
         [SerializeField] private DialogueSysConfig_SO _config;
         public DialogueSysConfig_SO config => _config;
         public DialogueContainer dialogueContainer = new DialogueContainer();
+        public ControlsContainer controlsContainer = new ControlsContainer();
         public ConversationManager conversationManager { get; private set; }
         private TextArchitect archi;
         [SerializeField] private CanvasGroup mainCanvas;
@@ -49,6 +50,7 @@ namespace DIALOGUE
 
             cgController = new CanvasGroupController(this, mainCanvas);
             dialogueContainer.Initialize();
+            controlsContainer.Initialize();
 
             if (TryGetComponent(out autoReader))
                 autoReader.Initialize(conversationManager);
@@ -56,7 +58,6 @@ namespace DIALOGUE
 
         public void OnUserPromptNext()
         {
-            Debug.Log("User promt next");
             onUserPromptNext?.Invoke();
 
             // basically if the player clicks again while still auto reading

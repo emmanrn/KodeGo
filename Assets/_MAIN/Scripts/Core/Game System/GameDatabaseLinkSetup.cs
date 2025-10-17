@@ -8,7 +8,7 @@ namespace MAIN_GAME
     {
         public void SetupExternalLinks()
         {
-            VariableStore.CreateVariable("Main.mainCharName", "Kode", () => GameSave.activeFile.playerName, value => GameSave.activeFile.playerName = value);
+            VariableStore.CreateVariable("Main.mainCharName", "", () => GameSave.activeFile.playerName, value => GameSave.activeFile.playerName = value);
         }
     }
 }

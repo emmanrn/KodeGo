@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7114586139358552345}
   - component: {fileID: 728795100293601730}
   - component: {fileID: 5262097601156051827}
+  - component: {fileID: 4089720299294835414}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -45,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76c633eedeb99a4dbdf06847bfd7dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDB: {fileID: 11400000, guid: 5581252b89a7ee1489132744197b462e, type: 2}
 --- !u!114 &5262097601156051827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,3 +59,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f53c18fb11d44514db6f073477624971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4089720299294835414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6903932844607165493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4539e4c85886ceb41961cd7dc583def6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalBlocks: 3
+  totalQuiz: 1

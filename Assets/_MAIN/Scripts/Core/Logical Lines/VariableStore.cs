@@ -136,7 +136,7 @@ public class VariableStore
         (string[] parts, Database db, string variableName) = ExtractInfo(name);
 
         if (!db.variables.ContainsKey(variableName))
-            return false;
+            db.variables[variableName] = new Variable<T>(value);
 
         db.variables[variableName].Set(value);
         return true;

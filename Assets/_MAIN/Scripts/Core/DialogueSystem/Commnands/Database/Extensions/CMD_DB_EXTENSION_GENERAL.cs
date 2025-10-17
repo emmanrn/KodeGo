@@ -25,6 +25,9 @@ namespace COMMANDS
             database.AddCommand("showdb", new Func<string[], IEnumerator>(ShowDialogueBox));
             database.AddCommand("hidedb", new Func<string[], IEnumerator>(HideDialogueBox));
 
+            // database.AddCommand("showcontrol", new Func<string[], IEnumerator>(ShowControls));
+            // database.AddCommand("hidecontrol", new Func<string[], IEnumerator>(HideControls));
+
             // Load new dialogue file command
             database.AddCommand("load", new Action<string[]>(LoadNewDialogueFile));
 
@@ -73,6 +76,32 @@ namespace COMMANDS
                 yield return new WaitForSeconds(time);
             }
 
+        }
+
+        private static IEnumerator ShowControls(string[] data)
+        {
+            float speed;
+            bool immediate;
+
+            var parameters = ConvertDataToParams(data);
+
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultVal: 1f);
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultVal: false);
+
+            yield return DialogueSystem.instance.controlsContainer.Show(speed, immediate);
+        }
+
+        private static IEnumerator HideControls(string[] data)
+        {
+            float speed;
+            bool immediate;
+
+            var parameters = ConvertDataToParams(data);
+
+            parameters.TryGetValue(PARAM_SPEED, out speed, defaultVal: 1f);
+            parameters.TryGetValue(PARAM_IMMEDIATE, out immediate, defaultVal: false);
+
+            yield return DialogueSystem.instance.controlsContainer.Hide(speed, immediate);
         }
 
         private static IEnumerator ShowDialogueBox(string[] data)

@@ -119,6 +119,7 @@ namespace DIALOGUE
 
             }
             process = null;
+            dialogueSystem.controlsContainer.Hide();
         }
 
         private void TryAdvanceCurrentConverstion(Conversation conversation)
@@ -140,7 +141,16 @@ namespace DIALOGUE
             // this line makes it so that whenever the dialogue box is not showing and then speaker starts speaking some dialogue
             // it will automatically show the dialogue box again without specifying the command ShowDB() in the dialogue files
             if (!dialogueSystem.dialogueContainer.isVisible)
+            {
                 dialogueSystem.dialogueContainer.Show();
+                dialogueSystem.controlsContainer.Show();
+            }
+
+            if (!dialogueSystem.controlsContainer.isVisible)
+            {
+                dialogueSystem.dialogueContainer.Show();
+                dialogueSystem.controlsContainer.Show();
+            }
 
             yield return BuildLineSegments(line.dialogueData);
 

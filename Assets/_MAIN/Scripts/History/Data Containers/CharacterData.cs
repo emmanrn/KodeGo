@@ -11,6 +11,7 @@ namespace HISTORY
     public class CharacterData
     {
         public string characterName;
+        public string castingName;
         public string displayName;
         public bool enabled;
         public string dataJSON;
@@ -61,6 +62,7 @@ namespace HISTORY
 
                 CharacterData entry = new CharacterData();
                 entry.characterName = character.name;
+                entry.castingName = character.castingName;
                 entry.displayName = character.displayName;
                 entry.enabled = character.isVisible;
                 entry.characterConfig = new CharacterConfigCache(character.config);
@@ -96,7 +98,23 @@ namespace HISTORY
 
             foreach (CharacterData characterData in data)
             {
-                Character character = CharacterManager.instance.GetCharacter(characterData.characterName, createIfDoesnNotExist: true);
+                Character character = null;
+                // get character even if they're NOT using CASTING info
+                if (characterData.castingName == string.Empty)
+                {
+                    character = CharacterManager.instance.GetCharacter(characterData.characterName, createIfDoesnNotExist: true);
+                }
+                else
+                {
+                    character = CharacterManager.instance.GetCharacter(characterData.characterName, createIfDoesnNotExist: false);
+
+                    if (character == null)
+                    {
+                        string castingName = $"{characterData.characterName}{CharacterManager.CHARACTER_CASTING_ID}{characterData.castingName}";
+                        character = CharacterManager.instance.CreateCharacter(castingName);
+                    }
+                }
+
 
                 character.displayName = characterData.displayName;
                 character.isVisible = characterData.enabled;

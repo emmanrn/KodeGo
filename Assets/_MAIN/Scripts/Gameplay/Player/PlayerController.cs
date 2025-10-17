@@ -28,6 +28,7 @@ namespace PLAYER
         private PlayerLife life;
         private PlayerToggleHistoryLogs toggleHistory;
 
+        public bool isDashing => dash.IsDashing;
         private bool grounded;
         private bool dashLocked;
         private bool jumped;

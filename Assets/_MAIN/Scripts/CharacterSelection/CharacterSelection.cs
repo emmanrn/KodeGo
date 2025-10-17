@@ -2,28 +2,24 @@ using UnityEngine;
 
 public class CharacterSelection : MonoBehaviour
 {
-    [SerializeField] private GameObject[] skins;
-    public int selectedSkin = 0;
+    private CharacterSkinManager skinManager => CharacterSkinManager.instance;
 
     public void Next()
     {
-        skins[selectedSkin].SetActive(false);
-        selectedSkin = (selectedSkin + 1) % skins.Length;
-        skins[selectedSkin].SetActive(true);
-
+        // int nextIndex = (skinManager.skinsCount == 0) ? 0 : (skinManager.selectedSkin + 1) % skinManager.skinsCount;
+        skinManager.ChangeSkin(skinManager.selectedSkin + 1);
     }
 
     public void Previous()
     {
-        skins[selectedSkin].SetActive(false);
-        selectedSkin--;
+        // int previousIndex = skinManager.selectedSkin - 1;
+        // if (previousIndex < 0)
+        //     previousIndex += skinManager.skinsCount;
 
-        if (selectedSkin < 0)
-            selectedSkin += skins.Length;
-
-        skins[selectedSkin].SetActive(true);
-
+        skinManager.ChangeSkin(skinManager.selectedSkin - 1);
     }
+
+    public void Apply() => skinManager.ApplySkin();
 
 
 }

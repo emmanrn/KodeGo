@@ -45,7 +45,10 @@ public class Interpreter : MonoBehaviour
     {
 
 
-        if (!PythonEngine.IsInitialized) return null;
+        if (!PythonEngine.IsInitialized)
+        {
+            return null;
+        }
 
         using (Py.GIL())
         {

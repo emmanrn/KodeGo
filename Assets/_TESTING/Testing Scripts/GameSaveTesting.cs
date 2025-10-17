@@ -7,9 +7,13 @@ namespace TESTING
 {
     public class GameSaveTesting : MonoBehaviour
     {
+        public GameSave save;
         void Start()
         {
-            GameSave.activeFile = new GameSave();
+            if (GameSave.activeFile == null)
+                GameSave.activeFile = new GameSave();
+            else
+                save = GameSave.activeFile;
         }
         void Update()
         {
@@ -20,8 +24,9 @@ namespace TESTING
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                GameSave.activeFile = FileManager.Load<GameSave>($"{FilePaths.gameSaves}save{GameSave.FILE_TYPE}");
-                GameSave.activeFile.Load();
+                save = GameSave.Load($"{FilePaths.gameSaves}save{GameSave.FILE_TYPE}", activateOnLoad: false);
+                GameSave.activeFile = save;
+
             }
 
         }

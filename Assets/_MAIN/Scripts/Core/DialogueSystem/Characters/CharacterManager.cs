@@ -13,9 +13,9 @@ namespace CHARACTERS
         public Character[] allCharacters => characters.Values.ToArray();
 
         private CharacterConfig_SO config => DialogueSystem.instance.config.characterConfigAsset;
-        private const string CHARACTER_CASTING_ID = " as ";
+        public const string CHARACTER_CASTING_ID = " as ";
         // the reason for defining these paths in here is so that it can be changed easily in the future.
-        private const string CHARACTER_NAME_ID = "<charname>";
+        public const string CHARACTER_NAME_ID = "<charname>";
         public string characterRootPathFormat => $"Characters/{CHARACTER_NAME_ID}";
         public string characterPrefabNameFormat => $"CharacterIcon - [{CHARACTER_NAME_ID}]";
         public string characterPrefabPathFormat => $"{characterRootPathFormat}/{characterPrefabNameFormat}";
@@ -71,6 +71,9 @@ namespace CHARACTERS
 
             CHARACTER_INFO info = GetCharacterInfo(characterName);
             Character character = CreateCharacterFromInfo(info);
+
+            if (info.castingName != info.name)
+                character.castingName = info.castingName;
 
             characters.Add(characterName.ToLower(), character);
 

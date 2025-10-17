@@ -1,6 +1,7 @@
 using System.Collections;
 using DIALOGUE;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelMenu : MonoBehaviour
@@ -222,6 +223,7 @@ public class LevelMenu : MonoBehaviour
         Debug.Log($"Loading Level {index}");
         // Replace this with your actual scene-loading logic:
         // SceneManager.LoadScene("Level" + index);
+        SceneManager.LoadScene("Gameplay 2");
     }
     public void LoadLevel(string name)
     {
