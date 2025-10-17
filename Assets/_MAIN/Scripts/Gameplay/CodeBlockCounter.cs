@@ -1,12 +1,11 @@
+using MAIN_GAME;
 using TMPro;
 using UnityEngine;
 
 public class CodeBlockCounter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI tmpro;
-    [SerializeField] private string levelName = "Level1";
     private int totalBlocks = 3;
-
     public CollectableBlock[] blocks;
 
     void OnEnable()
@@ -26,7 +25,7 @@ public class CodeBlockCounter : MonoBehaviour
 
     private void UpdateCounter()
     {
-        int collected = LevelProgressManager.runtime[levelName].collectedBlocks;
+        int collected = LevelProgressManager.runtime[GameManager.instance.LEVEL_NAME].collectedBlocks;
 
         tmpro.text = $"{collected} / {totalBlocks} Collected";
     }

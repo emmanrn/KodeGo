@@ -1,4 +1,5 @@
 using UnityEngine;
+using PLAYER;
 
 public class LivesUI : MonoBehaviour
 {

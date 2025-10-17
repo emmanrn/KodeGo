@@ -9,21 +9,24 @@ using UnityEngine.InputSystem;
 
 public class TestQuiz : MonoBehaviour, IInteractable
 {
+    private const int MAX_WRONG_ATTEMPTS = 5;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead;
     [SerializeField] private GameObject door;
+    [SerializeField] private string[] hints;
 
-    [SerializeField] private string levelName = "Level1";
     [SerializeField] private string quizId;
+    private string levelName => GameManager.instance.LEVEL_NAME;
     private string varKey;
     public bool isCorrect = false;
+    private int attempts;
+    private int prevHintIndex = -1;
 
 
 
     void Start()
-    {// string levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name
-
-
+    {
+        attempts = 0;
         varKey = $"{levelName}.Quiz_{quizId}";
 
         if (VariableStore.TryGetValue(varKey, out var val))
@@ -72,6 +75,13 @@ public class TestQuiz : MonoBehaviour, IInteractable
             CheckAnswer();
             yield return null;
         }
+        if (!isCorrect)
+        {
+            attempts++;
+            bool thresholdReached = (attempts % MAX_WRONG_ATTEMPTS == 0) ? true : false;
+            if (thresholdReached)
+                ShowHint();
+        }
 
 
         // once dialogue is done, set the player control back
@@ -89,6 +99,32 @@ public class TestQuiz : MonoBehaviour, IInteractable
         if (isCorrect)
             door.gameObject.SetActive(false);
 
+
+    }
+
+    private void ShowHint()
+    {
+        if (hints == null || hints.Length == 0)
+            return;
+
+        int randomHintIndex;
+
+        // If there’s only one hint, just show it.
+        if (hints.Length == 1)
+        {
+            randomHintIndex = 0;
+        }
+        else
+        {
+            do
+            {
+                randomHintIndex = Random.Range(0, hints.Length);
+            }
+            while (randomHintIndex == prevHintIndex);
+        }
+
+        prevHintIndex = randomHintIndex;
+        PopupMenu.instance.Show(hints[randomHintIndex]);
     }
 
     public void LoadFile(string filePath)
@@ -109,4 +145,5 @@ public class TestQuiz : MonoBehaviour, IInteractable
 
         DialogueSystem.instance.Say(lines, filePath);
     }
+
 }

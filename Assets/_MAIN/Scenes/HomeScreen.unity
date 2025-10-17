@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 19314583}
   - component: {fileID: 19314582}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Functionality
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +186,13 @@ MonoBehaviour:
 
     Dash
 
-    Open / Close History Logs'
+    Open / Close History Logs
+
+
+    Pause
+    Game
+
+    Resume Game'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3629,7 +3635,7 @@ GameObject:
   - component: {fileID: 1530184695}
   - component: {fileID: 1530184694}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3674,7 +3680,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "WASD, Arrow Keys \nSpace \nLeft Shift \nL "
+  m_text: "WASD, Arrow Keys \nSpace \nLeft Shift \nL \n\nEsc\nQ"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5082,7 +5088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 225.95}
+  m_AnchoredPosition: {x: 22, y: 225.95}
   m_SizeDelta: {x: 553.6046, y: 451.89}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1964613659

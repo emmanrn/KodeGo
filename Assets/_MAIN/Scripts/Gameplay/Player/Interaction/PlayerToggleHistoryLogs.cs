@@ -1,15 +1,19 @@
 using HISTORY;
 using UnityEngine;
 
-public class PlayerToggleHistoryLogs : MonoBehaviour
+namespace PLAYER
 {
-    public void OnToggleHistoryLog()
+    public class PlayerToggleHistoryLogs : MonoBehaviour
     {
-        var logs = HistoryManager.instance.logManager;
+        public void OnToggleHistoryLog()
+        {
+            var logs = HistoryManager.instance.logManager;
 
-        if (!logs.isOpen)
-            logs.Open();
-        else
-            logs.Close();
+            if (!logs.isOpen)
+                logs.Open();
+            else
+                logs.Close();
+        }
     }
+
 }

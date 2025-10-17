@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using MOVEMENT;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour

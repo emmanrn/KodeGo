@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 namespace MAIN_GAME
 {
     [System.Serializable]
@@ -11,6 +13,10 @@ namespace MAIN_GAME
         public bool quizPassed;
         public bool secretFound;
         public string skinUnlocked;
+        public int deathCount;
+
+        public Vector3 checkpoint;
+        public bool hasCheckpoint;
 
         public float completionPrecent;
     }

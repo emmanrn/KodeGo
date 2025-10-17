@@ -1,3 +1,4 @@
+using MAIN_GAME;
 using UnityEngine;
 
 public class LevelCodeBlockRegistry : MonoBehaviour
@@ -7,10 +8,10 @@ public class LevelCodeBlockRegistry : MonoBehaviour
 
     // private const string BLOCKS_NAME = "Block";
     private const string QUIZ_NAME = "Quiz";
+    private string levelName => GameManager.instance.LEVEL_NAME;
 
     void Awake()
     {
-        string levelName = "Level1";
 
         // Ensure this level has its own database
         VariableStore.CreateDatabase(levelName);

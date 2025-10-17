@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
 public class LevelProgressManager
 {
-    public static LevelDatabase_SO levelDB;
+    public static LevelDatabase_SO levels;
     public static Dictionary<string, LevelData> runtime = new Dictionary<string, LevelData>();
 
     public static void Initialize(LevelDatabase_SO levelDB)
@@ -20,8 +22,9 @@ public class LevelProgressManager
             }
         }
 
-        if (levelDB.levels.Count > 0)
+        if (levelDB.levels.Length > 0)
             runtime[levelDB.levels[0].levelName].unlocked = true;
+        levels = levelDB;
     }
 
 
@@ -59,6 +62,56 @@ public class LevelProgressManager
         var level = GetLevel(levelName);
         level.skinUnlocked = skinName;
         RecalculateCompletion(level);
+    }
+
+    public static void AddDeathCount(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.deathCount++;
+        RecalculateCompletion(level);
+    }
+
+    public static void SetPlayerLevelWin(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.completed = true;
+
+        if (levels == null || levels.levels == null || levels.levels.Length == 0)
+        {
+            return;
+        }
+        else
+        {
+        }
+
+        int currentIndex = FindLevelIndex(levelName);
+
+        if (currentIndex >= 0 && currentIndex < levels.levels.Length - 1)
+        {
+            var nextLevel = levels.levels[currentIndex + 1];
+            if (runtime.TryGetValue(nextLevel.levelName, out var nextLevelData))
+            {
+                nextLevelData.unlocked = true;
+            }
+            else
+            {
+                runtime[nextLevel.levelName] = new LevelData
+                {
+                    levelName = nextLevel.levelName,
+                    unlocked = true
+                };
+            }
+        }
+    }
+
+    public static int FindLevelIndex(string levelName)
+    {
+        return Array.FindIndex(levels.levels, l => l.levelName == levelName);
+    }
+
+    public static string GetNextLevelName(int currentIndex)
+    {
+        return levels.levels[currentIndex + 1].name;
     }
 
 

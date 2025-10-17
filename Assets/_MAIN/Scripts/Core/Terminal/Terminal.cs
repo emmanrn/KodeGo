@@ -1,4 +1,5 @@
 using System.Linq;
+using MAIN_GAME;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace TERMINAL
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected Interpreter interpreter;
         private bool interactable = true;
+        protected string levelName => GameManager.instance.LEVEL_NAME;
         public bool isInteractable() => interactable;
 
         void Awake()

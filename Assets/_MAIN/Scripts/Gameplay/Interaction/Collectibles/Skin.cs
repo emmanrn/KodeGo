@@ -1,9 +1,10 @@
+using MAIN_GAME;
 using UnityEngine;
 
 public class Skin : MonoBehaviour
 {
-    [SerializeField] private string levelName;
     [SerializeField] private CharacterSkin skin;
+    private string levelName => GameManager.instance.LEVEL_NAME;
     private bool collected;
 
     void Start()

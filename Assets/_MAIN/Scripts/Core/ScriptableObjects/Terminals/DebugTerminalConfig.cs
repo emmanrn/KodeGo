@@ -5,4 +5,5 @@ public class DebugTerminalConfig : CodeTerminalConfig
 {
     [Tooltip("Code blocks to fill each {input} slot in order.")]
     public string[] prefilledBlocks;
+    public string[] hints;
 }

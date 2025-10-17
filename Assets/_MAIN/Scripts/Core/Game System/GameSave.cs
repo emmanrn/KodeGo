@@ -168,7 +168,8 @@ namespace MAIN_GAME
         private Game_LevelData[] GetLevelData()
         {
             List<Game_LevelData> returnData = new List<Game_LevelData>();
-            // getting all the variables in all the databases
+
+            // getting all the variables in level data from the runtime dictionary in LevelProgressManager
             foreach (var data in LevelProgressManager.runtime)
             {
                 var level = data.Value;
@@ -180,6 +181,9 @@ namespace MAIN_GAME
                 levelData.unlocked = level.unlocked;
                 levelData.completed = level.completed;
                 levelData.skinUnlocked = level.skinUnlocked;
+                levelData.deathCount = level.deathCount;
+                levelData.checkpoint = level.checkpoint;
+                levelData.hasCheckpoint = level.hasCheckpoint;
                 levelData.completionPrecent = level.completionPrecent;
 
                 returnData.Add(levelData);
@@ -200,6 +204,9 @@ namespace MAIN_GAME
                     level.completed = data.completed;
                     level.unlocked = data.unlocked;
                     level.skinUnlocked = data.skinUnlocked;
+                    level.deathCount = data.deathCount;
+                    level.checkpoint = data.checkpoint;
+                    level.hasCheckpoint = data.hasCheckpoint;
                     level.completionPrecent = data.completionPrecent;
                 }
             }
