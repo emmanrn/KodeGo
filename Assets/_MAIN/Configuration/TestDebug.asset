@@ -20,3 +20,7 @@ MonoBehaviour:
   prefilledBlocks:
   - '"Hello World"'
   - 'greet():'
+  hints:
+  - Make sure to follow the output of the code
+  - Don't forget to put quotations on your strings!
+  - Every function must have a name!

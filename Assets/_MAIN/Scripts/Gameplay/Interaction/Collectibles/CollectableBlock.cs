@@ -1,4 +1,5 @@
 using System;
+using MAIN_GAME;
 using UnityEngine;
 
 public class CollectableBlock : MonoBehaviour

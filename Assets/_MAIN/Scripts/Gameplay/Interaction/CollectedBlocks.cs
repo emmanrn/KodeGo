@@ -3,7 +3,7 @@ using UnityEngine;
 public class CollectedBlocks : MonoBehaviour
 {
     [SerializeField] private GameObject[] collectibleBlocks;
-    [SerializeField] private string levelName = "Level1";
+    private string levelName => GameManager.instance.LEVEL_NAME;
     void Start()
     {
 

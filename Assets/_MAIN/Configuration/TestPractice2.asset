@@ -20,4 +20,6 @@ MonoBehaviour:
   expectedOutput: 'ABC
 
     DEF'
-  hints: []
+  hints:
+  - Make sure to follow the output of the code
+  - Don't forget to use quotations inside the print if you're typing raw strings!

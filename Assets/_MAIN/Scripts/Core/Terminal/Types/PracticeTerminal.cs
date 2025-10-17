@@ -10,13 +10,20 @@ namespace TERMINAL
 
         [SerializeField] protected GameObject inputFieldPrefab; // Input field prefab (TMP_InputField)
         protected List<TMP_InputField> inputFields;
+        private int attempts;
+        private int prevHintIndex = -1;
         protected override void InitializeTerminal()
         {
             runBtn.onClick.RemoveListener(Run);
             inputFields = new List<TMP_InputField>();
             runBtn.onClick.AddListener(Run);
+
             base.InitializeTerminal();
+
+            rootContainer.SetActive(true);
             expectedOutputTerminal.text = config.expectedOutput;
+
+            attempts = 0;
             outputTerminal.text = "";
         }
 
@@ -96,11 +103,42 @@ namespace TERMINAL
             }
             else
             {
+                attempts++;
+                bool thresholdReached = (attempts % MAX_WRONG_ATTEMPTS == 0) ? true : false;
+
+                if (thresholdReached)
+                    ShowHint();
+
                 outputTerminal.color = Color.red;
                 outputTerminal.text = output;
 
             }
 
+        }
+
+        private void ShowHint()
+        {
+            if (config.hints == null || config.hints.Length == 0)
+                return;
+
+            int randomHintIndex;
+
+            // If there’s only one hint, just show it.
+            if (config.hints.Length == 1)
+            {
+                randomHintIndex = 0;
+            }
+            else
+            {
+                do
+                {
+                    randomHintIndex = Random.Range(0, config.hints.Length);
+                }
+                while (randomHintIndex == prevHintIndex);
+            }
+
+            prevHintIndex = randomHintIndex;
+            PopupMenu.instance.Show(config.hints[randomHintIndex]);
         }
 
         protected override void OnClose()

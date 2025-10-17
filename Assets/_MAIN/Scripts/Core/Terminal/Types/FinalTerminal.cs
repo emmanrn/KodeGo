@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using MAIN_GAME;
 using TMPro;
 using UnityEngine;
 
@@ -13,7 +14,6 @@ namespace TERMINAL
         [SerializeField] private Transform sidebarContainer;
         [SerializeField] private GameObject codeBlockPrefab;
         [SerializeField] private GameObject slotPrefab; // drop target
-        [SerializeField] private string levelName = "Level1";     // must match the scene name / registry name
         [SerializeField] private int totalBlocks = 3;
 
         private List<CodeDropTarget> slots;
@@ -45,9 +45,6 @@ namespace TERMINAL
 
         private void BuildSidebar()
         {
-            foreach (Transform child in sidebarContainer)
-                Destroy(child.gameObject);
-
             int collectedCodeBlocks = CountCollectedBlocks();
 
             for (int i = 0; i < config.codeBlocks.Length; i++)
@@ -57,6 +54,7 @@ namespace TERMINAL
                 var go = ObjectPoolManager.SpawnObject(codeBlockPrefab, sidebarContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
 
                 go.GetComponentInChildren<TextMeshProUGUI>().text = block;
+                go.GetComponent<CodeBlock>().code = block;
 
                 bool unlocked = i < collectedCodeBlocks;
                 go.SetActive(unlocked);
@@ -65,7 +63,7 @@ namespace TERMINAL
 
         private int CountCollectedBlocks()
         {
-            return LevelProgressManager.runtime[levelName].collectedBlocks;
+            return LevelProgressManager.runtime[GameManager.instance.LEVEL_NAME].collectedBlocks;
         }
 
         public override void BuildLine(Transform lineParent, string line)
@@ -116,13 +114,13 @@ namespace TERMINAL
         public override void CheckOutput(string output, string outputCode)
         {
             output = output.Replace("\r\n", "\n").Trim();
-            Debug.Log(output);
 
             if (output == outputCode)
             {
                 Debug.Log("Correct");
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
+                OnPlayerWin();
             }
             else
             {
@@ -151,6 +149,13 @@ namespace TERMINAL
 
             CheckOutput(output, config.expectedOutput);
 
+        }
+
+        private void OnPlayerWin()
+        {
+            LevelProgressManager.SetPlayerLevelWin(levelName);
+            GameSave.activeFile.Save();
+            Transition.instance.LoadLevel(levelName);
         }
 
         private void PlayerDied()

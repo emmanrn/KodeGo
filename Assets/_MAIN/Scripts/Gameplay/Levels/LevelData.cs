@@ -1,4 +1,6 @@
 
+using UnityEngine;
+
 public class LevelData
 {
     public string levelName;
@@ -8,6 +10,10 @@ public class LevelData
     public bool quizPassed;
     public bool secretFound;
     public string skinUnlocked;
+    public int deathCount;
+
+    public Vector3 checkpoint;
+    public bool hasCheckpoint;
 
     public float completionPrecent;
 }

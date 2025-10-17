@@ -11,6 +11,7 @@ public class LevelMenu : MonoBehaviour
     private int currentIdx = 0;
     float[] pos;
     [SerializeField] private InputReader inputReader;
+    [SerializeField] private LevelDatabase_SO levelDB;
 
     private Scrollbar bar;
     private bool isSmoothScrolling = false;
@@ -90,35 +91,36 @@ public class LevelMenu : MonoBehaviour
             if (scrollPos < pos[i] + (distance / 2) && scrollPos > pos[i] - (distance / 2))
             {
                 currentIdx = i;
+                ApplyImmediateHighlight(i);
 
-                Transform current = transform.GetChild(i);
-                current.localScale = Vector3.Lerp(current.localScale, new Vector3(1f, 1f, 1f), 0.1f);
-                Image imgCurrent = current.GetComponent<Image>();
-                if (imgCurrent != null)
-                {
-                    Color c = imgCurrent.color;
-                    c.a = 1f;
-                    imgCurrent.color = c;
-                }
-                Button btn = current.GetComponent<Button>();
-                if (btn != null) btn.Select();
+                // Transform current = transform.GetChild(i);
+                // current.localScale = Vector3.Lerp(current.localScale, new Vector3(1f, 1f, 1f), 0.1f);
+                // Image imgCurrent = current.GetComponent<Image>();
+                // if (imgCurrent != null)
+                // {
+                //     Color c = imgCurrent.color;
+                //     c.a = 1f;
+                //     imgCurrent.color = c;
+                // }
+                // Button btn = current.GetComponent<Button>();
+                // if (btn != null) btn.Select();
 
-                // Dim others
-                for (int a = 0; a < pos.Length; a++)
-                {
-                    if (a != i)
-                    {
-                        Transform other = transform.GetChild(a);
-                        other.localScale = Vector3.Lerp(other.localScale, new Vector3(0.8f, 0.8f, 1f), 0.1f);
-                        Image imgOther = other.GetComponent<Image>();
-                        if (imgOther != null)
-                        {
-                            Color c = imgOther.color;
-                            c.a = 0.5f;
-                            imgOther.color = c;
-                        }
-                    }
-                }
+                // // Dim others
+                // for (int a = 0; a < pos.Length; a++)
+                // {
+                //     if (a != i)
+                //     {
+                //         Transform other = transform.GetChild(a);
+                //         other.localScale = Vector3.Lerp(other.localScale, new Vector3(0.8f, 0.8f, 1f), 0.1f);
+                //         Image imgOther = other.GetComponent<Image>();
+                //         if (imgOther != null)
+                //         {
+                //             Color c = imgOther.color;
+                //             c.a = 0.5f;
+                //             imgOther.color = c;
+                //         }
+                //     }
+                // }
             }
         }
 
@@ -145,7 +147,15 @@ public class LevelMenu : MonoBehaviour
         if (pos == null || pos.Length == 0) return;
         if (levelIndex < 0 || levelIndex >= pos.Length) return;
 
-        // If the clicked level is not highlighted yet -> smooth-scroll to it (and visually highlight)
+        bool unlocked = LevelProgressManager.runtime.ContainsKey(levelDB.levels[levelIndex].name) &&
+                        LevelProgressManager.runtime[levelDB.levels[levelIndex].name].unlocked;
+
+        if (!unlocked)
+        {
+            Debug.Log("Level is locked!");
+            return; // prevent loading locked levels
+        }
+
         if (levelIndex != currentIdx)
         {
             StopAllCoroutines();
@@ -153,7 +163,6 @@ public class LevelMenu : MonoBehaviour
         }
         else
         {
-            // It's already the highlighted one → load scene
             LoadLevel(levelIndex);
         }
     }
@@ -192,6 +201,10 @@ public class LevelMenu : MonoBehaviour
         {
             Transform t = transform.GetChild(i);
             Image img = t.GetComponent<Image>();
+            Button btn = t.GetComponent<Button>();
+
+            bool unlocked = LevelProgressManager.runtime.ContainsKey(levelDB.levels[i].name) &&
+                            LevelProgressManager.runtime[levelDB.levels[i].name].unlocked;
 
             if (i == index)
             {
@@ -199,11 +212,10 @@ public class LevelMenu : MonoBehaviour
                 if (img != null)
                 {
                     Color c = img.color;
-                    c.a = 1f;
+                    c.a = unlocked ? 1f : 0.5f; // dim if locked
                     img.color = c;
                 }
-                Button b = t.GetComponent<Button>();
-                if (b != null) b.Select();
+                if (btn != null && unlocked) btn.Select();
             }
             else
             {
@@ -211,10 +223,13 @@ public class LevelMenu : MonoBehaviour
                 if (img != null)
                 {
                     Color c = img.color;
-                    c.a = 0.5f;
+                    c.a = unlocked ? 0.5f : 0.25f; // even dimmer if locked
                     img.color = c;
                 }
             }
+
+            // Disable interaction if locked
+            if (btn != null) btn.interactable = unlocked;
         }
     }
 

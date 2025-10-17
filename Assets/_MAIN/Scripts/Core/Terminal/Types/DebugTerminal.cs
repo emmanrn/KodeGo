@@ -8,17 +8,24 @@ namespace TERMINAL
     {
         [Header("Debug Terminal")]
         [SerializeField] private GameObject codeBlockPrefab; // draggable block prefab
-        [SerializeField] private GameObject slotPrefab;      // drop target prefab
+        [SerializeField] private GameObject slotPrefab;      // debug slot
 
         private List<DebugSlot> slots;
+        private int attempts;
+        private int prevHintIndex = -1;
         protected override void InitializeTerminal()
         {
             runBtn.onClick.RemoveListener(Run);
             slots = new List<DebugSlot>();
             runBtn.onClick.AddListener(Run);
+
+
             base.InitializeTerminal();
+
             rootContainer.SetActive(true);
             expectedOutputTerminal.text = config.expectedOutput;
+
+            attempts = 0;
             outputTerminal.text = "";
 
             BuildInitialBlocks();
@@ -76,6 +83,13 @@ namespace TERMINAL
             }
             else
             {
+                attempts++;
+                bool thresholdReached = (attempts % MAX_WRONG_ATTEMPTS == 0) ? true : false;
+
+                if (thresholdReached)
+                    ShowHint();
+
+
                 outputTerminal.color = Color.red;
                 outputTerminal.text = output;
 
@@ -129,6 +143,31 @@ namespace TERMINAL
             }
 
             return BuildFullCode(inputs);
+        }
+
+        private void ShowHint()
+        {
+            if (config.hints == null || config.hints.Length == 0)
+                return;
+
+            int randomHintIndex;
+
+            // If there’s only one hint, just show it.
+            if (config.hints.Length == 1)
+            {
+                randomHintIndex = 0;
+            }
+            else
+            {
+                do
+                {
+                    randomHintIndex = Random.Range(0, config.hints.Length);
+                }
+                while (randomHintIndex == prevHintIndex);
+            }
+
+            prevHintIndex = randomHintIndex;
+            PopupMenu.instance.Show(config.hints[randomHintIndex]);
         }
 
         protected override void OnClose()

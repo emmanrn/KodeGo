@@ -19,6 +19,7 @@ namespace TERMINAL
         [SerializeField] protected GameObject codeChunkPrefab; // Code text prefab
         [SerializeField] protected Button closeBtn;
         [SerializeField] protected Button runBtn;
+        protected const int MAX_WRONG_ATTEMPTS = 5;
 
         protected override void InitializeTerminal()
         {

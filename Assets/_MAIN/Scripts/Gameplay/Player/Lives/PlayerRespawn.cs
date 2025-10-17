@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Cinemachine;
 using System;
+using MAIN_GAME;
 
 namespace PLAYER
 {
@@ -12,6 +13,21 @@ namespace PLAYER
         private CircleTransition circleTransition;
         private CinemachineVirtualCamera roomCamera;
         public bool isDying { get; set; } = false;
+        private string levelName => GameManager.instance.LEVEL_NAME;
+
+        void Start()
+        {
+            var level = LevelProgressManager.GetLevel(levelName);
+
+            if (level.hasCheckpoint)
+            {
+                transform.position = level.checkpoint;
+            }
+            else
+            {
+                transform.position = startingPoint.position;
+            }
+        }
 
         public void Initialize(Rigidbody2D rbRef, Transform start, CircleTransition transition, CinemachineVirtualCamera cam)
         {
@@ -24,6 +40,7 @@ namespace PLAYER
         public void Die(bool terminalDeath = false)
         {
             if (isDying) return;
+            LevelProgressManager.AddDeathCount(GameManager.instance.LEVEL_NAME);
             StartCoroutine(Respawn(terminalDeath));
         }
 
