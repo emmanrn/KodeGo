@@ -1,10 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class ObjectPoolManager : MonoBehaviour
 {
     [SerializeField] private bool addDontDestroyOnLoad = false;
+    [SerializeField] private List<GameObject> prefarbToPrewarm;
+    [SerializeField] private int prewarmCount = 10;
 
     private GameObject emptyHolder;
 
@@ -28,6 +32,16 @@ public class ObjectPoolManager : MonoBehaviour
         SetupEmptyGameObjects();
     }
 
+    void Start()
+    {
+        foreach (var prefab in prefarbToPrewarm)
+        {
+            if (prefab != null)
+                Prewarm(prefab, prewarmCount);
+        }
+    }
+
+
     private void SetupEmptyGameObjects()
     {
         emptyHolder = new GameObject("Object Pools");
@@ -37,6 +51,24 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (addDontDestroyOnLoad)
             DontDestroyOnLoad(gameObjects.transform.root);
+    }
+
+    private void Prewarm(GameObject prefab, int count, PoolType poolType = PoolType.GameObjects)
+    {
+        if (!pools.ContainsKey(prefab))
+            CreatePool(prefab, gameObjects.transform, Quaternion.identity, poolType);
+
+        List<GameObject> prewarmedObjects = new List<GameObject>();
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = pools[prefab].Get();
+            obj.SetActive(false);
+            prewarmedObjects.Add(obj);
+        }
+
+        foreach (var obj in prewarmedObjects)
+            pools[prefab].Release(obj);
     }
 
     private static void CreatePool(GameObject prefab, Vector3 pos, Quaternion rot, PoolType poolType = PoolType.GameObjects)

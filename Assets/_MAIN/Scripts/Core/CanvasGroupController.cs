@@ -30,11 +30,11 @@ public class CanvasGroupController
             return CO_Showing;
         else if (isHiding)
         {
-            DialogueSystem.instance.StopCoroutine(CO_Hiding);
+            owner.StopCoroutine(CO_Hiding);
             CO_Hiding = null;
         }
 
-        CO_Showing = DialogueSystem.instance.StartCoroutine(Fading(1, speed, immediate));
+        CO_Showing = owner.StartCoroutine(Fading(1, speed, immediate));
         rootCG.gameObject.SetActive(true);
         return CO_Showing;
 
@@ -46,12 +46,11 @@ public class CanvasGroupController
             return CO_Hiding;
         else if (isShowing)
         {
-            DialogueSystem.instance.StopCoroutine(CO_Showing);
+            owner.StopCoroutine(CO_Showing);
             CO_Showing = null;
         }
 
-        CO_Hiding = DialogueSystem.instance.StartCoroutine(Fading(0, speed, immediate));
-        rootCG.gameObject.SetActive(false);
+        CO_Hiding = owner.StartCoroutine(Fading(0, speed, immediate));
         return CO_Hiding;
 
 

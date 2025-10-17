@@ -18,12 +18,27 @@ namespace MAIN_GAME
 
         public string playerName;
 
+        public bool newGame = true;
+        public Game_LevelData[] levelProgress;
         public string[] activeConversations;
         public HistoryState[] historyLogs;
         public Game_VariableData[] variables;
 
+        public static GameSave Load(string filePath, bool activateOnLoad = false)
+        {
+            GameSave save = FileManager.Load<GameSave>(filePath);
+
+            activeFile = save;
+
+            if (activateOnLoad)
+                save.Activate();
+
+            return save;
+        }
+
         public void Save()
         {
+            newGame = false;
             // we're just gonna set the default player name to "Kode" here if no playerName was given (which most likely is)
             // but just incase we made it to where the player chooses their name then we just remove this if statement
             if (string.IsNullOrEmpty(playerName))
@@ -31,13 +46,20 @@ namespace MAIN_GAME
 
             historyLogs = HistoryManager.instance.history.ToArray();
             activeConversations = GetConversationData();
+            levelProgress = GetLevelData();
             variables = GetVariableData();
 
             string saveJSON = JsonUtility.ToJson(this);
             FileManager.Save(filePath, saveJSON);
         }
 
-        public void Load()
+        public void ActivateRuntimeData()
+        {
+            SetLevelData();
+            SetVariableData();
+        }
+
+        public void Activate()
         {
             HistoryManager.instance.history = historyLogs.ToList();
 
@@ -47,7 +69,8 @@ namespace MAIN_GAME
 
             DialogueSystem.instance.prompt.Hide();
 
-            SetVariableData();
+            // SetLevelData();
+            // SetVariableData();
         }
 
         private string[] GetConversationData()
@@ -139,6 +162,46 @@ namespace MAIN_GAME
                 }
                 Debug.LogError($"Could not interpret variable type: {variable.name} = {variable.type}");
 
+            }
+        }
+
+        private Game_LevelData[] GetLevelData()
+        {
+            List<Game_LevelData> returnData = new List<Game_LevelData>();
+            // getting all the variables in all the databases
+            foreach (var data in LevelProgressManager.runtime)
+            {
+                var level = data.Value;
+                Game_LevelData levelData = new Game_LevelData();
+                levelData.levelName = level.levelName;
+                levelData.collectedBlocks = level.collectedBlocks;
+                levelData.quizPassed = level.quizPassed;
+                levelData.secretFound = level.secretFound;
+                levelData.unlocked = level.unlocked;
+                levelData.completed = level.completed;
+                levelData.skinUnlocked = level.skinUnlocked;
+                levelData.completionPrecent = level.completionPrecent;
+
+                returnData.Add(levelData);
+            }
+            return returnData.ToArray();
+        }
+
+        private void SetLevelData()
+        {
+            foreach (var data in levelProgress)
+            {
+                if (LevelProgressManager.runtime.ContainsKey(data.levelName))
+                {
+                    var level = LevelProgressManager.runtime[data.levelName];
+                    level.collectedBlocks = data.collectedBlocks;
+                    level.quizPassed = data.quizPassed;
+                    level.secretFound = data.secretFound;
+                    level.completed = data.completed;
+                    level.unlocked = data.unlocked;
+                    level.skinUnlocked = data.skinUnlocked;
+                    level.completionPrecent = data.completionPrecent;
+                }
             }
         }
     }

@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "KodeGo.sln"
+    "dotnet.defaultSolution": "KodeGo.slnx"
 }

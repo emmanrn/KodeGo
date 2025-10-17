@@ -10,6 +10,7 @@ namespace CHARACTERS
         public const bool ENABLE_ON_START = false;
         public string name = "";
         public string displayName = "";
+        public string castingName = "";
         public RectTransform root = null;
         public CharacterConfigData config;
         public Animator animator;

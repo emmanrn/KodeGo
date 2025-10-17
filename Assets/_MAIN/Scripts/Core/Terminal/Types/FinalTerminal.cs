@@ -13,6 +13,8 @@ namespace TERMINAL
         [SerializeField] private Transform sidebarContainer;
         [SerializeField] private GameObject codeBlockPrefab;
         [SerializeField] private GameObject slotPrefab; // drop target
+        [SerializeField] private string levelName = "Level1";     // must match the scene name / registry name
+        [SerializeField] private int totalBlocks = 3;
 
         private List<CodeDropTarget> slots;
         protected override void InitializeTerminal()
@@ -20,9 +22,12 @@ namespace TERMINAL
             runBtn.onClick.RemoveListener(Run);
             slots = new List<CodeDropTarget>();
             runBtn.onClick.AddListener(Run);
+
             base.InitializeTerminal();
             rootContainer.SetActive(true);
+
             BuildSidebar();
+
             expectedOutputTerminal.text = config.expectedOutput;
             outputTerminal.text = "";
 
@@ -43,12 +48,24 @@ namespace TERMINAL
             foreach (Transform child in sidebarContainer)
                 Destroy(child.gameObject);
 
-            foreach (string block in config.codeBlocks)
+            int collectedCodeBlocks = CountCollectedBlocks();
+
+            for (int i = 0; i < config.codeBlocks.Length; i++)
+            // foreach (string block in config.codeBlocks)
             {
+                var block = config.codeBlocks[i];
                 var go = ObjectPoolManager.SpawnObject(codeBlockPrefab, sidebarContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
 
                 go.GetComponentInChildren<TextMeshProUGUI>().text = block;
+
+                bool unlocked = i < collectedCodeBlocks;
+                go.SetActive(unlocked);
             }
+        }
+
+        private int CountCollectedBlocks()
+        {
+            return LevelProgressManager.runtime[levelName].collectedBlocks;
         }
 
         public override void BuildLine(Transform lineParent, string line)
@@ -99,6 +116,7 @@ namespace TERMINAL
         public override void CheckOutput(string output, string outputCode)
         {
             output = output.Replace("\r\n", "\n").Trim();
+            Debug.Log(output);
 
             if (output == outputCode)
             {
