@@ -13,10 +13,7 @@ namespace MAIN_GAME
 
         void Awake()
         {
-            if (instance == null)
-                instance = this;
-            else
-                DestroyImmediate(gameObject);
+            instance = this;
 
             if (!TryGetComponent<GameDatabaseLinkSetup>(out var linkSetup))
                 Debug.Log("is null");
@@ -36,16 +33,21 @@ namespace MAIN_GAME
 
         private void LoadGame()
         {
-            if (GameSave.activeFile != null)
-                GameSave.activeFile.Activate();
             // if (GameSave.activeFile.newGame)
-            // {
-            //     Debug.Log(" new game");
-            // }
-            // else
-            // {
+            //     return;
+
+            // if (!GameSave.activeFile.newGame)
             //     GameSave.activeFile.Activate();
-            // }
+            if (GameSave.activeFile.newGame)
+            {
+                Debug.Log(" new game");
+                // LevelProgressManager.Initialize(levelDB);
+            }
+            else
+            {
+                Debug.Log("activated load game");
+                GameSave.activeFile.Activate();
+            }
         }
 
     }

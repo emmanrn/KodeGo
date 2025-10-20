@@ -12,7 +12,7 @@ Kode "Oh no!"
 Kode "This is a duplicate line"
 Kode "This is a duplicate line"
 Kode as You "First Line"
-Kode as You [0:A24]"Hello World!!!"
+Kode as You [0:happy_2]"Hello World!!!"
 Kode.Hide()
 TestNPC as test "Hello World!!!"
 Kode.Show()
@@ -26,7 +26,7 @@ Pseudo "The name's Pseudo"
 Pseudo.Hide()
 
 Kode.Show()
-Kode.SetSprite(A5)
+Kode.SetSprite(sad)
 Kode "I am calm! You calm down!"
 
 [wait]Kode.Show(), [wait]Kode.Hide()

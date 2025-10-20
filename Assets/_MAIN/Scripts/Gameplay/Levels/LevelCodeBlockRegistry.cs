@@ -10,7 +10,7 @@ public class LevelCodeBlockRegistry : MonoBehaviour
     private const string QUIZ_NAME = "Quiz";
     private string levelName => GameManager.instance.LEVEL_NAME;
 
-    void Awake()
+    void Start()
     {
 
         // Ensure this level has its own database

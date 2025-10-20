@@ -64,7 +64,6 @@ public class Quiz : MonoBehaviour
         int resourcesIndex = fullPath.IndexOf("Resources/");
         string relativePath = fullPath.Substring(resourcesIndex + 10);
         string filePath = Path.ChangeExtension(relativePath, null);
-        Debug.Log(filePath);
 
         // List<string> lines = FileManager.ReadTxtAsset(fileToRead);
         // yield return DialogueSystem.instance.Say(lines);
@@ -92,11 +91,11 @@ public class Quiz : MonoBehaviour
         if (VariableStore.TryGetValue(varKey, out var val))
             isCorrect = (bool)val;
 
-        LevelProgressManager.SetQuizPassed(levelName);
-
-
         if (isCorrect)
+        {
+            LevelProgressManager.SetQuizPassed(levelName);
             door.gameObject.SetActive(false);
+        }
 
 
     }

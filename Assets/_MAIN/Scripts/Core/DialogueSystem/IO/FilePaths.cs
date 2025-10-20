@@ -1,10 +1,8 @@
-using UnityEngine;
-
 public class FilePaths
 {
     private const string HOME_DIRECTORY_SYMBOL = "~/";
 
-    public static readonly string root = $"{Application.dataPath}/gameData/";
+    public static readonly string root = $"{runtimePath}/gameData/";
 
     //Runtime Paths
     public static readonly string gameSaves = $"{runtimePath}Save Files/";
@@ -15,6 +13,9 @@ public class FilePaths
 
     //Audio Paths
     public static readonly string resources_audio = "Audio/";
+    public static readonly string resources_sfx = $"{resources_audio}SFX/";
+    public static readonly string resources_music = $"{resources_audio}Music/";
+    public static readonly string resources_ambience = $"{resources_audio}Ambience/";
 
     // Dialogue Files Paths
     public static readonly string resources_dialogueFiles = $"Dialogue Files/";

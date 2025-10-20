@@ -17,7 +17,7 @@ namespace DIALOGUE
         public ConversationManager conversationManager { get; private set; }
         private TextArchitect archi;
         [SerializeField] private CanvasGroup mainCanvas;
-        private AutoReader autoReader;
+        public AutoReader autoReader { get; private set; }
         public static DialogueSystem instance { get; private set; }
         public delegate void DialogueSysEvent();
         public event DialogueSysEvent onUserPromptNext;
@@ -52,7 +52,8 @@ namespace DIALOGUE
             dialogueContainer.Initialize();
             controlsContainer.Initialize();
 
-            if (TryGetComponent(out autoReader))
+            autoReader = GetComponent<AutoReader>();
+            if (autoReader != null)
                 autoReader.Initialize(conversationManager);
         }
 

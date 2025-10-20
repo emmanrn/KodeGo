@@ -126,5 +126,11 @@ public class LevelProgressManager
         level.completionPrecent = percent;
     }
 
+    // BEWARE OF THIS
+    public static void RemoveAllLevelData()
+    {
+        runtime.Clear();
+    }
+
 
 }

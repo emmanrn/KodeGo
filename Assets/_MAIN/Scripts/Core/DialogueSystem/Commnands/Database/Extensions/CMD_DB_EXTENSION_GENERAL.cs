@@ -38,7 +38,7 @@ namespace COMMANDS
         // added this just incase if we want to load new dialogue files for dynamic story paths
         // wont be using this but just in case we need something for this then this is already here
         // this will also check or handle if we still have dialogue left in the file but we already going to load a different file
-        // it will make sure that all the lines in the dialogue file finishes before moving on to the next file
+        // it will make sure that all the lines in the dialogue file finishes before moving on to the next dialogue file
         private static void LoadNewDialogueFile(string[] data)
         {
             string fileName = string.Empty;
@@ -49,13 +49,14 @@ namespace COMMANDS
             parameters.TryGetValue(PARAM_FILEPATH, out fileName);
             parameters.TryGetValue(PARAM_ENQUEUE, out enqueue, defaultVal: false);
 
+            // TODO CHANGE resources.testDialogueFiles TO resources.dialogueFiles
             // load the file from Resources
             string filePath = FilePaths.GetPathToResource(FilePaths.resources_testDialogueFiles, fileName);
             TextAsset file = Resources.Load<TextAsset>(filePath);
 
             if (file == null)
             {
-                Debug.LogWarning($"File from {filePath} could not be loaded from dialogue files. Ensure it exists within the '{FilePaths.resources_dialogueFiles}' Resources folder");
+                Debug.LogWarning($"File from {filePath} could not be loaded from dialogue files. Ensure it exists within the '{FilePaths.resources_testDialogueFiles}' Resources folder");
                 return;
             }
 

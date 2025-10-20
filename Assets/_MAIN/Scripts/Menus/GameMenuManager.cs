@@ -9,14 +9,23 @@ public class GameMenuManager : MonoBehaviour
     private bool isOpen = false;
 
     [SerializeField] private CanvasGroup root;
+    [SerializeField] private CanvasGroup mainButtons;
+    [SerializeField] private CanvasGroup logo;
     [SerializeField] private MenuPage[] pages;
 
     private CanvasGroupController rootCG;
+    private CanvasGroupController mainMenuButtons;
+    private CanvasGroupController logoCG;
     private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
 
     void Start()
     {
         rootCG = new CanvasGroupController(this, root);
+        if (logo != null && mainButtons != null)
+        {
+            mainMenuButtons = new CanvasGroupController(this, mainButtons);
+            logoCG = new CanvasGroupController(this, logo);
+        }
 
     }
 
@@ -31,6 +40,12 @@ public class GameMenuManager : MonoBehaviour
         OpenPage(page);
     }
 
+    public void OpenConfigPage()
+    {
+        var page = GetPage(MenuPage.PageType.Config);
+        OpenPage(page);
+    }
+
     public void OpenHelpPage()
     {
         var page = GetPage(MenuPage.PageType.Help);
@@ -39,6 +54,8 @@ public class GameMenuManager : MonoBehaviour
 
     private void OpenPage(MenuPage page)
     {
+        HideLogoAndButtons();
+
         if (page == null)
             return;
 
@@ -52,6 +69,21 @@ public class GameMenuManager : MonoBehaviour
             OpenRoot();
     }
 
+    private void HideLogoAndButtons()
+    {
+        if (mainMenuButtons.isVisible && logoCG.isVisible)
+        {
+            mainMenuButtons.Hide();
+            logoCG.Hide();
+        }
+    }
+
+    private void ShowLogoAndButtons()
+    {
+        mainMenuButtons.Show();
+        logoCG.Show();
+    }
+
     public void OpenRoot()
     {
         rootCG.Show();
@@ -62,6 +94,8 @@ public class GameMenuManager : MonoBehaviour
     public void CloseRoot()
     {
         rootCG.Hide();
+        ShowLogoAndButtons();
+
         rootCG.SetInteractableState(false);
 
         if (activePage != null)
@@ -74,7 +108,16 @@ public class GameMenuManager : MonoBehaviour
 
     public void ClickPlay()
     {
+        Game_Configuration.activeConfig.Save();
+
         UnityEngine.SceneManagement.SceneManager.LoadScene("HomeScreen");
+    }
+
+    public void ClickLevelMenu()
+    {
+        Game_Configuration.activeConfig.Save();
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelection");
     }
 
     public void ClickQuit()

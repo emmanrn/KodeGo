@@ -66,7 +66,7 @@ namespace HISTORY
                 entry.displayName = character.displayName;
                 entry.enabled = character.isVisible;
                 entry.characterConfig = new CharacterConfigCache(character.config);
-                entry.animJSON = GetAnimationData(character);
+                // entry.animJSON = GetAnimationData(character);
 
                 switch (character.config.characterType)
                 {

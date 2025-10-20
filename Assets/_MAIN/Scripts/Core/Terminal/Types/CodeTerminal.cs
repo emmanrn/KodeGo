@@ -13,13 +13,20 @@ namespace TERMINAL
         protected const string INPUT_ID = "{input}";
 
         [Header("Code Terminal Config")]
-        [SerializeField] protected T config;
+        [SerializeField] protected T[] configs;
+        protected T currentConfig;
         [SerializeField] protected Transform codeContainer; // Vertical layout group
         [SerializeField] protected GameObject codeLinePrefab; // Horizontal line prefab
         [SerializeField] protected GameObject codeChunkPrefab; // Code text prefab
         [SerializeField] protected Button closeBtn;
         [SerializeField] protected Button runBtn;
+
         protected const int MAX_WRONG_ATTEMPTS = 5;
+        void Start()
+        {
+            int randomIndex = Random.Range(0, configs.Length - 1);
+            currentConfig = configs[randomIndex];
+        }
 
         protected override void InitializeTerminal()
         {
@@ -35,7 +42,7 @@ namespace TERMINAL
 
         public virtual void BuildCodeUI()
         {
-            if (config == null)
+            if (currentConfig == null)
             {
                 Debug.LogError($"[{name}] Missing CodeTerminalConfig!");
                 return;
@@ -48,7 +55,7 @@ namespace TERMINAL
             }
 
             // build code lines from config
-            foreach (var line in config.codeLines)
+            foreach (var line in currentConfig.codeLines)
             {
                 GameObject lineGO = ObjectPoolManager.SpawnObject(codeLinePrefab, codeContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                 lineGO.transform.localScale = Vector3.one;
@@ -61,7 +68,7 @@ namespace TERMINAL
             var codeBuilder = new System.Text.StringBuilder();
             int inputIndex = 0;
 
-            foreach (string line in config.codeLines)
+            foreach (string line in currentConfig.codeLines)
             {
                 int startIndex = 0;
                 int placeholderIndex;
@@ -88,7 +95,7 @@ namespace TERMINAL
 
         protected void ReturnObjectToPool(GameObject container)
         {
-            ObjectPoolManager.ReleaseRecursive(container.gameObject);
+            ObjectPoolManager.ReleaseRecursive(container);
         }
 
 

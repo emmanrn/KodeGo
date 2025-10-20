@@ -23,7 +23,7 @@ namespace TERMINAL
             base.InitializeTerminal();
 
             rootContainer.SetActive(true);
-            expectedOutputTerminal.text = config.expectedOutput;
+            expectedOutputTerminal.text = currentConfig.expectedOutput;
 
             attempts = 0;
             outputTerminal.text = "";
@@ -34,7 +34,7 @@ namespace TERMINAL
         private void BuildInitialBlocks()
         {
             // Ensure slots are already built
-            if (slots.Count != config.prefilledBlocks.Length)
+            if (slots.Count != currentConfig.prefilledBlocks.Length)
             {
                 Debug.LogError("Number of prefilled blocks does not match number of slots!");
                 return;
@@ -43,9 +43,9 @@ namespace TERMINAL
             for (int i = 0; i < slots.Count; i++)
             {
                 var blockGO = ObjectPoolManager.SpawnObject(codeBlockPrefab, slots[i].transform, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                blockGO.GetComponentInChildren<TextMeshProUGUI>().text = config.prefilledBlocks[i];
+                blockGO.GetComponentInChildren<TextMeshProUGUI>().text = currentConfig.prefilledBlocks[i];
                 var codeBlock = blockGO.GetComponent<CodeBlock>();
-                codeBlock.code = config.prefilledBlocks[i];
+                codeBlock.code = currentConfig.prefilledBlocks[i];
 
                 // Set the parent of the code block to the slot initially
                 blockGO.transform.SetParent(slots[i].transform);
@@ -68,7 +68,7 @@ namespace TERMINAL
             string output = interpreter.ExecuteCode(result);
             outputTerminal.text = "";
 
-            CheckOutput(output, config.expectedOutput);
+            CheckOutput(output, currentConfig.expectedOutput);
         }
         public override void CheckOutput(string output, string outputCode)
         {
@@ -147,13 +147,13 @@ namespace TERMINAL
 
         private void ShowHint()
         {
-            if (config.hints == null || config.hints.Length == 0)
+            if (currentConfig.hints == null || currentConfig.hints.Length == 0)
                 return;
 
             int randomHintIndex;
 
             // If there’s only one hint, just show it.
-            if (config.hints.Length == 1)
+            if (currentConfig.hints.Length == 1)
             {
                 randomHintIndex = 0;
             }
@@ -161,13 +161,13 @@ namespace TERMINAL
             {
                 do
                 {
-                    randomHintIndex = Random.Range(0, config.hints.Length);
+                    randomHintIndex = Random.Range(0, currentConfig.hints.Length);
                 }
                 while (randomHintIndex == prevHintIndex);
             }
 
             prevHintIndex = randomHintIndex;
-            PopupMenu.instance.Show(config.hints[randomHintIndex]);
+            PopupMenu.instance.Show(currentConfig.hints[randomHintIndex]);
         }
 
         protected override void OnClose()

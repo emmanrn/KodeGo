@@ -1,0 +1,21 @@
+CreateCharacter(NPC)
+
+ShowDB()
+Narrator "Showing npc1 Character"
+NPC.Show()
+
+NPC as npc1 "In Python, every line of code is like a sentence — write it clearly, and the computer will understand you."
+NPC as npc1 "Indentation isn’t just neatness — it tells Python which code belongs together."
+NPC as npc1 "Python doesn’t use curly braces or semicolons. Just clean lines and proper spacing."
+NPC as npc1 "Try using print() to speak to the terminal. It’s Python’s way of saying something out loud!"
+NPC as npc1 "Don’t forget: Python reads your code top to bottom, one line at a time."
+NPC as npc1 "Comments are your secret notes. Type # to write reminders that Python will ignore."
+NPC as npc1 "The computer follows your syntax exactly — one missing parenthesis, and it gets confused!"
+NPC as npc1 "Let’s start simple. Make Python say hello — and it will say it proudly!"
+
+NPC as guide "Remember: even the smallest error can break the biggest idea."
+NPC as guide [0:A12]"So, keep your code clean, your mind clear, and your print() ready."
+
+NPC.Hide()
+Narrator "The end of npc1's lesson."
+[wait]HideDB()
