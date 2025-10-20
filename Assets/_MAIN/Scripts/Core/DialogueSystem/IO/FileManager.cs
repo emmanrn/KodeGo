@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class FileManager
 {
+    private const string KEY = "VERYSCRETKEY";
     public static List<string> ReadTxtFiles(string filePath, bool includeBlankLines = true)
     {
         // checking if the file path is like relative or absolute path
@@ -93,7 +95,7 @@ public class FileManager
         }
     }
 
-    public static void Save(string filePath, string JSONData)
+    public static void Save(string filePath, string JSONData, bool encrypt = false)
     {
         if (!TryCreateDirectoryFromPath(filePath))
         {
@@ -101,24 +103,67 @@ public class FileManager
             return;
         }
 
-        StreamWriter sw = new StreamWriter(filePath);
-        sw.Write(JSONData);
-        sw.Close();
+        // for the encryption of the files we're going to use a simple encryption with XOR
+        // first we get the bytes of the data we want to save and the bytes of the KEY
+        if (encrypt)
+        {
+            byte[] dataBytes = Encoding.UTF8.GetBytes(JSONData);
+            byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
+            byte[] encryptedBytes = XOR(dataBytes, keyBytes);
+
+            File.WriteAllBytes(filePath, encryptedBytes);
+        }
+        else
+        {
+            StreamWriter sw = new StreamWriter(filePath);
+            sw.Write(JSONData);
+            sw.Close();
+        }
+
+
 
         Debug.Log($"Saved at {filePath}");
     }
 
-    public static T Load<T>(string filePath)
+    public static T Load<T>(string filePath, bool encrypt = false)
     {
         if (File.Exists(filePath))
         {
-            string JSONData = File.ReadAllLines(filePath)[0];
-            return JsonUtility.FromJson<T>(JSONData);
+            if (encrypt)
+            {
+                byte[] encryptedBytes = File.ReadAllBytes(filePath);
+                byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
+
+                byte[] decryptedBytes = XOR(encryptedBytes, keyBytes);
+
+                string decryptedString = Encoding.UTF8.GetString(decryptedBytes);
+
+                return JsonUtility.FromJson<T>(decryptedString);
+            }
+            else
+            {
+                string JSONData = File.ReadAllLines(filePath)[0];
+                return JsonUtility.FromJson<T>(JSONData);
+            }
         }
         else
         {
             Debug.LogError($"Error file does not exist '{filePath}");
             return default(T);
         }
+    }
+
+    private static byte[] XOR(byte[] input, byte[] key)
+    {
+        byte[] output = new byte[input.Length];
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            // '^' is basically the XOR symbol
+            // this is where we loop through each byte of the input and the key and XOR to encrypt it
+            output[i] = (byte)(input[i] ^ key[i % key.Length]);
+        }
+
+        return output;
     }
 }

@@ -21,7 +21,7 @@ namespace TERMINAL
             base.InitializeTerminal();
 
             rootContainer.SetActive(true);
-            expectedOutputTerminal.text = config.expectedOutput;
+            expectedOutputTerminal.text = currentConfig.expectedOutput;
 
             attempts = 0;
             outputTerminal.text = "";
@@ -88,7 +88,7 @@ namespace TERMINAL
 
             outputTerminal.text = "";
 
-            CheckOutput(output, config.expectedOutput);
+            CheckOutput(output, currentConfig.expectedOutput);
         }
 
         public override void CheckOutput(string output, string outputCode)
@@ -118,13 +118,13 @@ namespace TERMINAL
 
         private void ShowHint()
         {
-            if (config.hints == null || config.hints.Length == 0)
+            if (currentConfig.hints == null || currentConfig.hints.Length == 0)
                 return;
 
             int randomHintIndex;
 
             // If there’s only one hint, just show it.
-            if (config.hints.Length == 1)
+            if (currentConfig.hints.Length == 1)
             {
                 randomHintIndex = 0;
             }
@@ -132,13 +132,13 @@ namespace TERMINAL
             {
                 do
                 {
-                    randomHintIndex = Random.Range(0, config.hints.Length);
+                    randomHintIndex = Random.Range(0, currentConfig.hints.Length);
                 }
                 while (randomHintIndex == prevHintIndex);
             }
 
             prevHintIndex = randomHintIndex;
-            PopupMenu.instance.Show(config.hints[randomHintIndex]);
+            PopupMenu.instance.Show(currentConfig.hints[randomHintIndex]);
         }
 
         protected override void OnClose()

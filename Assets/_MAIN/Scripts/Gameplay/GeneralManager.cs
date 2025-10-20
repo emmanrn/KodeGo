@@ -39,6 +39,13 @@ public class GeneralManager : MonoBehaviour
     {
         isPaused = false;
         pauseMenu.SetActive(false);
+        if (DialogueSystem.instance.isRunningConversation)
+        {
+            input.SetGeneral();
+            return;
+        }
+
+        input.SetPlayerMovement();
     }
 
     // for no this is what we do for the player losing life in the terminal, we just use a singleton of the gameManger

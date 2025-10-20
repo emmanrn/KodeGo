@@ -18,7 +18,6 @@ public class CharacterSkinManager : MonoBehaviour
     public int skinsCount => GetSkinCount();
     public int selectedSkin { get; private set; } = 0;
 
-    // private VariableStore.Database currentDatabase;
 
     void Start()
     {
@@ -38,7 +37,6 @@ public class CharacterSkinManager : MonoBehaviour
             if (index >= 0 && index < skinsCount)
                 selectedSkin = index;
         }
-        Debug.Log(selectedSkin);
 
         // Apply the initial skin
         ChangeSkin(selectedSkin);
@@ -51,7 +49,6 @@ public class CharacterSkinManager : MonoBehaviour
       ? 0
       : (index < 0 ? index + skinsCount : (index >= skinsCount ? index - skinsCount : index));
 
-        Debug.Log(selectedSkin);
 
         if (selectedSkin == 0)
         {
@@ -61,9 +58,6 @@ public class CharacterSkinManager : MonoBehaviour
 
         CharacterSkin skin = config.skins[selectedSkin];
         ApplySkinColor(skin.color);
-        // selectedSkin = Mathf.Clamp(index, 0, skinsCount - 1) <= -1 ? 0 : Mathf.Clamp(index, 0, skinsCount - 1);
-        // CharacterSkin skin = config.skins[selectedSkin];
-        // ApplySkinColor(skin.color);
     }
 
     private void ApplySkinColor(Color color)
@@ -122,7 +116,5 @@ public class CharacterSkinManager : MonoBehaviour
     public void ApplySkin()
     {
         VariableStore.TrySetValue(varKey, selectedSkin);
-        // GameSave.activeFile.Save();
-
     }
 }

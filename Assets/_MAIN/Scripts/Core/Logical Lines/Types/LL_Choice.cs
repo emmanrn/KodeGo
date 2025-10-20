@@ -37,6 +37,13 @@ namespace DIALOGUE.LogicalLines
             // once the choice ends and the dialogue continues, then we continue back at the last line
             DialogueSystem.instance.conversationManager.conversation.SetProgress(data.endingIndex - currentConversation.fileStartIndex);
             DialogueSystem.instance.conversationManager.EnqueuePriority(newConversation);
+
+            AutoReader autoReader = DialogueSystem.instance.autoReader;
+            if (autoReader != null && autoReader.isOn && autoReader.skip)
+            {
+                if (Game_Configuration.activeConfig != null && !Game_Configuration.activeConfig.continueSkippingAfterChoice)
+                    autoReader.Disable();
+            }
         }
 
 

@@ -28,7 +28,7 @@ namespace TERMINAL
 
             BuildSidebar();
 
-            expectedOutputTerminal.text = config.expectedOutput;
+            expectedOutputTerminal.text = currentConfig.expectedOutput;
             outputTerminal.text = "";
 
         }
@@ -47,10 +47,10 @@ namespace TERMINAL
         {
             int collectedCodeBlocks = CountCollectedBlocks();
 
-            for (int i = 0; i < config.codeBlocks.Length; i++)
+            for (int i = 0; i < currentConfig.codeBlocks.Length; i++)
             // foreach (string block in config.codeBlocks)
             {
-                var block = config.codeBlocks[i];
+                var block = currentConfig.codeBlocks[i];
                 var go = ObjectPoolManager.SpawnObject(codeBlockPrefab, sidebarContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
 
                 go.GetComponentInChildren<TextMeshProUGUI>().text = block;
@@ -147,7 +147,7 @@ namespace TERMINAL
 
             outputTerminal.text = "";
 
-            CheckOutput(output, config.expectedOutput);
+            CheckOutput(output, currentConfig.expectedOutput);
 
         }
 

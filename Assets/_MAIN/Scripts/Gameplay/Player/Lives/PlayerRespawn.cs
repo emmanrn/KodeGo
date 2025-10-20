@@ -25,7 +25,8 @@ namespace PLAYER
             }
             else
             {
-                transform.position = startingPoint.position;
+                if (startingPoint != null)
+                    transform.position = startingPoint.position;
             }
         }
 

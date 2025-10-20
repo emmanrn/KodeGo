@@ -26,7 +26,7 @@ namespace MAIN_GAME
 
         public static GameSave Load(string filePath, bool activateOnLoad = false)
         {
-            GameSave save = FileManager.Load<GameSave>(filePath);
+            GameSave save = FileManager.Load<GameSave>(filePath, ENCRYPT_FILES);
 
             activeFile = save;
 
@@ -50,7 +50,7 @@ namespace MAIN_GAME
             variables = GetVariableData();
 
             string saveJSON = JsonUtility.ToJson(this);
-            FileManager.Save(filePath, saveJSON);
+            FileManager.Save(filePath, saveJSON, ENCRYPT_FILES);
         }
 
         public void ActivateRuntimeData()
@@ -62,7 +62,6 @@ namespace MAIN_GAME
         public void Activate()
         {
             HistoryManager.instance.history = historyLogs.ToList();
-
 
             HistoryManager.instance.logManager.Clear();
             HistoryManager.instance.logManager.Rebuild();

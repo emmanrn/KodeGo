@@ -93,11 +93,13 @@ public class TestQuiz : MonoBehaviour, IInteractable
         if (VariableStore.TryGetValue(varKey, out var val))
             isCorrect = (bool)val;
 
-        LevelProgressManager.SetQuizPassed(levelName);
 
 
         if (isCorrect)
+        {
+            LevelProgressManager.SetQuizPassed(levelName);
             door.gameObject.SetActive(false);
+        }
 
 
     }
