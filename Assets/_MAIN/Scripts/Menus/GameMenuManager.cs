@@ -71,6 +71,9 @@ public class GameMenuManager : MonoBehaviour
 
     private void HideLogoAndButtons()
     {
+        if (mainMenuButtons == null && logo == null)
+            return;
+
         if (mainMenuButtons.isVisible && logoCG.isVisible)
         {
             mainMenuButtons.Hide();
@@ -80,6 +83,9 @@ public class GameMenuManager : MonoBehaviour
 
     private void ShowLogoAndButtons()
     {
+        if (mainMenuButtons == null && logo == null)
+            return;
+
         mainMenuButtons.Show();
         logoCG.Show();
     }

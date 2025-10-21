@@ -12,7 +12,7 @@ public class ChoicePanel : MonoBehaviour
 
     private const float BUTTON_MIN_WIDTH = 50f;
     private const float BUTTON_MAX_WIDTH = 1000f;
-    private const float BUTTON_WIDTH_PADDING = 25f;
+    private const float BUTTON_WIDTH_PADDING = 100f;
 
     private const float BUTTON_HEIGHT_PER_LINE = 50f;
     private const float BUTTON_HEIGHT_PADDING = 20f;

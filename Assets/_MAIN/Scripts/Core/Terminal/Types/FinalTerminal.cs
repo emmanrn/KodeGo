@@ -24,7 +24,6 @@ namespace TERMINAL
             runBtn.onClick.AddListener(Run);
 
             base.InitializeTerminal();
-            rootContainer.SetActive(true);
 
             BuildSidebar();
 
@@ -160,7 +159,7 @@ namespace TERMINAL
 
         private void PlayerDied()
         {
-            CloseWindow();
+            ClickCloseWindow();
             outputTerminal.text = "";
         }
 

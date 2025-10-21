@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using MAIN_GAME;
 using TMPro;
@@ -12,6 +13,7 @@ namespace TERMINAL
         [SerializeField] protected TextMeshProUGUI expectedOutputTerminal;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected Interpreter interpreter;
+        [SerializeField] protected Animator anim;
         private bool interactable = true;
         protected string levelName => GameManager.instance.LEVEL_NAME;
         public bool isInteractable() => interactable;
@@ -32,13 +34,23 @@ namespace TERMINAL
         }
 
         protected abstract void InitializeTerminal();
-        public void CloseWindow()
+
+        public void ClickCloseWindow()
         {
+            StartCoroutine(CloseWindow());
+        }
+
+        private IEnumerator CloseWindow()
+        {
+            anim.Play("Close");
+            yield return new WaitForSeconds(0.2f);
+
             inputReader.SetPlayerMovement();
             rootContainer.SetActive(false);
 
             OnClose();
         }
+
         public abstract void Run();
         public abstract void CheckOutput(string output, string outputCode);
 

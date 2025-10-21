@@ -5,6 +5,7 @@ using System.Linq;
 using DIALOGUE;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class ConfigMenu : MenuPage
@@ -13,7 +14,6 @@ public class ConfigMenu : MenuPage
     [SerializeField] private GameObject[] panels;
     public UI_ITEMS ui;
 
-    [SerializeField] private AnimationCurve animationCurve;
     private GameObject activePanel;
     private Game_Configuration config => Game_Configuration.activeConfig;
 
@@ -93,6 +93,8 @@ public class ConfigMenu : MenuPage
         private static Color buttonUnselectedColor = new Color(1, 1, 1, 1);
         private static Color textSelectedColor = new Color(0.20f, 0.20f, 0.20f, 1);
         private static Color textUnselectedColor = new Color(0.20f, 0.20f, 0.20f, 1);
+        public static Color musicOnColor = new Color(0.62f, 0.69f, 1f);
+        public static Color musicOffColor = new Color(0.62f, 0f, 0.3f);
         [Header("General")]
         public Button fullscreen;
         public Button windowed;
@@ -102,7 +104,14 @@ public class ConfigMenu : MenuPage
 
         // not implemented yet, but add more once audio gets implemented
         [Header("Audio")]
+        public Image musicFill;
+        public Image sfxFill;
         public Slider musicVolume;
+        public Slider sfxVolume;
+        public Image musicMute;
+        public Image sfxMute;
+        public Sprite mutedSymbol;
+        public Sprite unmutedSymbol;
 
         public void SetButtonColors(Button A, Button B, bool selectedA)
         {
@@ -159,5 +168,38 @@ public class ConfigMenu : MenuPage
         AutoReader autoReader = DialogueSystem.instance.autoReader;
         if (autoReader != null)
             autoReader.speed = config.dialogueAutoReaderSpeed;
+    }
+    public void SetMusicVolume()
+    {
+        config.musicVolume = ui.musicVolume.value;
+        AudioManager.instance.SetMusicVolume(config.musicVolume, config.musicMute);
+
+        ui.musicFill.color = config.musicMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+    }
+
+    public void SetSFXVolume()
+    {
+        config.sfxVolume = ui.sfxVolume.value;
+        AudioManager.instance.SetSFXVolume(config.sfxVolume, config.sfxMute);
+
+        ui.sfxFill.color = config.sfxMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+    }
+
+    public void SetMusicMute()
+    {
+        config.musicMute = !config.musicMute;
+        ui.musicFill.color = config.musicMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+        ui.musicMute.sprite = config.musicMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetMusicVolume(config.musicVolume, config.musicMute);
+    }
+
+    public void SetSFXMute()
+    {
+        config.sfxMute = !config.sfxMute;
+        ui.sfxFill.color = config.sfxMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+        ui.sfxMute.sprite = config.sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetSFXVolume(config.sfxVolume, config.sfxMute);
     }
 }
