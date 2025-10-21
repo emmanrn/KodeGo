@@ -31,8 +31,11 @@ namespace TERMINAL
         protected override void InitializeTerminal()
         {
             // pool = PoolManager.instance;
-            closeBtn.onClick.AddListener(CloseWindow);
+            closeBtn.onClick.AddListener(ClickCloseWindow);
             BuildCodeUI();
+            rootContainer.SetActive(true);
+            anim.Play("Open");
+            // LayoutRebuilder.ForceRebuildLayoutImmediate(outputTerminal.GetComponent<RectTransform>());
         }
 
 

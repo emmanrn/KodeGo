@@ -20,7 +20,6 @@ namespace TERMINAL
 
             base.InitializeTerminal();
 
-            rootContainer.SetActive(true);
             expectedOutputTerminal.text = currentConfig.expectedOutput;
 
             attempts = 0;

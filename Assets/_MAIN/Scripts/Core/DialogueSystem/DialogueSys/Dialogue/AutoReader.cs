@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 namespace DIALOGUE
@@ -112,7 +113,9 @@ namespace DIALOGUE
             }
 
             if (isOn)
+            {
                 statusTxt.text = STATUS_TXT_AUTO;
+            }
         }
         public void ToggleSkip()
         {

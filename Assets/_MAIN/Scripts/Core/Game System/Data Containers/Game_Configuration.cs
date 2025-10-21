@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 [System.Serializable]
@@ -21,7 +22,9 @@ public class Game_Configuration
 
     // Audio Settings (again still not implemented but just in case)
     public float musicVolume = 1f;
+    public float sfxVolume = 1f;
     public bool musicMute = false;
+    public bool sfxMute = false;
 
     // Other Settings
     public float historyLogScale = 1f;
@@ -58,7 +61,10 @@ public class Game_Configuration
         ui.autoReaderSpeed.value = dialogueAutoReaderSpeed;
 
         // set music volume if ever implemented
-        // ui.musicVolume.value = musicVolume;
+        ui.musicVolume.value = musicVolume;
+        ui.sfxVolume.value = sfxVolume;
+        ui.musicMute.sprite = musicMute ? ui.mutedSymbol : ui.unmutedSymbol;
+        ui.sfxMute.sprite = sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
     }
 
     public void Save()

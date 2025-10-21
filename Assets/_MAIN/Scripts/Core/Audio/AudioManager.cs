@@ -1,20 +1,27 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public const string MUSIC_VOLUME_PARAM_NAME = "MusicVolume";
+    public const string SFX_VOLUME_PARAM_NAME = "SFXVolume";
+    public const float MUTED_VOLUME_LEVEL = -80f;
     public const float TRACK_TRANSITION_SPEED = 1f;
     private const string SFX_PARENT_NAME = "SFX";
     private const string SFX_NAME_FORMAT = "SFX - [{0}]";
 
     public static AudioManager instance { get; private set; }
 
+
     public Dictionary<int, AudioChannel> channels = new Dictionary<int, AudioChannel>();
     public AudioMixerGroup musicMixer;
     public AudioMixerGroup sfxMixer;
 
     private Transform sfxRoot;
+
+    public AnimationCurve audioFalloffCurve;
 
     void Awake()
     {
@@ -131,6 +138,23 @@ public class AudioManager : MonoBehaviour
 
         c.StopTrack();
     }
+
+    public void StopAllTracks()
+    {
+        foreach (AudioChannel channel in channels.Values)
+        {
+            channel.StopTrack();
+        }
+    }
+
+    public void StopAllSoundEffects()
+    {
+        AudioSource[] sources = sfxRoot.GetComponentsInChildren<AudioSource>();
+        foreach (var source in sources)
+        {
+            Destroy(source.gameObject);
+        }
+    }
     public AudioChannel TryGetChannel(int channelNumber, bool createIfDoesNotExist = false)
     {
         AudioChannel channel = null;
@@ -147,5 +171,16 @@ public class AudioManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void SetMusicVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        musicMixer.audioMixer.SetFloat(MUSIC_VOLUME_PARAM_NAME, volume);
+    }
+    public void SetSFXVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        sfxMixer.audioMixer.SetFloat(SFX_VOLUME_PARAM_NAME, volume);
     }
 }

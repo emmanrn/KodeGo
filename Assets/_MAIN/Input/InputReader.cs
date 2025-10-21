@@ -146,7 +146,6 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
     {
         if (context.phase == InputActionPhase.Performed && GeneralManager.instance.isPaused)
         {
-            Debug.Log("Unpuse");
             ResumeEvent?.Invoke();
             if (DialogueSystem.instance.isRunningConversation)
             {
