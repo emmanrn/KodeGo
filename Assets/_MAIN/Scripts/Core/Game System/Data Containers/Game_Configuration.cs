@@ -23,8 +23,10 @@ public class Game_Configuration
     // Audio Settings (again still not implemented but just in case)
     public float musicVolume = 1f;
     public float sfxVolume = 1f;
+    public float voicesVolume = 1f;
     public bool musicMute = false;
     public bool sfxMute = false;
+    public bool voicesMute = false;
 
     // Other Settings
     public float historyLogScale = 1f;
@@ -63,8 +65,10 @@ public class Game_Configuration
         // set music volume if ever implemented
         ui.musicVolume.value = musicVolume;
         ui.sfxVolume.value = sfxVolume;
+        ui.voicesVolume.value = voicesVolume;
         ui.musicMute.sprite = musicMute ? ui.mutedSymbol : ui.unmutedSymbol;
         ui.sfxMute.sprite = sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
+        ui.voicesMute.sprite = voicesMute ? ui.mutedSymbol : ui.unmutedSymbol;
     }
 
     public void Save()

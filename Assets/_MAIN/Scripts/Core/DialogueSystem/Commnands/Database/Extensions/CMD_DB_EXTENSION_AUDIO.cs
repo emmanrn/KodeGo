@@ -13,7 +13,6 @@ namespace COMMANDS
 
         // MUSIC/AMBIENCE PARAMS
         private static string[] PARAM_CHANNEL = new string[] { "-c", "-channel" };
-        private static string[] PARAM_IMMEDIATE = new string[] { "-i", "-immediate" };
         private static string[] PARAM_START_VOLUME = new string[] { "-sv", "-startvolume" };
         private static string[] PARAM_SONG = new string[] { "-s", "-song" };
         private static string[] PARAM_AMBIENCE = new string[] { "-a", "-ambience" };
@@ -22,6 +21,9 @@ namespace COMMANDS
         {
             database.AddCommand("playsfx", new Action<string[]>(PlaySFX));
             database.AddCommand("stopsfx", new Action<string>(StopSFX));
+
+            database.AddCommand("playvoice", new Action<string[]>(PlayVoice));
+            database.AddCommand("stopvoice", new Action<string>(StopSFX));
 
             database.AddCommand("playsong", new Action<string[]>(PlaySong));
             database.AddCommand("playambience", new Action<string[]>(PlayAmbience));
@@ -54,6 +56,29 @@ namespace COMMANDS
         private static void StopSFX(string data)
         {
             AudioManager.instance.StopSoundEffect(data);
+        }
+
+        private static void PlayVoice(string[] data)
+        {
+            // to use the command in the dialogue system you basically put the file path as a parameter
+            // e.g PlayVoice(Kode/Hello) --> soo Kode is a folder inside the Resources folder then Hello is the file name of the voice
+            string filePath;
+            float volume, pitch;
+            bool loop;
+
+            var parameters = ConvertDataToParams(data);
+
+            parameters.TryGetValue(PARAM_SFX, out filePath);
+            parameters.TryGetValue(PARAM_VOLUME, out volume, defaultVal: 1f);
+            parameters.TryGetValue(PARAM_PITCH, out pitch, defaultVal: 1f);
+            parameters.TryGetValue(PARAM_LOOP, out loop, defaultVal: false);
+
+            AudioClip sound = Resources.Load<AudioClip>(FilePaths.GetPathToResource(FilePaths.resources_voices, filePath));
+
+            if (sound == null)
+                return;
+
+            AudioManager.instance.PlaySoundEffect(sound, volume: volume, pitch: pitch, loop: loop);
         }
 
         private static void PlaySong(string[] data)
