@@ -13,6 +13,10 @@ namespace DIALOGUE
         private const float MIN_READ_TIME = 1f;
         private const string STATUS_TXT_AUTO = "Auto";
         private const string STATUS_TXT_SKIP = "Skipping";
+        private Color TOGGLE_OFF_COLOR = new Color(0.28f, 0.52f, 0.4f);
+        private Color TOGGLE_OFF_COLOR_TEXT = new Color(1f, 1f, 1f);
+        private Color TOGGLE_ON_COLOR = new Color(0.51f, 0.96f, 0.74f);
+        private Color TOGGLE_ON_COLOR_TEXT = new Color(0f, 0f, 0f);
 
         private ConversationManager conversationManager;
         private TextArchitect archi => conversationManager.archi;
@@ -22,14 +26,21 @@ namespace DIALOGUE
         public bool isOn => CO_Running != null;
         private Coroutine CO_Running = null;
 
-        [SerializeField] private TextMeshProUGUI statusTxt;
+        // [SerializeField] private TextMeshProUGUI statusTxt;
+        [SerializeField] private Image autoImg;
+        [SerializeField] private Image skipImg;
+        [SerializeField] private Text autoText;
+        [SerializeField] private Text skipText;
         [HideInInspector] public bool allowToggle = true;
 
 
         public void Initialize(ConversationManager conversationManager)
         {
             this.conversationManager = conversationManager;
-            statusTxt.text = string.Empty;
+            skipImg.color = TOGGLE_OFF_COLOR;
+            skipText.color = TOGGLE_OFF_COLOR_TEXT;
+            autoImg.color = TOGGLE_OFF_COLOR;
+            autoText.color = TOGGLE_OFF_COLOR_TEXT;
         }
 
         public void Enable()
@@ -47,11 +58,15 @@ namespace DIALOGUE
             StopCoroutine(CO_Running);
             skip = false;
             CO_Running = null;
-            statusTxt.text = string.Empty;
+            autoImg.color = TOGGLE_OFF_COLOR;
+            autoText.color = TOGGLE_OFF_COLOR_TEXT;
+            skipImg.color = TOGGLE_OFF_COLOR;
+            skipText.color = TOGGLE_OFF_COLOR_TEXT;
         }
 
         private IEnumerator AutoRead()
         {
+            yield return new WaitForEndOfFrame();
             if (!conversationManager.isRunning)
             {
                 Disable();
@@ -98,7 +113,6 @@ namespace DIALOGUE
             if (!allowToggle)
                 return;
 
-            skip = false;
             if (skip)
                 Enable();
 
@@ -107,22 +121,28 @@ namespace DIALOGUE
                 if (!isOn)
                     Enable();
                 else
-                {
                     Disable();
-                }
             }
 
             if (isOn)
             {
-                statusTxt.text = STATUS_TXT_AUTO;
+                skipImg.color = TOGGLE_OFF_COLOR;
+                skipText.color = TOGGLE_OFF_COLOR_TEXT;
+                autoImg.color = TOGGLE_ON_COLOR;
+                autoText.color = TOGGLE_ON_COLOR_TEXT;
             }
+            else
+            {
+                autoImg.color = TOGGLE_OFF_COLOR;
+                autoText.color = TOGGLE_OFF_COLOR_TEXT;
+            }
+            skip = false;
         }
         public void ToggleSkip()
         {
             if (!allowToggle)
                 return;
 
-            skip = true;
             if (!skip)
                 Enable();
 
@@ -131,13 +151,22 @@ namespace DIALOGUE
                 if (!isOn)
                     Enable();
                 else
-                {
                     Disable();
-                }
             }
 
             if (isOn)
-                statusTxt.text = STATUS_TXT_SKIP;
+            {
+                autoImg.color = TOGGLE_OFF_COLOR;
+                autoText.color = TOGGLE_OFF_COLOR_TEXT;
+                skipImg.color = TOGGLE_ON_COLOR;
+                skipText.color = TOGGLE_ON_COLOR_TEXT;
+            }
+            else
+            {
+                skipImg.color = TOGGLE_OFF_COLOR;
+                skipText.color = TOGGLE_OFF_COLOR_TEXT;
+            }
+            skip = true;
         }
     }
 }

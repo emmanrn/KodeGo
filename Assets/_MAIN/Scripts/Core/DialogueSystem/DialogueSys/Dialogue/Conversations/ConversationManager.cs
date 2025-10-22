@@ -120,6 +120,9 @@ namespace DIALOGUE
             }
             process = null;
             dialogueSystem.controlsContainer.Hide();
+
+            if (dialogueSystem.autoReader != null)
+                dialogueSystem.autoReader.Disable();
         }
 
         private void TryAdvanceCurrentConverstion(Conversation conversation)
@@ -204,6 +207,7 @@ namespace DIALOGUE
                     CommandManager.instance.Execute(command.name, command.arguments);
             }
             yield return null;
+
         }
 
         IEnumerator BuildLineSegments(DL_DIALOGUE_DATA line)

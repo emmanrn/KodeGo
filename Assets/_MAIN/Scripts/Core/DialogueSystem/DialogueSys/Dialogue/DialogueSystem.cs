@@ -45,7 +45,7 @@ namespace DIALOGUE
             if (initialized)
                 return;
 
-            archi = new TextArchitect(dialogueContainer.dialogueTxt, TABuilder.BuilderTypes.FADE);
+            archi = new TextArchitect(dialogueContainer.dialogueTxt, TABuilder.BuilderTypes.TYPEWRITER);
             conversationManager = new ConversationManager(archi);
 
             cgController = new CanvasGroupController(this, mainCanvas);

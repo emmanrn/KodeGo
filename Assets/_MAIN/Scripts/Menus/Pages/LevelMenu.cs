@@ -1,8 +1,8 @@
 using System.Collections;
-using DIALOGUE;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelMenu : MonoBehaviour
 {
@@ -12,6 +12,8 @@ public class LevelMenu : MonoBehaviour
     float[] pos;
     [SerializeField] private InputReader inputReader;
     [SerializeField] private LevelDatabase_SO levelDB;
+    [SerializeField] private TextMeshProUGUI levelNameText;
+    [SerializeField] private string[] levelNames;
 
     private Scrollbar bar;
     private bool isSmoothScrolling = false;
@@ -92,35 +94,6 @@ public class LevelMenu : MonoBehaviour
             {
                 currentIdx = i;
                 ApplyImmediateHighlight(i);
-
-                // Transform current = transform.GetChild(i);
-                // current.localScale = Vector3.Lerp(current.localScale, new Vector3(1f, 1f, 1f), 0.1f);
-                // Image imgCurrent = current.GetComponent<Image>();
-                // if (imgCurrent != null)
-                // {
-                //     Color c = imgCurrent.color;
-                //     c.a = 1f;
-                //     imgCurrent.color = c;
-                // }
-                // Button btn = current.GetComponent<Button>();
-                // if (btn != null) btn.Select();
-
-                // // Dim others
-                // for (int a = 0; a < pos.Length; a++)
-                // {
-                //     if (a != i)
-                //     {
-                //         Transform other = transform.GetChild(a);
-                //         other.localScale = Vector3.Lerp(other.localScale, new Vector3(0.8f, 0.8f, 1f), 0.1f);
-                //         Image imgOther = other.GetComponent<Image>();
-                //         if (imgOther != null)
-                //         {
-                //             Color c = imgOther.color;
-                //             c.a = 0.5f;
-                //             imgOther.color = c;
-                //         }
-                //     }
-                // }
             }
         }
 
@@ -128,14 +101,12 @@ public class LevelMenu : MonoBehaviour
 
     private void Next()
     {
-        Debug.Log("Next");
         currentIdx = Mathf.Clamp(currentIdx + 1, 0, pos.Length - 1);
         StopAllCoroutines();
         StartCoroutine(SmoothScrollTo(pos[currentIdx], currentIdx));
     }
     private void Previous()
     {
-        Debug.Log("Prev");
         currentIdx = Mathf.Clamp(currentIdx - 1, 0, pos.Length - 1);
         StopAllCoroutines();
         StartCoroutine(SmoothScrollTo(pos[currentIdx], currentIdx));
@@ -216,6 +187,14 @@ public class LevelMenu : MonoBehaviour
                     img.color = c;
                 }
                 if (btn != null && unlocked) btn.Select();
+
+                if (levelNameText != null)
+                {
+                    string displayName = unlocked ? levelNames[i] : "???";
+                    int levelNumber = i + 1; // assuming your first level is index 0
+
+                    levelNameText.text = $"LEVEL {levelNumber}: {displayName}";
+                }
             }
             else
             {
