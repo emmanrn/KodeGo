@@ -1,9 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class InteractionDetector : MonoBehaviour
 {
     public IInteractable interactableRange = null; // Closest interactable
     public GameObject interactionIcon;
+    [SerializeField] private Animator anim;
+    private Coroutine closeRoutine;
 
     void Start()
     {
@@ -17,7 +20,18 @@ public class InteractionDetector : MonoBehaviour
         if (other.TryGetComponent(out IInteractable interactable) && interactable.isInteractable())
         {
             interactableRange = interactable;
-            interactionIcon.SetActive(true);
+
+            if (closeRoutine != null)
+            {
+                StopCoroutine(closeRoutine);
+                closeRoutine = null;
+            }
+
+            if (!interactionIcon.activeSelf)
+                interactionIcon.SetActive(true);
+
+            if (anim.isActiveAndEnabled)
+                anim.Play("Open");
         }
 
     }
@@ -27,8 +41,24 @@ public class InteractionDetector : MonoBehaviour
         if (other.TryGetComponent(out IInteractable interactable) && interactable == interactableRange)
         {
             interactableRange = null;
-            interactionIcon.SetActive(false);
+            if (closeRoutine != null)
+            {
+                StopCoroutine(closeRoutine);
+                closeRoutine = null;
+            }
+
+            closeRoutine = StartCoroutine(CloseIcon());
         }
+    }
+
+    private IEnumerator CloseIcon()
+    {
+        anim.Play("Close");
+
+        float closeAnimLength = anim.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(closeAnimLength);
+
+        interactionIcon.SetActive(false);
     }
 
 }

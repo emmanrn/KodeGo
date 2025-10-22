@@ -28,6 +28,7 @@ namespace DIALOGUE
 
             tmpro.ForceMeshUpdate();
             anim.gameObject.SetActive(true);
+            anim.Play("Bounce2");
             root.transform.SetParent(tmpro.transform);
 
             TMP_CharacterInfo finalCharacter = tmpro.textInfo.characterInfo[tmpro.textInfo.characterCount - 1];

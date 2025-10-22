@@ -11,21 +11,26 @@ public class GameMenuManager : MonoBehaviour
     [SerializeField] private CanvasGroup root;
     [SerializeField] private CanvasGroup mainButtons;
     [SerializeField] private CanvasGroup logo;
+    [SerializeField] private CanvasGroup groupName;
     [SerializeField] private MenuPage[] pages;
 
     private CanvasGroupController rootCG;
     private CanvasGroupController mainMenuButtons;
     private CanvasGroupController logoCG;
+    private CanvasGroupController groupNameCG;
     private UIConfirmationMenu uiChoiceMenu => UIConfirmationMenu.instance;
 
     void Start()
     {
         rootCG = new CanvasGroupController(this, root);
-        if (logo != null && mainButtons != null)
-        {
+        if (mainButtons != null)
             mainMenuButtons = new CanvasGroupController(this, mainButtons);
+
+        if (logo != null)
             logoCG = new CanvasGroupController(this, logo);
-        }
+
+        if (groupName != null)
+            groupNameCG = new CanvasGroupController(this, groupName);
 
     }
 
@@ -54,7 +59,7 @@ public class GameMenuManager : MonoBehaviour
 
     private void OpenPage(MenuPage page)
     {
-        HideLogoAndButtons();
+        Hide();
 
         if (page == null)
             return;
@@ -69,25 +74,34 @@ public class GameMenuManager : MonoBehaviour
             OpenRoot();
     }
 
-    private void HideLogoAndButtons()
+    private void Hide()
     {
-        if (mainMenuButtons == null && logo == null)
-            return;
-
-        if (mainMenuButtons.isVisible && logoCG.isVisible)
+        if (mainButtons != null)
         {
-            mainMenuButtons.Hide();
-            logoCG.Hide();
+            if (mainMenuButtons.isVisible)
+                mainMenuButtons.Hide();
+        }
+
+        if (logo != null)
+        {
+            if (logoCG.isVisible)
+                logoCG.Hide();
+        }
+
+        if (groupName != null)
+        {
+            if (groupNameCG.isVisible)
+                groupNameCG.Hide();
         }
     }
 
-    private void ShowLogoAndButtons()
+    private void Show()
     {
-        if (mainMenuButtons == null && logo == null)
-            return;
+        mainMenuButtons?.Show();
 
-        mainMenuButtons.Show();
-        logoCG.Show();
+        logoCG?.Show();
+
+        groupNameCG?.Show();
     }
 
     public void OpenRoot()
@@ -100,7 +114,7 @@ public class GameMenuManager : MonoBehaviour
     public void CloseRoot()
     {
         rootCG.Hide();
-        ShowLogoAndButtons();
+        Show();
 
         rootCG.SetInteractableState(false);
 
