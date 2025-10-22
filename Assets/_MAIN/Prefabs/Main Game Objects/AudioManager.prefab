@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicMixer: {fileID: 666834087739444127, guid: 9b7e966d54194904e81778143c3a1417, type: 2}
   sfxMixer: {fileID: -4623317327629743686, guid: 9b7e966d54194904e81778143c3a1417, type: 2}
+  voicesMixer: {fileID: -2989891543945757894, guid: 9b7e966d54194904e81778143c3a1417, type: 2}
   audioFalloffCurve:
     serializedVersion: 2
     m_Curve:

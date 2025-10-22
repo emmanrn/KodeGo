@@ -88,10 +88,10 @@ public class ConfigMenu : MenuPage
     [System.Serializable]
     public class UI_ITEMS
     {
-        private static Color buttonSelectedColor = new Color(1, 1, 0, 1);
-        private static Color buttonUnselectedColor = new Color(1, 1, 1, 1);
-        private static Color textSelectedColor = new Color(0.20f, 0.20f, 0.20f, 1);
-        private static Color textUnselectedColor = new Color(0.20f, 0.20f, 0.20f, 1);
+        private static Color buttonSelectedColor = new Color(0.26f, 0.38f, 0.67f, 1);
+        private static Color buttonUnselectedColor = new Color(0.18f, 0.25f, 0.42f, 1);
+        private static Color textSelectedColor = new Color(1, 1, 1, 1);
+        private static Color textUnselectedColor = new Color(1, 1, 1, 1);
         public static Color musicOnColor = new Color(0.62f, 0.69f, 1f);
         public static Color musicOffColor = new Color(0.62f, 0f, 0.3f);
         [Header("General")]
@@ -105,10 +105,13 @@ public class ConfigMenu : MenuPage
         [Header("Audio")]
         public Image musicFill;
         public Image sfxFill;
+        public Image voicesFill;
         public Slider musicVolume;
         public Slider sfxVolume;
+        public Slider voicesVolume;
         public Image musicMute;
         public Image sfxMute;
+        public Image voicesMute;
         public Sprite mutedSymbol;
         public Sprite unmutedSymbol;
 
@@ -184,6 +187,15 @@ public class ConfigMenu : MenuPage
         ui.sfxFill.color = config.sfxMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
     }
 
+    public void SetVoiceVolume()
+    {
+        config.voicesVolume = ui.voicesVolume.value;
+        AudioManager.instance.SetVoiceVolume(config.voicesVolume, config.voicesMute);
+
+        ui.voicesFill.color = config.voicesMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+    }
+
+
     public void SetMusicMute()
     {
         config.musicMute = !config.musicMute;
@@ -200,5 +212,13 @@ public class ConfigMenu : MenuPage
         ui.sfxMute.sprite = config.sfxMute ? ui.mutedSymbol : ui.unmutedSymbol;
 
         AudioManager.instance.SetSFXVolume(config.sfxVolume, config.sfxMute);
+    }
+    public void SetVoiceMute()
+    {
+        config.voicesMute = !config.voicesMute;
+        ui.voicesFill.color = config.voicesMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
+        ui.voicesMute.sprite = config.voicesMute ? ui.mutedSymbol : ui.unmutedSymbol;
+
+        AudioManager.instance.SetSFXVolume(config.voicesVolume, config.voicesMute);
     }
 }

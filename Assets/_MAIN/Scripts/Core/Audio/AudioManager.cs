@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 {
     public const string MUSIC_VOLUME_PARAM_NAME = "MusicVolume";
     public const string SFX_VOLUME_PARAM_NAME = "SFXVolume";
+    public const string VOICES_VOLUME_PARAM_NAME = "VoicesVolume";
     public const float MUTED_VOLUME_LEVEL = -80f;
     public const float TRACK_TRANSITION_SPEED = 1f;
     private const string SFX_PARENT_NAME = "SFX";
@@ -18,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public Dictionary<int, AudioChannel> channels = new Dictionary<int, AudioChannel>();
     public AudioMixerGroup musicMixer;
     public AudioMixerGroup sfxMixer;
+    public AudioMixerGroup voicesMixer;
 
     private Transform sfxRoot;
 
@@ -79,6 +81,15 @@ public class AudioManager : MonoBehaviour
         return effectSource;
     }
 
+    public AudioSource PlayVoice(string filePath, float volume = 1f, float pitch = 1f, bool loop = false)
+    {
+        return PlaySoundEffect(filePath, voicesMixer, volume, pitch, loop);
+    }
+
+    public AudioSource PlayVoice(AudioClip clip, float volume = 1f, float pitch = 1f, bool loop = false)
+    {
+        return PlaySoundEffect(clip, voicesMixer, volume, pitch, loop);
+    }
     public void StopSoundEffect(AudioClip clip) => StopSoundEffect(clip.name);
 
     public void StopSoundEffect(string soundName)
@@ -182,5 +193,11 @@ public class AudioManager : MonoBehaviour
     {
         volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
         sfxMixer.audioMixer.SetFloat(SFX_VOLUME_PARAM_NAME, volume);
+    }
+
+    public void SetVoiceVolume(float volume, bool muted)
+    {
+        volume = muted ? MUTED_VOLUME_LEVEL : audioFalloffCurve.Evaluate(volume);
+        voicesMixer.audioMixer.SetFloat(VOICES_VOLUME_PARAM_NAME, volume);
     }
 }
