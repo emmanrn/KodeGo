@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The endless loops are fixed, but now factories are popping up and pumping out way too much stuff."
+narrator "Everything is flooding! The player runs the other way, quickly hiding on top of a stack of boxes."
+narrator "They pull out their system. Fine! They’ll use loops to control the production line and make the machines repeat the right job at the right time, not just run wild!"
+
+[wait]HideDB()

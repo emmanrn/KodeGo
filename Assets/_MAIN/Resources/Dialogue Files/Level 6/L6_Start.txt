@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "Smelling smoke and seeing a massive forge hammer about to smash down on them is a terrible way to start the day."
+narrator "But as they jump back, the hammer stops, shaking, right before hitting the ground."
+narrator "Confused, they check their system."
+narrator "They realize the forge needs its own custom command—a function—to run smoothly. Time to craft some smarter code."
+
+[wait]HideDB()

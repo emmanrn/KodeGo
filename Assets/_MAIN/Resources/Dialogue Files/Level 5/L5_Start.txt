@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "OOF! The player falls... right back where they started?"
+narrator "They look down and realize they’re in a world made of endless cycles."
+narrator "Groan. They open their system. They have to break this cycle!"
+narrator "They need to learn how to step into these loops and make them stop when the task is done—not keep going forever!"
+
+[wait]HideDB()
