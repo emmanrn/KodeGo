@@ -40,6 +40,7 @@ public class Transition : MonoBehaviour
 
         if (fileToRead != null)
         {
+            yield return new WaitForSeconds(1.5f);
             yield return StartCoroutine(StartConversation(fileToRead));
             yield return new WaitForSeconds(1f);
         }

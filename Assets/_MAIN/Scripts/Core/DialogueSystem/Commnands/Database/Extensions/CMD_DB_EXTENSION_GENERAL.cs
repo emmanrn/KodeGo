@@ -51,12 +51,12 @@ namespace COMMANDS
 
             // TODO CHANGE resources.testDialogueFiles TO resources.dialogueFiles
             // load the file from Resources
-            string filePath = FilePaths.GetPathToResource(FilePaths.resources_testDialogueFiles, fileName);
+            string filePath = FilePaths.GetPathToResource(FilePaths.resources_dialogueFiles, fileName);
             TextAsset file = Resources.Load<TextAsset>(filePath);
 
             if (file == null)
             {
-                Debug.LogWarning($"File from {filePath} could not be loaded from dialogue files. Ensure it exists within the '{FilePaths.resources_testDialogueFiles}' Resources folder");
+                Debug.LogWarning($"File from {filePath} could not be loaded from dialogue files. Ensure it exists within the '{FilePaths.resources_dialogueFiles}' Resources folder");
                 return;
             }
 

@@ -218,7 +218,7 @@ public class ObjectPoolManager : MonoBehaviour
                 clones.Add(obj, objectToSpawn);
             }
 
-            obj.transform.SetParent(parent);
+            obj.transform.SetParent(parent, false);
             obj.transform.rotation = rot;
             obj.transform.localScale = Vector2.one;
             obj.SetActive(true);
