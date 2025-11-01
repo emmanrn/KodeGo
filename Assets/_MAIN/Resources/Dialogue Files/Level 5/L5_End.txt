@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The factory is now running perfectly, thanks to the controlled loops."
+narrator "The cycles are still there, but they’re working for the system now."
+narrator "The player just wants to go home and avoid seeing any kind of machine or factory for a good long time."
+
+[wait]HideDB()

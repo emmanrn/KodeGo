@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "That hammer, which was stuck before, is now slamming down so hard and fast it’s shaking the whole world."
+narrator "It’s too much! They need to adjust the newly created function."
+narrator "By using the function to set clear, reusable instructions, they can make the forge work smarter and not harder."
+
+[wait]HideDB()
