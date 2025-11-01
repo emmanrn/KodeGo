@@ -20,5 +20,7 @@ Kode.Show()
 Kode [0:happy] "Wow… I guess even sewers have their own kind of rhythm."
 Kode.Hide()
 
+Load("Level 6/L6_Start -enqueue true)
+
 
 [wait]HideDB()

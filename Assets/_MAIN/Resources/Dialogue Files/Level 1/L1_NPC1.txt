@@ -19,4 +19,6 @@ NPC as NPC 1 "Use #. Anything after that symbol is just for you; the Core ignore
 NPC as NPC 1 "But be precise—miss a bracket, misplace a symbol, and the Core can’t figure out what you mean."
 NPC.Hide()
 
+Load("Level 2/L2_Start" -enqueue true)
+
 [wait]HideDB()

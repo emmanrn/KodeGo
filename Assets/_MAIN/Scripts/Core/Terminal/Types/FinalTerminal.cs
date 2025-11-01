@@ -5,6 +5,7 @@ using System.Text;
 using MAIN_GAME;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TERMINAL
 {
@@ -15,8 +16,10 @@ namespace TERMINAL
         [SerializeField] private GameObject codeBlockPrefab;
         [SerializeField] private GameObject slotPrefab; // drop target
         [SerializeField] private int totalBlocks = 3;
+        [SerializeField] protected GameObject blockCounter;
 
         private List<CodeDropTarget> slots;
+
         protected override void InitializeTerminal()
         {
             runBtn.onClick.RemoveAllListeners();
@@ -68,13 +71,37 @@ namespace TERMINAL
         public override void BuildLine(Transform lineParent, string line)
         {
             int searchIndex = 0;
+            const float spaceWidth = 55f; // pixels per space
+            const int tabSize = 4;
 
+            bool hasInput = line.Contains(INPUT_ID);
+
+            // Determine if the line starts with indentation (space or tab)
+            bool startsWithIndent = line.Length > 0 && (line[0] == ' ' || line[0] == '\t');
+
+            float indentWidth = 0f;
+            if (hasInput && startsWithIndent)
+            {
+                int indentCount = 0;
+                foreach (char c in line)
+                {
+                    if (c == ' ') indentCount++;
+                    else if (c == '\t') indentCount += tabSize;
+                    else break;
+                }
+
+                if (indentCount > 0)
+                    indentWidth = indentCount * spaceWidth;
+            }
+
+
+            // now build chunks
             while (true)
             {
                 int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
                 if (nextIndex == -1)
                 {
-                    // Add remaining text
+                    // Add remaining text (no inputs left)
                     string remaining = line.Substring(searchIndex);
                     if (!string.IsNullOrEmpty(remaining))
                     {
@@ -88,17 +115,34 @@ namespace TERMINAL
                 string before = line.Substring(searchIndex, nextIndex - searchIndex);
                 if (!string.IsNullOrEmpty(before))
                 {
-                    var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                    chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
+                    // Trim leading spaces if we already have an indent spacer
+                    string trimmedBefore = before;
+                    if (indentWidth > 0 && searchIndex == 0)
+                        trimmedBefore = before.TrimStart(' ', '\t');
+
+                    if (!string.IsNullOrEmpty(trimmedBefore))
+                    {
+                        var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                        // chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
+                        chunk.GetComponentInChildren<TextMeshProUGUI>().text = trimmedBefore;
+                    }
                 }
 
-                // Add slot
+                // Add slot (and indent spacer if first one)
+                if (indentWidth > 0 && searchIndex == 0)
+                {
+                    var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                    indentObj.transform.SetParent(lineParent, false);
+                    indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
+                }
+
                 var slotGO = ObjectPoolManager.SpawnObject(slotPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                 var slot = slotGO.GetComponent<CodeDropTarget>();
                 slots.Add(slot);
 
                 searchIndex = nextIndex + INPUT_ID.Length;
             }
+
         }
 
         public override string GetFullCode()
@@ -159,9 +203,11 @@ namespace TERMINAL
 
         private IEnumerator OnPlayerWin()
         {
+            blockCounter.SetActive(false);
             LevelProgressManager.SetPlayerLevelWin(levelName);
             LevelProgressManager.UnlockTitle(levelName, GameManager.instance.titleToBeUnlocked);
             GameSave.activeFile.Save();
+
             yield return StartCoroutine(ShowVictory());
             Transition.instance.LoadLevel(levelName, GameManager.instance.fileToRead);
         }
@@ -177,6 +223,7 @@ namespace TERMINAL
             PopupMenuManager.instance.ShowVictoryPopup("PASSED");
             yield return new WaitForSeconds(1.25f);
             PopupMenuManager.instance.HideVictoryPopup();
+            yield return new WaitForSeconds(1f);
         }
 
         protected override void OnClose()

@@ -18,6 +18,7 @@ namespace TERMINAL
         [SerializeField] protected Transform codeContainer; // Vertical layout group
         [SerializeField] protected GameObject codeLinePrefab; // Horizontal line prefab
         [SerializeField] protected GameObject codeChunkPrefab; // Code text prefab
+        [SerializeField] protected GameObject indentPrefab;
         [SerializeField] protected Button closeBtn;
         [SerializeField] protected Button runBtn;
 

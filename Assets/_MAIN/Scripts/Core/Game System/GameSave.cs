@@ -12,7 +12,7 @@ namespace MAIN_GAME
         public static GameSave activeFile = null;
 
         public const string FILE_TYPE = ".gmsv";
-        public const bool ENCRYPT_FILES = false;
+        public const bool ENCRYPT_FILES = true;
 
         public string filePath = $"{FilePaths.gameSaves}save{FILE_TYPE}";
 

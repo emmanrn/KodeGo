@@ -16,6 +16,11 @@ public class CodeBlockCounter : MonoBehaviour
         UpdateCounter();
     }
 
+    void Awake()
+    {
+        this.gameObject.SetActive(true);
+    }
+
     void OnDisable()
     {
         foreach (var block in blocks)

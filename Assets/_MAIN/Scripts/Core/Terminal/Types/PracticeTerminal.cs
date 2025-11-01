@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TERMINAL
 {
@@ -69,30 +70,70 @@ namespace TERMINAL
             //     searchIndex = nextIndex + INPUT_ID.Length;
             // }
             int searchIndex = 0;
+            const float spaceWidth = 55f; // pixels per space
+            const int tabSize = 4;
 
+            bool hasInput = line.Contains(INPUT_ID);
+
+            // Determine if the line starts with indentation (space or tab)
+            bool startsWithIndent = line.Length > 0 && (line[0] == ' ' || line[0] == '\t');
+
+            float indentWidth = 0f;
+            if (hasInput && startsWithIndent)
+            {
+                int indentCount = 0;
+                foreach (char c in line)
+                {
+                    if (c == ' ') indentCount++;
+                    else if (c == '\t') indentCount += tabSize;
+                    else break;
+                }
+
+                if (indentCount > 0)
+                    indentWidth = indentCount * spaceWidth;
+            }
+
+
+            // now build chunks
             while (true)
             {
                 int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
-                string beforeInput;
-
                 if (nextIndex == -1)
                 {
-                    beforeInput = line.Substring(searchIndex);
-                }
-                else
-                {
-                    beforeInput = line.Substring(searchIndex, nextIndex - searchIndex);
-                }
-
-                // Always spawn a chunk, even if it's just whitespace
-                var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                chunk.transform.localScale = Vector3.one;
-
-                // Replace tabs with spaces for TMP display
-                chunk.GetComponentInChildren<TextMeshProUGUI>().text = beforeInput.Replace("\t", "    ");
-
-                if (nextIndex == -1)
+                    // Add remaining text (no inputs left)
+                    string remaining = line.Substring(searchIndex);
+                    if (!string.IsNullOrEmpty(remaining))
+                    {
+                        var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                        chunk.GetComponentInChildren<TextMeshProUGUI>().text = remaining;
+                    }
                     break;
+                }
+
+                // Add text before slot
+                string before = line.Substring(searchIndex, nextIndex - searchIndex);
+                if (!string.IsNullOrEmpty(before))
+                {
+                    // Trim leading spaces if we already have an indent spacer
+                    string trimmedBefore = before;
+                    if (indentWidth > 0 && searchIndex == 0)
+                        trimmedBefore = before.TrimStart(' ', '\t');
+
+                    if (!string.IsNullOrEmpty(trimmedBefore))
+                    {
+                        var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                        // chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
+                        chunk.GetComponentInChildren<TextMeshProUGUI>().text = trimmedBefore;
+                    }
+                }
+
+                // Add slot (and indent spacer if first one)
+                if (indentWidth > 0 && searchIndex == 0)
+                {
+                    var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                    indentObj.transform.SetParent(lineParent, false);
+                    indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
+                }
 
                 // Spawn input field
                 var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
