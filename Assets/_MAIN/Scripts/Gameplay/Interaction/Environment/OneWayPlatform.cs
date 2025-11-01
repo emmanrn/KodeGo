@@ -8,6 +8,7 @@ public class OneWayPlatform : MonoBehaviour
     private Collider2D col;
     private Collider2D playerOnPlatform;
     private PlayerController player;
+    private bool isDisabling = false;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class OneWayPlatform : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
 
-        if (player != null && player.isPressingDown)
+        if (player != null && player.isPressingDown && !isDisabling)
         {
             // Start fall through
             StartCoroutine(DisableCollisionTemporarily(other.collider, player));
@@ -56,6 +57,7 @@ public class OneWayPlatform : MonoBehaviour
     private IEnumerator DisableCollisionTemporarily(Collider2D playerCol, PlayerController player)
     {
         // Disable collision
+        isDisabling = true;
         Physics2D.IgnoreCollision(playerCol, col, true);
 
         // Wait until player is fully below platform
@@ -67,5 +69,6 @@ public class OneWayPlatform : MonoBehaviour
 
         // Re-enable collision
         Physics2D.IgnoreCollision(playerCol, col, false);
+        isDisabling = false;
     }
 }

@@ -1,0 +1,42 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Every system needs to make a choice. We use if, elif, and else to draw the paths."
+
+
+
+Kode.Show()
+Kode [0:Default] "These roads all cross each other… no wonder everything’s stuck."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Every system faces choices like this. That’s where if, elif, and else come in."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So they’re like traffic signals?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly. Each one decides which path the system should take."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "How does the Core even decide which path to follow?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "It asks itself one question for every condition: ‘Is this True, or is it False?’"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So it’s basically flipping a mental switch."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Right. That simple switch decides every move the system makes."
+NPC.Hide()
+
+
+[wait]HideDB()

@@ -6,12 +6,13 @@ public class CollectableBlock : MonoBehaviour
 {
     public string levelName;
     private bool collected;
+    public bool isCollectable = true;
 
     public event Action OnCollected;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !collected)
+        if (other.CompareTag("Player") && !collected && isCollectable)
             Collect();
     }
 

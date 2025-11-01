@@ -1,0 +1,40 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "While loops keep going until a condition becomes false — endless until stopped"
+
+NPC.Show()
+NPC as NPC 3 "Some tunnels just keep draining water as long as there’s flow."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So it never stops on its own?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. It will keep going until something blocks it or dries up."
+NPC.Hide()
+
+
+Kode.Show()
+Kode [0:Default] "Sounds dangerous… if I’m not careful."
+Kode.Hide()
+
+
+NPC.Show()
+NPC as NPC 3 "It can be, but once you understand the flow, it’s powerful."
+NPC as NPC 3 "Trust me, leaving a pipe open without a stop leads to trouble."
+NPC.Hide()
+
+
+Kode.Show()
+Kode [0:surprised] "I saw that in the last chamber… the water just kept spilling!"
+Kode.Hide()
+
+
+NPC.Show()
+NPC as NPC 3 "Yep. Always make sure the cycle has a way to end, or nothing else in the sewer can be controlled."
+NPC.Hide()
+
+[wait]HideDB()

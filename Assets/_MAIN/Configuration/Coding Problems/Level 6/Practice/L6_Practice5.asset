@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbc803235e9ea84c8a70a273abdf948, type: 3}
+  m_Name: L6_Practice5
+  m_EditorClassIdentifier: 
+  codeLines:
+  - '{input}:'
+  - "\tfor {input}:"
+  - "\t\t{input}:"
+  - "\t\t\t{input}"
+  - "\treturn False"
+  - print(has_vowel('Kode')
+  expectedOutput: True
+  hints:
+  - Loop through the string
+  - As soon as you find a vowel, immediately return True.
+  - If the loop finishes without finding one, return False

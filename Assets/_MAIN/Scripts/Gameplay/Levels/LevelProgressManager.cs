@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -64,6 +63,13 @@ public class LevelProgressManager
         RecalculateCompletion(level);
     }
 
+    public static void UnlockTitle(string levelName, string title)
+    {
+        var level = GetLevel(levelName);
+        level.title = title;
+        RecalculateCompletion(level);
+    }
+
     public static void AddDeathCount(string levelName)
     {
         var level = GetLevel(levelName);
@@ -113,8 +119,6 @@ public class LevelProgressManager
     {
         return levels.levels[currentIndex + 1].name;
     }
-
-
 
     private static void RecalculateCompletion(LevelData level)
     {

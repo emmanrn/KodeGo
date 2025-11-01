@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa7e92aaf307a84eb3d1965aa464cc0, type: 3}
+  m_Name: L5_Final7
+  m_EditorClassIdentifier: 
+  codeLines:
+  - i = 1
+  - 'while {input} <= 20:'
+  - "\t{input}:"
+  - "\t\tprint(i, end=\" \")"
+  - "\t{input}"
+  expectedOutput: 4 8 12 16 20
+  codeBlocks:
+  - i += 1
+  - i
+  - if i % 4 == 0

@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The player lands in a strange world covered in locked vaults"
+narrator "Their job is to get inside every single one."
+narrator "They grab their wrench and their digital wrist tool."
+narrator "These vaults hold valuable data, and they realize they just need to figure out how to store and change the access code—the variable—to pop them open."
+narrator "Should be easy, right?"
+
+[wait]HideDB()

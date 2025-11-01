@@ -1,0 +1,48 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "A for loop moves through a range, one step at a time — like walking a numbered path"
+
+NPC.Show()
+NPC as NPC 2 "Look at this passageway with numbered grates. Water trickles through each one, step by step."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "It’s like it’s counting as it moves along!"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. Each step is handled in order—nothing gets skipped, nothing missed."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So if I wanted to check five grates, I’d just follow each one carefully."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Bingo. One step at a time keeps things under control."
+
+NPC as NPC 2 "...{wa 0.5} Come here, let me show you something"
+
+NPC as NPC 2 "Look at the numbered manholes. If we count from 1 to 5…"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Wait, shouldn’t it include 6?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Not quite. It stops just before 6. So it’s 1, 2, 3, 4, 5—enough to cover the sequence safely."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Ah, so the last number is like the limit we don’t step into."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. Precision prevents mistakes down here."
+NPC.Hide()
+
+
+[wait]HideDB()

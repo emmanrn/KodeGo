@@ -1,0 +1,58 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "The if command is your first rule. You're saying, 'Only execute this action if the condition is met."
+
+
+
+Kode.Show()
+Kode [0:Default] "Alright, where do I start untangling this mess?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Start with an if statement. It’s your first rule—your command to the Core: ‘Only do this if the condition is met.’"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So… if there’s a jam ahead, stop the flow?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. Tell it what to check, and it’ll handle the rest."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "But what if the first rule doesn’t apply?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Then comes elif. It’s the backup plan’s backup plan—‘If the first choice failed, try this one instead."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So the Core keeps checking until something works?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. It’s a chain of decisions—fail one, test the next."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "And if none of the paths work?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "That’s where else steps in—the final fallback. It’s what happens when every other rule fails."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So the system always has a last resort."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. Even chaos needs a backup plan."
+NPC.Hide()
+
+
+[wait]HideDB()

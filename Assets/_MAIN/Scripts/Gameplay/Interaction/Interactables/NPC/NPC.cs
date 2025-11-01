@@ -10,7 +10,6 @@ public class NPC : MonoBehaviour, IInteractable
 {
     [SerializeField] private InputReader inputReader;
     [SerializeField] private TextAsset fileToRead;
-    [SerializeField] private GameObject door;
 
 
 

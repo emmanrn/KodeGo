@@ -1,0 +1,43 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "The system knows what belongs to which rule by the way you indent it. Keep your blocks separate"
+
+
+
+Kode.Show()
+Kode [0:Default] "My commands are all mixed up. The system’s not following them right."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Check your spacing. The Core reads structure through indentation. It needs to know what belongs under which rule."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So the way I line things up matters?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "It’s everything. Without clean blocks, the system gets lost in the maze."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:surprised] "Some of these roads have multiple signs at once!"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Then use and or or. ‘and’ means both rules must be True; ‘or’ means one is enough."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So I can make complex checks?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. That’s how the Core handles tougher crossroads."
+NPC.Hide()
+
+
+
+[wait]HideDB()

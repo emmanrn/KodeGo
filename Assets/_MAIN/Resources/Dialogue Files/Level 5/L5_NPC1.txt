@@ -1,0 +1,24 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Loops let your code repeat without you lifting a finger"
+
+NPC.Show()
+NPC as NPC 1 "See those streams of water moving through the pipes? They keep flowing over and over, all on their own."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:surprised] "So they never stop? They just… do their thing automatically?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly! That’s the power of cycles. Once a path is set, it repeats endlessly, while you focus on other problems."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:happy] "Wow… I guess even sewers have their own kind of rhythm."
+Kode.Hide()
+
+
+[wait]HideDB()

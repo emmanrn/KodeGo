@@ -1,0 +1,58 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "To make your spell adaptable, give it Parameters. These are the ingredients it needs to work."
+
+
+Kode.Show()
+Kode [0:Default] "But what if I want the hammer to hit with different strength?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Then you give your function parameters—ingredients it can use."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Like def swingHammer(force):?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Perfect. Each time you cast it, the ‘force’ you give changes the outcome."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "And if the spell creates something—how do I collect the result?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Use return. That’s the function handing you the final product, polished and ready"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So if I calculate the hammer’s power, it can send that back?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. The forge gives, and your system receives."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "What about those parentheses? Do they hold something?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Yes—the ingredients. The values you send, like add(3, 4), feed the function."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So I decide what it uses each time I call it"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. Different inputs, same ritual—new results."
+NPC.Hide()
+
+
+
+[wait]HideDB()

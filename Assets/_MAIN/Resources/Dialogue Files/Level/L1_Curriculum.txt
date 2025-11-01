@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "This time, everything's already open, but when they touch a terminal, they fall into a pit."
+narrator "Ouch."
+narrator "They land and see that the nice white room is now full of burn marks, with sparks flying from the panels."
+narrator "As they step forward, their wrist display starts sparking, too."
+narrator "It needs a fast repair... maybe by learning to "speak" Python and using a print command to reset the system."
+
+[wait]HideDB()

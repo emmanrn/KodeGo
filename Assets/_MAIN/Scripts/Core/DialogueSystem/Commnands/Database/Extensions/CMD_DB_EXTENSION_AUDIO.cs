@@ -78,7 +78,7 @@ namespace COMMANDS
             if (sound == null)
                 return;
 
-            AudioManager.instance.PlaySoundEffect(sound, volume: volume, pitch: pitch, loop: loop);
+            AudioManager.instance.PlayVoice(sound, volume: volume, pitch: pitch, loop: loop);
         }
 
         private static void PlaySong(string[] data)

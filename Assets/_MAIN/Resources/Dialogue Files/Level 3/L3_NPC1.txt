@@ -1,0 +1,25 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "These Operators are the hidden gears of the Core. They’re what make data move."
+
+
+Kode.Show()
+Kode [0:Default] "Everything here’s frozen solid. Even the numbers look stuck."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "That’s because the Operators have stopped turning. They’re the hidden gears of the Core—what make data move and react."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So if I fix them, the whole system starts moving again?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly. Bring the symbols back to life, and the Core will start breathing again."
+NPC.Hide()
+
+
+[wait]HideDB()

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa7e92aaf307a84eb3d1965aa464cc0, type: 3}
+  m_Name: L4_Final5
+  m_EditorClassIdentifier: 
+  codeLines:
+  - a, b, c = 7, 5, 3
+  - '{input}:'
+  - "\tprint(\"a is biggest\")"
+  - '{input}:'
+  - "\tprint(\"b is biggest\")"
+  - '{input}:'
+  - "\tprint(\"c is biggest\")"
+  expectedOutput: a is biggest
+  codeBlocks:
+  - if a > b and a > c
+  - else
+  - elif b > a and b > c

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cbc803235e9ea84c8a70a273abdf948, type: 3}
+  m_Name: L1_Practice9
+  m_EditorClassIdentifier: 
+  codeLines:
+  - '{input}'
+  expectedOutput: C:\new_folder
+  hints:
+  - Since a single backslash has a special meaning to Python, you must use two backslashes
+    (\\) before the 'new_floder' so it prints correctly.
+  - We use '\\' so that we can print one '\' because using only one backslash is
+    a special meaning already in Python used for the '\n' and maybe even more

@@ -9,6 +9,13 @@ public class CameraTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
             if (CameraManager.ActiveCamera != cam)
+            {
                 CameraManager.SwitchCamera(cam);
+            }
     }
+
+
+
+
+
 }

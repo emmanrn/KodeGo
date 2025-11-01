@@ -17,6 +17,7 @@ namespace DIALOGUE
         public ConversationManager conversationManager { get; private set; }
         private TextArchitect archi;
         [SerializeField] private CanvasGroup mainCanvas;
+        public Canvas mainCanv;
         public AutoReader autoReader { get; private set; }
         public static DialogueSystem instance { get; private set; }
         public delegate void DialogueSysEvent();

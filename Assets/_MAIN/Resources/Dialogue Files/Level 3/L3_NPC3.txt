@@ -1,0 +1,41 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "To compare things, ask: == (Are they the same?), < (Is it smaller?), or > (Is it bigger?)."
+
+
+Kode.Show()
+Kode [0:Default] "Some vaults keep asking me questions—‘equal,’ ‘greater,’ ‘less.’ What’s that about?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Those are comparisons. == asks if two things are the same. < checks if one’s smaller, and > if it’s bigger."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So the Core likes to double-check its math"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. It never takes anything at face value."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "These logic panels are weird. They say things like ‘and,’ ‘or,’ and ‘not."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Those are the Core’s way of stacking thoughts. ‘and’ means both must be true, ‘or’ means one will do, and ‘not’ flips everything upside down."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So I can make the Core think more deeply?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Precisely. That’s how you build smarter decisions out of simple truths."
+NPC.Hide()
+
+
+[wait]HideDB()

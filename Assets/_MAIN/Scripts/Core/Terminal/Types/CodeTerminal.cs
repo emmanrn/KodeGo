@@ -24,18 +24,18 @@ namespace TERMINAL
         protected const int MAX_WRONG_ATTEMPTS = 5;
         void Start()
         {
-            int randomIndex = Random.Range(0, configs.Length - 1);
-            currentConfig = configs[randomIndex];
+            currentConfig = QuestionManager.instance.GetRandomQuestion(terminalType) as T;
+
         }
 
         protected override void InitializeTerminal()
         {
             // pool = PoolManager.instance;
+            closeBtn.onClick.RemoveAllListeners();
             closeBtn.onClick.AddListener(ClickCloseWindow);
             BuildCodeUI();
             rootContainer.SetActive(true);
             anim.Play("Open");
-            // LayoutRebuilder.ForceRebuildLayoutImmediate(outputTerminal.GetComponent<RectTransform>());
         }
 
 

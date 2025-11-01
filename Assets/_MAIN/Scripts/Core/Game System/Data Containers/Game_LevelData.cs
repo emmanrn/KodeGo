@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 namespace MAIN_GAME
@@ -14,6 +13,7 @@ namespace MAIN_GAME
         public bool secretFound;
         public string skinUnlocked;
         public int deathCount;
+        public string title;
 
         public Vector3 checkpoint;
         public bool hasCheckpoint;

@@ -3,17 +3,28 @@ using System.Linq;
 using MAIN_GAME;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TERMINAL
 {
     public abstract class Terminal : MonoBehaviour, IInteractable
     {
+        public enum TerminalType
+        {
+            FINAL,
+            DEBUG,
+            PRACTICE
+        }
+
+        public TerminalType terminalType;
         [SerializeField] protected GameObject rootContainer;
         [SerializeField] protected TextMeshProUGUI outputTerminal;
         [SerializeField] protected TextMeshProUGUI expectedOutputTerminal;
         [SerializeField] protected InputReader inputReader;
         [SerializeField] protected Interpreter interpreter;
         [SerializeField] protected Animator anim;
+        protected Coroutine currentPopup = null;
+
         private bool interactable = true;
         protected string levelName => GameManager.instance.LEVEL_NAME;
         public bool isInteractable() => interactable;
@@ -29,6 +40,7 @@ namespace TERMINAL
             {
                 inputReader.SetUI();
                 InitializeTerminal();
+                AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
                 rootContainer.SetActive(true);
             }
         }
@@ -42,13 +54,13 @@ namespace TERMINAL
 
         private IEnumerator CloseWindow()
         {
+            OnClose();
             anim.Play("Close");
             yield return new WaitForSeconds(0.2f);
 
             inputReader.SetPlayerMovement();
             rootContainer.SetActive(false);
 
-            OnClose();
         }
 
         public abstract void Run();
@@ -98,7 +110,24 @@ namespace TERMINAL
             return false;
         }
 
-        protected virtual void OnClose() { }
+        protected virtual void OnClose()
+        {
+        }
+        protected void StartErrorPopup()
+        {
+            if (currentPopup != null)
+                StopCoroutine(currentPopup);
+
+            currentPopup = StartCoroutine(ShowError());
+        }
+        private IEnumerator ShowError()
+        {
+            PopupMenuManager.instance.ShowErrorPopup("ERROR");
+            yield return new WaitForSeconds(1.25f);
+            PopupMenuManager.instance.HideErrorPopup();
+        }
+
+
     }
 
 }

@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The world begins to shake, and all the symbols are mixing up."
+narrator "The numbers are going crazy, adding, subtracting, and multiplying everything in sight."
+narrator "Even the text is trying to join up with the numbers! Something is terribly wrong."
+narrator "They need to master these operators and expressions before they break the whole system."
+narrator "The chase is on to correct them all!"
+
+[wait]HideDB()

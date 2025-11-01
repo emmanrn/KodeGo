@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The system reset is complete!"
+narrator "The player jumps out to the finish line, and with a bright flash, they wake up back in their own bed"
+narrator "The white room wasn’t a design choice."
+narrator "It was syntax space — unindented, unshaped."
+narrator "They look out at the city, shrug, grab their trusty toolbox, and get ready for the next job."
+
+[wait]HideDB()

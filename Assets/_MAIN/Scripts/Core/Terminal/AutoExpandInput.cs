@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 [RequireComponent(typeof(TMP_InputField))]
 public class AutoResizeTMPInput : MonoBehaviour
 {

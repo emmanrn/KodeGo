@@ -17,4 +17,5 @@ MonoBehaviour:
   - "\tprint({input})"
   - greet()
   expectedOutput: Hello World
-  hints: []
+  hints:
+  - Bruh!

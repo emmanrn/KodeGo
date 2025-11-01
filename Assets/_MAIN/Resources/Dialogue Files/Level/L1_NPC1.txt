@@ -1,0 +1,22 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+
+NPC.Show()
+NPC as NPC 1 "Ah… you’re awake"
+NPC as NPC 1 "Welcome to the Core’s domain."
+NPC as NPC 1 "Don’t be intimidated—this place listens, but only to clear instructions."
+NPC as NPC 1 "Think of Python like a new language. Speak clearly, line by line, and the Core will understand you."
+NPC as NPC 1 "Now, a few things to keep in mind."
+NPC as NPC 1 "Watch your spacing—where you place your instructions tells the Core what belongs together."
+NPC as NPC 1 "It doesn’t care for extra brackets or semicolons like other systems do; it just wants clean lines and proper structure."
+NPC as NPC 1 "If you want to announce something, like letting the Core know ‘I’m here!’ you use the print() command"
+NPC as NPC 1 "It broadcasts your message across the system."
+NPC as NPC 1 "And remember: the Core reads everything from top to bottom. It won’t skip ahead, so order matters."
+NPC as NPC 1 "Want to leave a note for yourself?"
+NPC as NPC 1 "Use #. Anything after that symbol is just for you; the Core ignores it."
+NPC as NPC 1 "But be precise—miss a bracket, misplace a symbol, and the Core can’t figure out what you mean."
+NPC.Hide()
+
+[wait]HideDB()

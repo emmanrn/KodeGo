@@ -6,7 +6,7 @@ using MAIN_GAME;
 using UnityEditor;
 using UnityEngine;
 
-public class Quiz : MonoBehaviour
+public class Quiz : MonoBehaviour, IInteractable
 {
     private const int MAX_WRONG_ATTEMPTS = 5;
     [SerializeField] private InputReader inputReader;
@@ -39,9 +39,21 @@ public class Quiz : MonoBehaviour
         }
 
 
-        var level = LevelProgressManager.GetLevel(levelName);
-        if (level.quizPassed)
-            door.SetActive(false);
+        if (isCorrect)
+        {
+            if (door != null)
+            {
+                if (door.TryGetComponent(out CollectableBlock block))
+                {
+                    block.isCollectable = true;
+                    Color alpha = Color.yellow;
+                    block.GetComponent<SpriteRenderer>().color = alpha;
+                }
+                else
+                    door.SetActive(false);
+
+            }
+        }
     }
 
     public bool isInteractable() => !GeneralManager.instance.isRunningDialogue;
@@ -94,7 +106,17 @@ public class Quiz : MonoBehaviour
         if (isCorrect)
         {
             LevelProgressManager.SetQuizPassed(levelName);
-            door.gameObject.SetActive(false);
+            if (door != null)
+            {
+                if (door.TryGetComponent(out CollectableBlock block))
+                {
+                    block.isCollectable = true;
+                    Color alpha = Color.yellow;
+                    block.GetComponent<SpriteRenderer>().color = alpha;
+                }
+                else
+                    door.SetActive(false);
+            }
         }
 
 
@@ -122,7 +144,7 @@ public class Quiz : MonoBehaviour
         }
 
         prevHintIndex = randomHintIndex;
-        PopupMenu.instance.Show(hints[randomHintIndex]);
+        PopupMenuManager.instance.ShowHintPopup(hints[randomHintIndex]);
     }
 
     public void LoadFile(string filePath)

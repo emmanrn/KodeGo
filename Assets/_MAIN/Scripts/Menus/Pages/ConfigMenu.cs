@@ -219,6 +219,6 @@ public class ConfigMenu : MenuPage
         ui.voicesFill.color = config.voicesMute ? UI_ITEMS.musicOffColor : UI_ITEMS.musicOnColor;
         ui.voicesMute.sprite = config.voicesMute ? ui.mutedSymbol : ui.unmutedSymbol;
 
-        AudioManager.instance.SetSFXVolume(config.voicesVolume, config.voicesMute);
+        AudioManager.instance.SetVoiceVolume(config.voicesVolume, config.voicesMute);
     }
 }

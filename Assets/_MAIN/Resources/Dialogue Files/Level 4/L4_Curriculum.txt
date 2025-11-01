@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The traffic is slightly better, but suddenly, a huge storm starts. What's happening now?"
+narrator "The player sees a massive machine with a number that's changing non-stop—it's an overflow!"
+narrator "They rush to it, quickly adding logical choices to tell the machine what to do if the number is too high and what to do else if it’s too low."
+narrator "They need to set up some conditional statements—some if and else choices—to make the system decide which path to take. This should fix the interlocking roads."
+
+[wait]HideDB()

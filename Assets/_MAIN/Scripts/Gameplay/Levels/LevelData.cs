@@ -11,6 +11,7 @@ public class LevelData
     public bool secretFound;
     public string skinUnlocked;
     public int deathCount;
+    public string title;
 
     public Vector3 checkpoint;
     public bool hasCheckpoint;

@@ -1,0 +1,42 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Spot a repeated action in your code? That's a sign a Function needs to be forged."
+
+
+Kode.Show()
+Kode [0:Default] "I keep repeating this same line over and over."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Then the forge calls to you. Repetition means inefficiency—time to forge a Function"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So whenever I see the same work twice…"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "You forge once, reuse forever"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "The hammer’s working perfectly now. Everything’s in rhythm"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "That’s the sound of mastery. Functions are the foundation of all systems—every great machine begins here."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So this forge isn’t just fixing code—it’s shaping logic itself."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "And now, so are you, apprentice of the Function Forge."
+NPC.Hide()
+
+
+
+[wait]HideDB()

@@ -10,17 +10,22 @@ public class ButtonBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        anim.Play("Exit");
+        if (anim != null)
+            anim.Play("Exit");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+
         if (selectedButton != null && selectedButton != this)
         {
             selectedButton.OnPointerExit(null);
         }
 
-        anim.Play("Enter");
+        if (anim != null)
+            anim.Play("Enter");
+
+        AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "button_hover"));
         selectedButton = this;
     }
 }

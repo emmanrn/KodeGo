@@ -1,0 +1,25 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "To check your stored data, just use print() on the container name. It'll reveal the contents."
+
+
+Kode.Show()
+Kode [0:surprised] "I stored something, but how do I see what’s inside?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Call it out with print()—like asking the Core to show you the box’s contents."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:surprised] "And it’ll just… tell me?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Loud and clear. The Core never lies about what’s inside a box."
+NPC.Hide()
+
+
+[wait]HideDB()

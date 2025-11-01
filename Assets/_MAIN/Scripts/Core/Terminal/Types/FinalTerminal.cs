@@ -19,7 +19,7 @@ namespace TERMINAL
         private List<CodeDropTarget> slots;
         protected override void InitializeTerminal()
         {
-            runBtn.onClick.RemoveListener(Run);
+            runBtn.onClick.RemoveAllListeners();
             slots = new List<CodeDropTarget>();
             runBtn.onClick.AddListener(Run);
 
@@ -119,7 +119,7 @@ namespace TERMINAL
                 Debug.Log("Correct");
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
-                OnPlayerWin();
+                StartCoroutine(OnPlayerWin());
             }
             else
             {
@@ -142,19 +142,28 @@ namespace TERMINAL
                 return;
             }
 
-            string output = interpreter.ExecuteCode(code);
-
+            bool success = interpreter.TryExecuteCode(code, out string output);
             outputTerminal.text = "";
 
-            CheckOutput(output, currentConfig.expectedOutput);
+            if (success)
+            {
+                CheckOutput(output, currentConfig.expectedOutput);
+            }
+            else
+            {
+                StartErrorPopup();
+            }
 
         }
 
-        private void OnPlayerWin()
+
+        private IEnumerator OnPlayerWin()
         {
             LevelProgressManager.SetPlayerLevelWin(levelName);
+            LevelProgressManager.UnlockTitle(levelName, GameManager.instance.titleToBeUnlocked);
             GameSave.activeFile.Save();
-            Transition.instance.LoadLevel(levelName);
+            yield return StartCoroutine(ShowVictory());
+            Transition.instance.LoadLevel(levelName, GameManager.instance.fileToRead);
         }
 
         private void PlayerDied()
@@ -163,8 +172,16 @@ namespace TERMINAL
             outputTerminal.text = "";
         }
 
+        private IEnumerator ShowVictory()
+        {
+            PopupMenuManager.instance.ShowVictoryPopup("PASSED");
+            yield return new WaitForSeconds(1.25f);
+            PopupMenuManager.instance.HideVictoryPopup();
+        }
+
         protected override void OnClose()
         {
+            AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
             for (int i = codeContainer.childCount - 1; i >= 0; i--)
             {
                 Transform child = codeContainer.GetChild(i);

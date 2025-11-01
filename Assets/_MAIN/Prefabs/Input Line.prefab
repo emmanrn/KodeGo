@@ -131,7 +131,7 @@ MonoBehaviour:
   m_InputType: 0
   m_AsteriskChar: 42
   m_KeyboardType: 0
-  m_LineType: 0
+  m_LineType: 1
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
   m_CharacterValidation: 0
@@ -169,13 +169,13 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
-  m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 936ca910fd0224844a63127d17912a28, type: 2}
-  m_OnFocusSelectAll: 1
+  m_RichText: 0
+  m_GlobalFontAsset: {fileID: 11400000, guid: 1a68ef50d448c9146b9ca80dda24f24b, type: 2}
+  m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
   m_isRichTextEditingAllowed: 0
-  m_LineLimit: 0
+  m_LineLimit: 1
   m_InputValidator: {fileID: 0}
 --- !u!114 &5430996511385022402
 MonoBehaviour:
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 100
+  m_PreferredWidth: 400
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   padding: 20
-  minWidth: 60
-  maxWidth: 400
+  minWidth: 1000
+  maxWidth: 2000
 --- !u!1 &2125722499506414878
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 936ca910fd0224844a63127d17912a28, type: 2}
-  m_sharedMaterial: {fileID: 4094498529334757014, guid: 936ca910fd0224844a63127d17912a28, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1a68ef50d448c9146b9ca80dda24f24b, type: 2}
+  m_sharedMaterial: {fileID: 8173045924393155178, guid: 1a68ef50d448c9146b9ca80dda24f24b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -371,7 +371,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -379,7 +379,7 @@ MonoBehaviour:
   m_enableKerning: 1
   m_enableExtraPadding: 1
   checkPaddingRequired: 0
-  m_isRichText: 1
+  m_isRichText: 0
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0

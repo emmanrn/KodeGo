@@ -1,0 +1,41 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Need to store information? Grab one of those labeled containers—a Variable—and seal your data inside."
+
+
+Kode.Show()
+Kode [0:surprised] "These vaults look like they’re holding something."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "They are—data. But to keep your own, you’ll need your own vaults. We call them variables."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So… they’re like storage boxes?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly. Label one, drop your info in, and it’s safe until you need it again."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Wait—what does this name = 'Kode' thing mean?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "That’s you labeling a box ‘name’ and locking the word ‘Kode’ inside."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So every box gets its own label?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Right. That label lets the Core know where your data lives."
+NPC.Hide()
+
+
+[wait]HideDB()

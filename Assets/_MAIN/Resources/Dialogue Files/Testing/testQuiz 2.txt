@@ -1,0 +1,27 @@
+CreateCharacter(Kode)
+CreateCharacter(Pseudo)
+
+Narrator "Welcome to my quiz"
+Narrator "What's the symbol to make a comment in Python?"
+
+choice "What do you prefer?"
+{
+    -"#"
+        Narrator "Nice! Good job!"
+        Kode.Show()
+        Kode [0:A10] "Why 'def'? that's weird..."
+        Kode.Hide()
+        Narrator "I know right. Whoever thought of that didn't thought hard enough"
+        $Level5.Quiz_1 = true
+        Load(secondTesting -enqueue true)
+    -"//"
+        Narrator "Nope that's actually the keyword for the programming language Go!"
+        Narrator "Nt tho, I can see why you've chosen that"
+        $Level5.Quiz_1 = false
+    -"--"
+        Narrator "Wrong! This is actually the keyword for the programming language Zig!"
+        $Level5.Quiz_1 = false
+}
+
+Narrator "Ok enough with that we're done here"
+HideDB()

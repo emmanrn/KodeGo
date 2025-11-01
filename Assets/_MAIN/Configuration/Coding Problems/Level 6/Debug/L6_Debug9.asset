@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1863079aa4eaf4191add542acd6f08, type: 3}
+  m_Name: L6_Debug9
+  m_EditorClassIdentifier: 
+  codeLines:
+  - names = ["Alice", "Bob", "Charlie"]
+  - '{input} greet_players(names):'
+  - "\tfor {input}:"
+  - "\t\tprint('Hello, ' + name + \"!\")"
+  - '{input}'
+  expectedOutput: 'Hello, Alice!
+
+    Hello, Bob!
+
+    Hello, Charlie!'
+  prefilledBlocks:
+  - name in names
+  - greet_players(names)
+  - def
+  hints:
+  - Use 'def' to define the function
+  - Use a for loop to iterate through the list
+  - Call the function with a list of names
+  - The variable names is what you call a list
+  - A list can store upto different and many kinds of values

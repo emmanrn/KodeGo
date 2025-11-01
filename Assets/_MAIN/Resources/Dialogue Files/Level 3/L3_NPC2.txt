@@ -1,0 +1,57 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Standard arithmetic: +, -, , /. If you can do it on a basic device, Python can handle it."
+
+
+Kode.Show()
+Kode [0:Default] "I see floating symbols—plus, minus, stars, and slashes. What do they do?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Those are your basic tools: + for adding, - for subtracting, * for multiplying, and / for dividing."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Simple math, then?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Simple, but powerful. The Core understands those symbols better than any machine ever built."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "What’s this percent symbol doing here? Doesn’t look like a discount sign."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "That one’s special—it finds what’s left over after you divide things evenly."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Like splitting rations and seeing what’s left on the plate?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Exactly. That leftover piece—that’s the Core’s % magic at work."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Whoa, this one’s glowing. Two stars?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "Ah, that’s the power symbol—**. It makes numbers multiply by themselves."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So, two raised to three… would be eight?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 2 "You’ve got it! Use it wisely—the Core respects those who understand power."
+NPC.Hide()
+
+
+[wait]HideDB()

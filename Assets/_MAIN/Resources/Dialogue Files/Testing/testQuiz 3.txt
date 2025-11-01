@@ -1,0 +1,27 @@
+CreateCharacter(Kode)
+CreateCharacter(Pseudo)
+
+Narrator "Welcome to my quiz"
+Narrator "What is the keyword for making a function in Python?"
+
+choice "What do you prefer?"
+{
+    -I know this one! it's def!
+        Narrator "Nice! Good job!"
+        Kode.Show()
+        Kode [0:A10] "Why 'def'? that's weird..."
+        Kode.Hide()
+        Narrator "I know right. Whoever thought of that didn't thought hard enough"
+        $Level1.Quiz_2 = true
+        Load(secondTesting -enqueue true)
+    -Hmm maybe it's func?
+        Narrator "Nope that's actually the keyword for the programming language Go!"
+        Narrator "Nt tho, I can see why you've chosen that"
+        $Level1.Quiz_2 = false
+    -Ahhhh, I got it! it's fn!
+        Narrator "Wrong! This is actually the keyword for the programming language Zig!"
+        $Level1.Quiz_2 = false
+}
+
+Narrator "Ok enough with that we're done here"
+HideDB()

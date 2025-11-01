@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "After a long chase, the final operator is fixed and vanishes in a flash."
+narrator " Wiping the sweat from their forehead, they head back."
+narrator "That was too much work for a Monday. No more running numbers, please."
+
+[wait]HideDB()
