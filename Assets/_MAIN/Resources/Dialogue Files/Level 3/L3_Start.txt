@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "Last time was solid ground; this time, they land in the Land of Symbols."
+narrator "It’s freezing! They spot a thermostat next to a massive energy bill."
+narrator "Hmm. They pull out their digital wrist tool."
+narrator "Maybe they can use the system’s operators—the simple math symbols—to calculate a discount and warm the place up."
+
+[wait]HideDB()

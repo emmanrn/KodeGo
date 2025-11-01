@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "Now, everything is floating, and huge clouds are carrying the vaults away to who knows where."
+narrator "They chase after a big one."
+narrator "To catch it and open it, they realize they have to change the speed variable for the cloud itself."
+narrator "That should stop it long enough for them to access the data"
+
+[wait]HideDB()

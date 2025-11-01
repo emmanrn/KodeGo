@@ -14,6 +14,7 @@ public class LevelMenu : MonoBehaviour
     [SerializeField] private LevelDatabase_SO levelDB;
     [SerializeField] private TextMeshProUGUI levelNameText;
     [SerializeField] private string[] levelNames;
+    [SerializeField] private TextAsset[] filesToRead;
 
     private Scrollbar bar;
     private bool isSmoothScrolling = false;
@@ -214,10 +215,14 @@ public class LevelMenu : MonoBehaviour
 
     private void LoadLevel(int index)
     {
+        index = index + 1;
         Debug.Log($"Loading Level {index}");
+        string levelName = $"Level{index}";
+        Debug.Log(filesToRead[index - 1].name);
+        Transition.instance.LoadNextScene(levelName, playCutscene: true, filesToRead[index - 1]);
         // Replace this with your actual scene-loading logic:
         // SceneManager.LoadScene("Level" + index);
-        SceneManager.LoadScene("Gameplay 2");
+        // SceneManager.LoadScene($"Level {index}");
     }
     public void LoadLevel(string name)
     {

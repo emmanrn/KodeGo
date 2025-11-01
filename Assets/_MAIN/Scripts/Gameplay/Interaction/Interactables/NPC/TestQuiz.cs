@@ -126,7 +126,7 @@ public class TestQuiz : MonoBehaviour, IInteractable
         }
 
         prevHintIndex = randomHintIndex;
-        PopupMenu.instance.Show(hints[randomHintIndex]);
+        PopupMenuManager.instance.ShowHintPopup(hints[randomHintIndex]);
     }
 
     public void LoadFile(string filePath)

@@ -181,6 +181,7 @@ namespace MAIN_GAME
                 levelData.completed = level.completed;
                 levelData.skinUnlocked = level.skinUnlocked;
                 levelData.deathCount = level.deathCount;
+                levelData.title = level.title;
                 levelData.checkpoint = level.checkpoint;
                 levelData.hasCheckpoint = level.hasCheckpoint;
                 levelData.completionPrecent = level.completionPrecent;
@@ -204,6 +205,7 @@ namespace MAIN_GAME
                     level.unlocked = data.unlocked;
                     level.skinUnlocked = data.skinUnlocked;
                     level.deathCount = data.deathCount;
+                    level.title = data.title;
                     level.checkpoint = data.checkpoint;
                     level.hasCheckpoint = data.hasCheckpoint;
                     level.completionPrecent = data.completionPrecent;

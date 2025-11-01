@@ -1,0 +1,14 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The Forge was never meant to hammer metal — it hammers syntax. Every strike rewrites broken code into structure."
+narrator "Too shallow an indent, and logic collapses."
+narrator "Too deep, and recursion consumes clarity."
+narrator "The hammer halts because the indentation has no end — a code block without return."
+narrator "The Player’s task wasn’t just to fix it."
+narrator "It was to relearn balance — between control and freedom, structure and creativity."
+NPC as ??? "We are all just functions indented beneath something else."
+
+[wait]HideDB()

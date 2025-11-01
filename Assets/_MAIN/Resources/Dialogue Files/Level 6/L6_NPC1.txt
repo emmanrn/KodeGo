@@ -1,0 +1,57 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "A Function is like a custom spell. You define the ritual once, then cast it whenever you need the effect.”"
+
+
+Kode.Show()
+Kode [0:Default] "This forge... it’s alive. I keep triggering the same sequence just to get one hammer swing."
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "You’re wasting energy. A Function is like a custom spell—define the ritual once, then cast it anytime you need it."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So I don’t need to rewrite the same process again?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly. One spell. Infinite use."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Alright, how do I begin forging one of these ‘spells’?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Use the word def. You’re declaring a new command—naming your spell and describing its actions."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So something like def swingHammer()"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Precisely. The forge will remember that ritual from now on."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "The ritual’s defined. How do I make it run?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Just call its name followed by parentheses. swingHammer() will make the forge act."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So no fancy syntax?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "No need. You already forged the spell; now you’re just summoning it."
+NPC.Hide()
+
+
+[wait]HideDB()

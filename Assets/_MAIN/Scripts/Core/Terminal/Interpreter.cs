@@ -2,15 +2,12 @@ using UnityEngine;
 using Python.Runtime;
 using System;
 using Unity.VisualScripting;
-using TMPro;
-using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 
 public class Interpreter : MonoBehaviour
 {
     [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
     [DoNotSerialize] dynamic np;
-    [DoNotSerialize] private PyModule scope;
+    // [DoNotSerialize] private PyModule scope;
 
 
     void Awake()
@@ -20,14 +17,13 @@ public class Interpreter : MonoBehaviour
     void Start()
     {
 
-        Runtime.PythonDLL = Application.dataPath + "/StreamingAssets/embedded_python/python313.dll";
+        Runtime.PythonDLL = Application.streamingAssetsPath + "/embedded_python/python313.dll";
         PythonEngine.Initialize();
 
 
 
         using (Py.GIL())
         {
-            scope = Py.CreateScope();
             pythonOutputRedirector = new PythonOutputRedirector();
 
             dynamic sys = Py.Import("sys");
@@ -39,78 +35,63 @@ public class Interpreter : MonoBehaviour
 
     }
 
-
-
-    public string ExecuteCode(string input)
+    public bool TryExecuteCode(string input, out string result)
     {
-
+        result = "";
 
         if (!PythonEngine.IsInitialized)
-        {
-            return null;
-        }
+            return false;
 
         using (Py.GIL())
         {
             try
             {
                 pythonOutputRedirector.Clear();
-                scope.Exec(input);
-
+                // scope.Exec(input);
+                using (PyModule tempScope = Py.CreateScope())
+                {
+                    tempScope.Exec(input);
+                }
 
                 string pyOut = pythonOutputRedirector.GetOutput();
-
-
-                if (string.IsNullOrWhiteSpace(pyOut))
-                    Debug.Log(pyOut);
-
-
-                return pyOut;
-
-
-
+                result = pyOut?.Trim() ?? "";
+                return true;
+            }
+            catch (PythonException pyEx)
+            {
+                result = pyEx.ToString();
+                return false;
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
-                return e.ToString();
+                result = e.ToString();
+                return false;
             }
         }
-
-
-
     }
 
-    // public void OnApplicationQuit()
-    // {
-    //     if (PythonEngine.IsInitialized)
-    //     {
-    //         PythonEngine.Shutdown();
-    //     }
-    // }
+
+    public void OnApplicationQuit()
+    {
+        if (PythonEngine.IsInitialized)
+        {
+            PythonEngine.Shutdown();
+        }
+    }
 
     void OnDestroy()
     {
         if (PythonEngine.IsInitialized)
         {
-            System.Threading.Tasks.Task.Run(() =>
+            try
             {
-                try
-                {
-                    using (Py.GIL())
-                    {
-                        scope?.Dispose();
-                        scope = null;
-                    }
-
-                    // Clean shutdown on background thread
-                    PythonEngine.Shutdown();
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning($"Python shutdown error: {e}");
-                }
-            });
+                // Clean shutdown on background thread
+                PythonEngine.Shutdown();
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Python shutdown error: {e}");
+            }
         }
     }
 }

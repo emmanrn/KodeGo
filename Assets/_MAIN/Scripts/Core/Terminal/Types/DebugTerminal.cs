@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,7 @@ namespace TERMINAL
         private int prevHintIndex = -1;
         protected override void InitializeTerminal()
         {
-            runBtn.onClick.RemoveListener(Run);
+            runBtn.onClick.RemoveAllListeners();
             slots = new List<DebugSlot>();
             runBtn.onClick.AddListener(Run);
 
@@ -25,9 +26,15 @@ namespace TERMINAL
             expectedOutputTerminal.text = currentConfig.expectedOutput;
 
             attempts = 0;
+            prevHintIndex = -1;
             outputTerminal.text = "";
 
             BuildInitialBlocks();
+            if (currentPopup != null)
+            {
+                StopCoroutine(currentPopup);
+                currentPopup = null;
+            }
         }
 
         private void BuildInitialBlocks()
@@ -55,24 +62,33 @@ namespace TERMINAL
 
         public override void Run()
         {
-            string result = GetFullCode();
+            string code = GetFullCode();
 
-            if (ContainsRecursion(result))
+            if (ContainsRecursion(code))
             {
                 outputTerminal.color = Color.yellow;
                 outputTerminal.text = "Error: recursion not allowed.";
                 return;
             }
 
-            string output = interpreter.ExecuteCode(result);
+            bool success = interpreter.TryExecuteCode(code, out string output);
             outputTerminal.text = "";
 
             CheckOutput(output, currentConfig.expectedOutput);
+            if (success)
+            {
+                CheckOutput(output, currentConfig.expectedOutput);
+            }
+            else
+            {
+                attempts++; // increment only once per run
+                CheckHintThreshold();
+                StartErrorPopup();
+            }
         }
         public override void CheckOutput(string output, string outputCode)
         {
             output = output.Replace("\r\n", "\n").Trim();
-            Debug.Log(outputCode);
 
             if (output == outputCode)
             {
@@ -143,6 +159,11 @@ namespace TERMINAL
 
             return BuildFullCode(inputs);
         }
+        private void CheckHintThreshold()
+        {
+            if (attempts % MAX_WRONG_ATTEMPTS == 0)
+                ShowHint();
+        }
 
         private void ShowHint()
         {
@@ -166,11 +187,11 @@ namespace TERMINAL
             }
 
             prevHintIndex = randomHintIndex;
-            PopupMenu.instance.Show(currentConfig.hints[randomHintIndex]);
+            PopupMenuManager.instance.ShowHintPopup(currentConfig.hints[randomHintIndex]);
         }
-
         protected override void OnClose()
         {
+            AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
             for (int i = codeContainer.childCount - 1; i >= 0; i--)
             {
                 Transform child = codeContainer.GetChild(i);

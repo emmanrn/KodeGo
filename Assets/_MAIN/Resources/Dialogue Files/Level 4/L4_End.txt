@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The storm machine finally shuts down."
+narrator "Wow, putting a random counter inside a weather system is just asking for trouble!"
+narrator "The player sees that all the paths are fixed, and good decisions are being made."
+narrator "Their job is done here. Time to head home for that coffee."
+
+[wait]HideDB()

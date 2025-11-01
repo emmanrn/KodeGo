@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The player wakes up in a strange place—a big, empty white room."
+narrator "Suddenly, the walls slide away to show a maze of platforms."
+narrator "Before they can even take a step, a screen flashes in front of them, and the game begins!"
+
+[wait]HideDB()

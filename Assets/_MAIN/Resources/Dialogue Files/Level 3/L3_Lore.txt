@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "Emotion and computation are inversely proportional."
+narrator "When the program’s efficiency dropped, they tied empathy to heat output."
+narrator "The colder the user felt, the more efficiently they obeyed commands."
+narrator "The symbols that chase the Player aren’t random — they’re escaped tokens, fragments of failed equations that tried to rewrite themselves."
+NPC as Marginalia "They said divide by zero is impossible. But what happens when you divide by self?"
+
+[wait]HideDB()

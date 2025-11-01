@@ -1,0 +1,41 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Wrap parts of your expression in parentheses if you need it done first. It sets the priority."
+
+
+Kode.Show()
+Kode [0:angry] "My calculations are all off—numbers jumping everywhere!"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "That’s because you’re not setting the right order. Wrap what you want done first in parentheses ( )"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So the Core reads inside first, then the rest?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Exactly. Parentheses keep chaos from taking over."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "The system keeps calling things ‘expressions.’ What’s that mean?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "An expression is any mix of math or logic the Core can solve. Add them, compare them—it all counts."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "And I can see the result?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 1 "Sure can. Say print() and the Core will speak the answer aloud."
+NPC.Hide()
+
+
+[wait]HideDB()

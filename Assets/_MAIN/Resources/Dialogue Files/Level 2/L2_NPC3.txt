@@ -1,0 +1,40 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+narrator "Remember, data comes in flavors: clean Integers, broken Floats, and blocks of Text."
+
+
+Kode.Show()
+Kode [0:Default] "Flavors of data? Sounds tasty"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Ha! More like useful. Solid numbers are integers. Numbers with decimals—floats. And text? Those are strings"
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So each flavor behaves differently?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. Know your flavor, and you’ll know how the Core reacts."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Some vaults only open if the condition’s right. How does that work?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "That’s logic—pure and simple. The Core checks if something’s True or False."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "So it’s all just… yes or no?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. The entire system runs on that kind of certainty"
+NPC.Hide()
+
+[wait]HideDB()

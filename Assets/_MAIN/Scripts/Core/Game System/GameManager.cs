@@ -10,6 +10,8 @@ namespace MAIN_GAME
         public static GameManager instance { get; private set; }
         public LevelDatabase_SO levelDB;
         public string LEVEL_NAME = "Level1";
+        public string titleToBeUnlocked = "Level1";
+        public TextAsset fileToRead;
 
         void Awake()
         {

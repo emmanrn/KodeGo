@@ -1,0 +1,20 @@
+CreateCharacter(Kode)
+
+ShowDB()
+
+NARRATOR "And now I present to you guys {wa 0.25} Kode The Python Man!"
+
+PlayVoice(Kode/confused_voice)
+Kode.Show()
+Kode [0:afraid] "Huh? What's going on?"
+Kode.Hide()
+
+NARRATOR "Wow that worked!"
+
+PlayVoice(Kode/sample_voice)
+Kode.Show()
+Kode [0:Default] "I don't know what's even happening right now"
+Kode.Hide()
+
+
+[wait]HideDB()

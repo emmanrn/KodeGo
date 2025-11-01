@@ -1,0 +1,14 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The Factory wasn’t a place. It was a loop left unbroken."
+narrator "They built automation within automation — recursion that fed itself until meaning blurred. Factories printing factories, workers debugging workers."
+narrator "The Player’s “ouroboros device” wasn’t named for the myth."
+narrator "It was named for its function: self-calling, never-ending."
+narrator "Some logs suggest a prior Subject tried to halt it. "
+narrator "The system interpreted that as self-termination — and recompiled them into the next simulation."
+NPC as ??? "Break the loop. But every break is still a line of code."
+
+[wait]HideDB()

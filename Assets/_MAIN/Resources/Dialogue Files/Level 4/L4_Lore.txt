@@ -1,0 +1,12 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "The City’s infrastructure wasn’t meant to move things."
+narrator "It was meant to test decisions. Every intersection was a fork statement, every moving box an argument passed through moral syntax."
+narrator "The storm wasn’t weather — it was an overflow error from too many unresolved branches."
+narrator "The Player didn’t fix the roads. They indented them properly, so reality could breathe again."
+NPC as ??? "Somewhere between if and else, I forgot why I started choosing"
+
+[wait]HideDB()

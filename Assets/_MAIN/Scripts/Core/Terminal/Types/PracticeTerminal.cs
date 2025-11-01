@@ -1,7 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TERMINAL
 {
@@ -14,7 +14,7 @@ namespace TERMINAL
         private int prevHintIndex = -1;
         protected override void InitializeTerminal()
         {
-            runBtn.onClick.RemoveListener(Run);
+            runBtn.onClick.RemoveAllListeners();
             inputFields = new List<TMP_InputField>();
             runBtn.onClick.AddListener(Run);
 
@@ -23,42 +23,87 @@ namespace TERMINAL
             expectedOutputTerminal.text = currentConfig.expectedOutput;
 
             attempts = 0;
+            prevHintIndex = -1;
             outputTerminal.text = "";
+
+            if (currentPopup != null)
+            {
+                StopCoroutine(currentPopup);
+                currentPopup = null;
+            }
+
         }
 
         public override void BuildLine(Transform lineParent, string line)
         {
+            // int searchIndex = 0;
+            // while (true)
+            // {
+            //     int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
+            //     if (nextIndex == -1)
+            //     {
+            //         string textChunk = line.Substring(searchIndex);
+            //         if (!string.IsNullOrEmpty(textChunk))
+            //         {
+            //             var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+            //             chunk.GetComponentInChildren<TextMeshProUGUI>().text = textChunk;
+            //         }
+            //         break;
+            //     }
+
+            //     string beforeInput = line.Substring(searchIndex, nextIndex - searchIndex);
+            //     if (!string.IsNullOrEmpty(beforeInput))
+            //     {
+            //         var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+            //         chunk.GetComponentInChildren<TextMeshProUGUI>().text = beforeInput;
+            //     }
+
+            //     // Input field
+            //     var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+
+            //     inputChunk.transform.localScale = Vector3.one;
+            //     var input = inputChunk.GetComponent<TMP_InputField>();
+            //     input.text = "";
+            //     inputFields.Add(input);
+
+            //     searchIndex = nextIndex + INPUT_ID.Length;
+            // }
             int searchIndex = 0;
+
             while (true)
             {
                 int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
+                string beforeInput;
+
                 if (nextIndex == -1)
                 {
-                    string textChunk = line.Substring(searchIndex);
-                    if (!string.IsNullOrEmpty(textChunk))
-                    {
-                        var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                        chunk.GetComponentInChildren<TextMeshProUGUI>().text = textChunk;
-                    }
-                    break;
+                    beforeInput = line.Substring(searchIndex);
                 }
-
-                string beforeInput = line.Substring(searchIndex, nextIndex - searchIndex);
-                if (!string.IsNullOrEmpty(beforeInput))
+                else
                 {
-                    var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                    chunk.GetComponentInChildren<TextMeshProUGUI>().text = beforeInput;
+                    beforeInput = line.Substring(searchIndex, nextIndex - searchIndex);
                 }
 
-                // Input field
-                var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                // Always spawn a chunk, even if it's just whitespace
+                var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                chunk.transform.localScale = Vector3.one;
 
+                // Replace tabs with spaces for TMP display
+                chunk.GetComponentInChildren<TextMeshProUGUI>().text = beforeInput.Replace("\t", "    ");
+
+                if (nextIndex == -1)
+                    break;
+
+                // Spawn input field
+                var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
                 inputChunk.transform.localScale = Vector3.one;
                 var input = inputChunk.GetComponent<TMP_InputField>();
+                input.text = "";
                 inputFields.Add(input);
 
                 searchIndex = nextIndex + INPUT_ID.Length;
             }
+
         }
 
 
@@ -83,11 +128,22 @@ namespace TERMINAL
                 return;
             }
 
-            string output = interpreter.ExecuteCode(code);
+            bool success = interpreter.TryExecuteCode(code, out string output);
+            Debug.Log("Success " + success);
 
             outputTerminal.text = "";
 
-            CheckOutput(output, currentConfig.expectedOutput);
+            if (success)
+            {
+                CheckOutput(output, currentConfig.expectedOutput);
+            }
+            else
+            {
+                outputTerminal.text = output;
+                attempts++; // increment only once per run
+                CheckHintThreshold();
+                StartErrorPopup();
+            }
         }
 
         public override void CheckOutput(string output, string outputCode)
@@ -102,19 +158,23 @@ namespace TERMINAL
             }
             else
             {
+                output = string.IsNullOrEmpty(output) ? "None" : output;
+
                 attempts++;
-                bool thresholdReached = (attempts % MAX_WRONG_ATTEMPTS == 0) ? true : false;
 
-                if (thresholdReached)
-                    ShowHint();
+                CheckHintThreshold();
 
-                outputTerminal.color = Color.red;
+                outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
 
             }
 
         }
-
+        private void CheckHintThreshold()
+        {
+            if (attempts % MAX_WRONG_ATTEMPTS == 0)
+                ShowHint();
+        }
         private void ShowHint()
         {
             if (currentConfig.hints == null || currentConfig.hints.Length == 0)
@@ -137,17 +197,25 @@ namespace TERMINAL
             }
 
             prevHintIndex = randomHintIndex;
-            PopupMenu.instance.Show(currentConfig.hints[randomHintIndex]);
+            PopupMenuManager.instance.ShowHintPopup(currentConfig.hints[randomHintIndex]);
         }
 
         protected override void OnClose()
         {
+            AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
             for (int i = codeContainer.childCount - 1; i >= 0; i--)
             {
                 Transform child = codeContainer.GetChild(i);
                 ObjectPoolManager.ReleaseRecursive(child.gameObject);
             }
             inputFields.Clear();
+
+            if (currentPopup != null)
+            {
+                StopCoroutine(currentPopup);
+                currentPopup = null;
+            }
+
         }
 
 

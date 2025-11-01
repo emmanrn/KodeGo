@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1863079aa4eaf4191add542acd6f08, type: 3}
+  m_Name: L6_Debug7
+  m_EditorClassIdentifier: 
+  codeLines:
+  - '{input} area_rectangle(length, width):'
+  - "\t{input} length * width"
+  - print({input})
+  expectedOutput: 24
+  prefilledBlocks:
+  - return
+  - area_rectangle(4, 6)
+  - def
+  hints:
+  - Use 'def' to define the function
+  - Multiply length and width and return the value
+  - Call the function inside print() to display the area

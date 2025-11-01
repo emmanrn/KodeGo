@@ -1,0 +1,11 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "How strange. The player lands in a world where every path crosses every other path."
+narrator "The numbers are going crazy, adding, subtracting, and multiplying everything in sight."
+narrator "When they try to move, they're almost hit by boxes racing around, piling up in huge traffic jams! The player opens their system."
+narrator "They need to set up some conditional statements—some if and else choices—to make the system decide which path to take. This should fix the interlocking roads."
+
+[wait]HideDB()

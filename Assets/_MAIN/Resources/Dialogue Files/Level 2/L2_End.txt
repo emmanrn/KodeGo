@@ -1,0 +1,10 @@
+CreateCharacter(NPC)
+
+ShowDB()
+
+
+narrator "All the vaults are finally open and the data is safe!"
+narrator "They wipe their hands clean and head straight home."
+narrator "Lunch is calling! Time for a well-earned break."
+
+[wait]HideDB()

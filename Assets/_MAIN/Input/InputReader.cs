@@ -169,7 +169,9 @@ public class InputReader : ScriptableObject, DialogueInput.IGeneralActions, Dial
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
+        // if (context.phase == InputActionPhase.Performed)
+        //     DashEvent?.Invoke();
+        if (context.phase == InputActionPhase.Started)
             DashEvent?.Invoke();
     }
 
