@@ -7,11 +7,14 @@ public static class CameraManager
 {
     private static List<CinemachineVirtualCamera> cameras = new List<CinemachineVirtualCamera>();
     public static CinemachineVirtualCamera ActiveCamera = null;
+    public static CinemachineVirtualCamera LastCamera = null;
 
     public static bool isActiveCamera(CinemachineVirtualCamera camera) => camera == ActiveCamera;
 
     public static void SwitchCamera(CinemachineVirtualCamera newCamera)
     {
+        if (ActiveCamera != null)
+            LastCamera = ActiveCamera;
         newCamera.Priority = 10;
         ActiveCamera = newCamera;
 

@@ -232,7 +232,6 @@ namespace TERMINAL
         }
         protected override void OnClose()
         {
-            AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
             for (int i = codeContainer.childCount - 1; i >= 0; i--)
             {
                 Transform child = codeContainer.GetChild(i);

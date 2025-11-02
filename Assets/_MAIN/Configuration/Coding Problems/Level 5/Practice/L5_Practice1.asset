@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice1
   m_EditorClassIdentifier: 
   codeLines:
-  - "\t{input}"
+  - '{input}'
   - 'while {input}:'
   - "\tprint({input})"
   - "\t{input}"

@@ -1,0 +1,26 @@
+
+ShowDB()
+
+
+narrator "What function is commonly used with a for loop to generate a sequence of numbers?"
+
+choice "What function is commonly used with a for loop to generate a sequence of numbers?"
+{
+    -"sequence()"
+        Narrator "Nope not this one"
+        Narrator "This is not a built in function in Python"
+        $Level5.Quiz_2 = false
+    -"range()"
+        Narrator "Correct!"
+        Narrator "range() generates a sequence of numbers for iteration."
+        $Level5.Quiz_2 = true
+    -"list()"
+        Narrator "This function is only for converting things to a list"
+        $Level5.Quiz_2 = false
+    -"count()"
+        Narrator "Not this one either"
+        Narrator "This one only returns the number of elements with a specified value"
+        $Level5.Quiz_2 = false
+}
+
+[wait]HideDB()

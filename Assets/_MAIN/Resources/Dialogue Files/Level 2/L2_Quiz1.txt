@@ -1,0 +1,20 @@
+
+ShowDB()
+
+
+narrator "Which of the following is an invalid variable name in Python?"
+
+choice "Which of the following is an invalid variable name in Python?"
+{
+    -"my_variable"
+        Narrator "This is one of the conventional ways of writing variables"
+    -"Variable123"
+        Narrator "Having a variable name thats starts in upperase is valid."
+    -"123variable"
+        Narrator "Nice! Good job!"
+        Narrator "Variable names cannot start with a number."
+    -"_variable"
+        Narrator "This is still valid as starting with an underscore in your variable is not used as a special keyword"
+}
+
+[wait]HideDB()

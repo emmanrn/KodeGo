@@ -168,8 +168,7 @@ public class AudioManager : MonoBehaviour
     }
     public AudioChannel TryGetChannel(int channelNumber, bool createIfDoesNotExist = false)
     {
-        AudioChannel channel = null;
-
+        AudioChannel channel;
         if (channels.TryGetValue(channelNumber, out channel))
         {
             return channel;

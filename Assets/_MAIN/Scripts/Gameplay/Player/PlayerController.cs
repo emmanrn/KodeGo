@@ -58,6 +58,7 @@ namespace PLAYER
 
         private void Awake()
         {
+            CameraManager.SwitchCamera(roomCamera);
             rb = GetComponent<Rigidbody2D>();
             movement = GetComponent<PlayerMovement>();
             interaction = GetComponent<PlayerInteraction>();
