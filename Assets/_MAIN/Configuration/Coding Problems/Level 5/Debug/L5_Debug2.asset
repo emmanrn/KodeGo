@@ -26,7 +26,7 @@ MonoBehaviour:
     5'
   prefilledBlocks:
   - 6
-  - i
+  - for
   - 1
   hints:
   - Use range(start, stop) to count from 1 to 5.

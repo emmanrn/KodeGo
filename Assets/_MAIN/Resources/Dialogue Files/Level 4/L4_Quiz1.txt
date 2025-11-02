@@ -1,0 +1,22 @@
+
+ShowDB()
+
+
+narrator "A conditional statement that contains another conditional statement is known as a:"
+
+choice "A conditional statement that contains another conditional statement is known as a:"
+{
+    -"double-check"
+        Narrator "There are no such things as double-checks"
+    -"nested conditional"
+        Narrator "Correct!"
+        Narrator "Placing a conditional inside another is called nesting."
+    -"complex branch"
+        Narrator "Nope, incorrect"
+        Narrator "There are no such things as complex branch in coditionals"
+    -"looping condition"
+        Narrator "Nope, I think it's obvious"
+        Narrator "There are no mentions of using loops, so not this one"
+}
+
+[wait]HideDB()

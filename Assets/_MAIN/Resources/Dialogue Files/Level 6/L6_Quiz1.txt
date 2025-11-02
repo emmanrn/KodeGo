@@ -1,0 +1,24 @@
+
+ShowDB()
+
+
+narrator "What keyword is used in Python to define a new function?"
+
+choice "What keyword is used in Python to define a new function?"
+{
+    -"func"
+        Narrator "Nope not this one"
+        Narrator "This one is for the 'Go' people"
+    -"def"
+        Narrator "Correct!"
+        Narrator "The def keyword defines a function."
+    -"function"
+        Narrator "Not this one"
+        Narrator "I think this one is for those 'other' people"
+        Narrator "They call themseleves 'javascript' I think?"
+    -"define"
+        Narrator "Not this one either"
+        Narrator "This is just not it"
+}
+
+[wait]HideDB()

@@ -35,8 +35,8 @@ public class AudioChannel
 
         AudioTrack track = new AudioTrack(clip, loop, startingVolume, volumeCap, pitch, this, AudioManager.instance.musicMixer);
         track.Play();
-
         SetAsActiveTrack(track);
+
 
         return track;
     }
@@ -63,6 +63,8 @@ public class AudioChannel
         if (!tracks.Contains(track))
             tracks.Add(track);
 
+        activeTrack = track;
+
         TryStartVolumeLeveling();
     }
     private void TryStartVolumeLeveling()
@@ -75,9 +77,11 @@ public class AudioChannel
     {
         while ((activeTrack != null && (tracks.Count > 1 || activeTrack.volume != activeTrack.volumeCap)) || (activeTrack == null && tracks.Count > 0))
         {
+            List<AudioTrack> toRemove = null;
             for (int i = tracks.Count - 1; i >= 0; i++)
             {
                 AudioTrack track = tracks[i];
+                Debug.Log(tracks.Count);
 
                 float targetVolume = activeTrack == track ? track.volumeCap : 0;
 
@@ -88,9 +92,17 @@ public class AudioChannel
 
                 if (track != activeTrack && track.volume == 0)
                 {
-                    DestroyTrack(track);
+                    // DestroyTrack(track);
+                    // 2️⃣ Mark for removal (don’t remove yet)
+                    toRemove ??= new List<AudioTrack>();
+                    toRemove.Add(track);
                 }
 
+            }
+            if (toRemove != null)
+            {
+                foreach (var t in toRemove)
+                    DestroyTrack(t);
             }
 
             yield return null;

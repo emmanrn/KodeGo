@@ -1,0 +1,22 @@
+
+ShowDB()
+
+
+narrator "Evaluate the following Boolean expression: (5 > 3) and (10 < 5)"
+
+choice "Evaluate the following Boolean expression: (5 > 3) and (10 < 5)"
+{
+    -"True"
+        Narrator "Both of the answers have to be true, one of them isn't"
+    -"False"
+        Narrator "Correct!"
+        Narrator "This is because the first condition is true while the second one is false"
+        Narrator "Since we're using the 'and' BOTH of the conditions have to be TRUE"
+        Narrator "That's why the answer is False"
+    -"Error"
+        Narrator "There's no error here since this isn't a coding question"
+    -"None"
+        Narrator "It can't be none since we are comparing two values, we are not coding"
+}
+
+[wait]HideDB()

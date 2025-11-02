@@ -12,6 +12,7 @@ namespace MAIN_GAME
         public string LEVEL_NAME = "Level1";
         public string titleToBeUnlocked = "Level1";
         public TextAsset fileToRead;
+        [SerializeField] private string soundName;
 
         void Awake()
         {
@@ -50,6 +51,7 @@ namespace MAIN_GAME
                 Debug.Log("activated load game");
                 GameSave.activeFile.Activate();
             }
+            AudioManager.instance.PlayTrack(FilePaths.GetPathToResource(FilePaths.resources_music, soundName), channel: 0, startingVolume: 0.7f, volumeCap: 0.7f);
         }
 
     }

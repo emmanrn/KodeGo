@@ -1,0 +1,22 @@
+
+ShowDB()
+
+
+narrator "Which statement is used inside a loop to immediately exit the loop entirely?"
+
+choice "Which statement is used inside a loop to immediately exit the loop entirely?"
+{
+    -"skip"
+        Narrator "Nope not this one"
+        Narrator "This is not a built in function in Python"
+    -"break"
+        Narrator "Correct!"
+        Narrator "You can put a 'break' inside a loop if you want to exit the loop entirely"
+    -"continue"
+        Narrator "This keyword is used for making the function skip the current loop and iterate throught the next one"
+    -"exit()"
+        Narrator "Not this one either"
+        Narrator "This is not a built in function in Python"
+}
+
+[wait]HideDB()

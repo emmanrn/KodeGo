@@ -1,0 +1,22 @@
+
+ShowDB()
+
+
+narrator "What does the return statement do in a Python function?"
+
+choice "What does the return statement do in a Python function?"
+{
+    -"Prints a value to the console."
+        Narrator "Nope not this one"
+        Narrator "Return doesnt print to the console, that's job for the 'print'"
+    -"Defines a function"
+        Narrator "Nope"
+        Narrator "'def' is the one that defines a function"
+    -"Stops the program"
+        Narrator "It doesn't stop the program but only the FUNCTION"
+    -"Sends a value back to the part of the code that called the function."
+        Narrator "Correct!"
+        Narrator "Not only does it stop the function, but also gives back a value"
+}
+
+[wait]HideDB()

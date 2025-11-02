@@ -39,8 +39,8 @@ namespace TERMINAL
             if (isInteractable())
             {
                 inputReader.SetUI();
+                AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_open"));
                 InitializeTerminal();
-                AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_interact"));
                 rootContainer.SetActive(true);
             }
         }
@@ -54,6 +54,7 @@ namespace TERMINAL
 
         private IEnumerator CloseWindow()
         {
+            AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "terminal_close"));
             OnClose();
             anim.Play("Close");
             yield return new WaitForSeconds(0.2f);

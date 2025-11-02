@@ -1,0 +1,23 @@
+
+ShowDB()
+
+
+narrator "What are the values passed to a function when it is called (e.g., my_function(x, y)) called?"
+
+choice "What are the values passed to a function when it is called (e.g., my_function(x, y)) called?"
+{
+    -"Variables"
+        Narrator "Nope not this one"
+        Narrator "This is just what you use if you want to store something"
+    -"Parameters"
+        Narrator "Nope"
+        Narrator "Parameters are the values defined in the function that act as placeholders"
+    -"Arguments"
+        Narrator "Correct!"
+        Narrator "Arguments are the values passed during the function call."
+    -"Returns"
+        Narrator "Not this one either"
+        Narrator "This one is for when a function returns a value after being called"
+}
+
+[wait]HideDB()
