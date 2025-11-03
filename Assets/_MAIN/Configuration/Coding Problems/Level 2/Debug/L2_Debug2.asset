@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L2_Debug2
   m_EditorClassIdentifier: 
   codeLines:
+  - '{input}{input}'
   - '{input}'
-  - '{{input}{input}'
   expectedOutput: 18
   prefilledBlocks:
   - print(age)

@@ -26,7 +26,7 @@ public class OneWayPlatform : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
 
-        if (player != null && player.isPressingDown && !isDisabling)
+        if (player != null && player.isPressingDown && !isDisabling && enabled)
         {
             // Start fall through
             StartCoroutine(DisableCollisionTemporarily(other.collider, player));

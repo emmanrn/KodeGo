@@ -115,7 +115,7 @@ namespace TERMINAL
         public override void BuildLine(Transform lineParent, string line)
         {
             int searchIndex = 0;
-            const float spaceWidth = 55f; // pixels per space
+            const float spaceWidth = 55f;
             const int tabSize = 4;
 
             bool hasInput = line.Contains(INPUT_ID);
@@ -138,6 +138,15 @@ namespace TERMINAL
                     indentWidth = indentCount * spaceWidth;
             }
 
+            // ✅ Spawn the indent spacer first (if needed)
+            if (indentWidth > 0)
+            {
+                var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                indentObj.transform.SetParent(lineParent, false);
+                indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
+            }
+
+            // Now build chunks
             while (true)
             {
                 int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
@@ -157,7 +166,6 @@ namespace TERMINAL
                 string before = line.Substring(searchIndex, nextIndex - searchIndex);
                 if (!string.IsNullOrEmpty(before))
                 {
-                    // Trim leading spaces if we already have an indent spacer
                     string trimmedBefore = before;
                     if (indentWidth > 0 && searchIndex == 0)
                         trimmedBefore = before.TrimStart(' ', '\t');
@@ -165,17 +173,8 @@ namespace TERMINAL
                     if (!string.IsNullOrEmpty(trimmedBefore))
                     {
                         var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                        // chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
                         chunk.GetComponentInChildren<TextMeshProUGUI>().text = trimmedBefore;
                     }
-                }
-
-                // Add slot (and indent spacer if first one)
-                if (indentWidth > 0 && searchIndex == 0)
-                {
-                    var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                    indentObj.transform.SetParent(lineParent, false);
-                    indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
                 }
 
                 // Create drop target slot

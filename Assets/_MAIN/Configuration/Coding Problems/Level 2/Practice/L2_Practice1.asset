@@ -15,6 +15,6 @@ MonoBehaviour:
   codeLines:
   - '{input}'
   - print("Access code:", secret)
-  expectedOutput: XZ-42
+  expectedOutput: 'Access code: XZ-42'
   hints:
   - Print the text label first, then the secret variable box.

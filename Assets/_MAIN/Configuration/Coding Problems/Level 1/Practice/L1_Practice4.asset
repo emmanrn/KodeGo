@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - 'if (1 > 0):'
-  - '{input}print("Indented correctly")'
+  - '{input}'
   - print("\nHooray!")
   expectedOutput: 'Indented correctly
 

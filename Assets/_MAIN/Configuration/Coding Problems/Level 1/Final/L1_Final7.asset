@@ -15,10 +15,12 @@ MonoBehaviour:
   codeLines:
   - print("It's over,{input}")
   - print("Anakin,{input}")
-  - print(I have the high {input}")
+  - print("I have the high {input}")
   expectedOutput: 'It''s over,
 
+
     Anakin,
+
 
     I have the high ground'
   codeBlocks:

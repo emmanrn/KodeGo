@@ -8,15 +8,19 @@ choice "A conditional statement that contains another conditional statement is k
 {
     -"double-check"
         Narrator "There are no such things as double-checks"
+        $Level4.Quiz_1 = false
     -"nested conditional"
         Narrator "Correct!"
         Narrator "Placing a conditional inside another is called nesting."
+        $Level4.Quiz_1 = true
     -"complex branch"
         Narrator "Nope, incorrect"
         Narrator "There are no such things as complex branch in coditionals"
+        $Level4.Quiz_1 = false
     -"looping condition"
         Narrator "Nope, I think it's obvious"
         Narrator "There are no mentions of using loops, so not this one"
+        $Level4.Quiz_1 = false
 }
 
 [wait]HideDB()

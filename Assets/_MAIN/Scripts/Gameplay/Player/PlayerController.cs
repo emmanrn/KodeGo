@@ -154,22 +154,6 @@ namespace PLAYER
             movement.FixedTick();
         }
 
-        private void OnJumpPressed()
-        {
-            movement.OnJumpInput();
-
-            if (jumpSound != null)
-                AudioManager.instance.PlaySoundEffect(jumpSound);
-        }
-
-        private void OnDash()
-        {
-            movement.OnDashInput();
-
-            if (dashSound != null)
-                AudioManager.instance.PlaySoundEffect(dashSound);
-        }
-
         private void HandleLanding()
         {
             if (jumpLandSound != null)
@@ -188,7 +172,7 @@ namespace PLAYER
                     footstepAudioSource.clip = footstepSound;
                     footstepAudioSource.volume = 0;
                     footstepAudioSource.Play();
-                    AudioManager.instance.PlaySoundEffect(footstepSound, loop: true);
+                    AudioManager.instance.PlaySoundEffect(footstepSound, loop: true, volume: 0.7f);
                 }
             }
             else

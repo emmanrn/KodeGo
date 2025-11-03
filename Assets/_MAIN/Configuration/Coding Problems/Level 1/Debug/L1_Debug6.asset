@@ -25,14 +25,14 @@ MonoBehaviour:
 
     /'
   prefilledBlocks:
-  - '-'
+  - '"-"'
   - print
   - print
-  - +
+  - '"+"'
   - print
-  - /
+  - '"/"'
   - print
-  - '*'
+  - '"*"'
   hints:
   - Remember the order?
   - PEMDAS?

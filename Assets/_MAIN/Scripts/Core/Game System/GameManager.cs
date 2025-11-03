@@ -51,7 +51,7 @@ namespace MAIN_GAME
                 Debug.Log("activated load game");
                 GameSave.activeFile.Activate();
             }
-            AudioManager.instance.PlayTrack(FilePaths.GetPathToResource(FilePaths.resources_music, soundName), channel: 0, startingVolume: 0.7f, volumeCap: 0.7f);
+            AudioManager.instance.PlayTrack(FilePaths.GetPathToResource(FilePaths.resources_music, soundName), channel: 0, volumeCap: 0.5f);
         }
 
     }

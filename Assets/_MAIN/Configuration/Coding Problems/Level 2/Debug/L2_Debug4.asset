@@ -23,4 +23,4 @@ MonoBehaviour:
   - score = 50
   - bonus = 20
   hints:
-  - Use + to add number boxes together.
+  - Use + to add numbers together.

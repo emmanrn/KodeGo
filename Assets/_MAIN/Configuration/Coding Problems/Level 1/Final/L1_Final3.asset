@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '{input}'
-  - print("{input"}
+  - print("{input")
   expectedOutput: Comments, comments, comments
   codeBlocks:
   - Comments, comments, comments

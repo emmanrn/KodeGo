@@ -9,15 +9,19 @@ choice "What are the values passed to a function when it is called (e.g., my_fun
     -"Variables"
         Narrator "Nope not this one"
         Narrator "This is just what you use if you want to store something"
+        $Level6.Quiz_2 = false
     -"Parameters"
         Narrator "Nope"
         Narrator "Parameters are the values defined in the function that act as placeholders"
+        $Level6.Quiz_2 = false
     -"Arguments"
         Narrator "Correct!"
         Narrator "Arguments are the values passed during the function call."
+        $Level6.Quiz_2 = true
     -"Returns"
         Narrator "Not this one either"
         Narrator "This one is for when a function returns a value after being called"
+        $Level6.Quiz_2 = false
 }
 
 [wait]HideDB()
