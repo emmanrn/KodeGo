@@ -17,7 +17,10 @@ MonoBehaviour:
   - print("belong", {input})
   - print("to", {input})
   - print("us")
-  expectedOutput: "All your base are \nbelong to us"
+  expectedOutput: 'All your base are
+
+
+    belong to us'
   codeBlocks:
   - \n
   - end=' '

@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa7e92aaf307a84eb3d1965aa464cc0, type: 3}
   m_Name: L2_Final11
   m_EditorClassIdentifier: 
-  codeLines: []
-  expectedOutput: 
-  codeBlocks: []
+  codeLines:
+  - '{input}'
+  - print({input}
+  - '{input}'
+  - print(a + b)
+  expectedOutput: 30
+  codeBlocks:
+  - a = 10
+  - a
+  - b = 20

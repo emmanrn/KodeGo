@@ -175,7 +175,7 @@ namespace PLAYER
 
 					// AnimHandler.startedJumping = true;
 					anim.SetTrigger("Jump");
-					AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "jump"));
+					AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "jump"), volume: 0.7f);
 				}
 				//WALL JUMP
 				else if (CanWallJump() && LastPressedJumpTime > 0)
@@ -189,7 +189,7 @@ namespace PLAYER
 					_lastWallJumpDir = (LastOnWallRightTime > 0) ? -1 : 1;
 
 					WallJump(_lastWallJumpDir);
-					AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "jump"));
+					AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "jump"), volume: 0.7f);
 				}
 			}
 			#endregion
@@ -466,7 +466,7 @@ namespace PLAYER
 			LastPressedDashTime = 0;
 
 			float startTime = Time.time;
-			AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "dash"));
+			AudioManager.instance.PlaySoundEffect(FilePaths.GetPathToResource(FilePaths.resources_sfx, "dash"), volume: 0.7f);
 
 			_dashesLeft--;
 			_isDashAttacking = true;

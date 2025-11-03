@@ -19,5 +19,5 @@ MonoBehaviour:
   expectedOutput: Kode is Level 2
   codeBlocks:
   - level
-  - level = 3
+  - level = 2
   - name

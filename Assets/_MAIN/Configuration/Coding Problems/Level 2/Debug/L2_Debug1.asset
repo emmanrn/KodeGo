@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L2_Debug1
   m_EditorClassIdentifier: 
   codeLines:
-  - '{input}'
   - '{input}{input}'
+  - '{input}'
   expectedOutput: Kode
   prefilledBlocks:
   - print(name)

@@ -48,9 +48,18 @@ public class Quiz : MonoBehaviour, IInteractable
                     block.isCollectable = true;
                     Color alpha = Color.yellow;
                     block.GetComponent<SpriteRenderer>().color = alpha;
+                    return;
                 }
-                else
-                    door.SetActive(false);
+
+                if (door.TryGetComponent(out PlatformEffector2D platform) && door.TryGetComponent(out OneWayPlatform oneWayPlatform))
+                {
+                    platform.enabled = true;
+                    oneWayPlatform.enabled = true;
+                    door.GetComponent<SpriteRenderer>().color = new Color(0f, 0.30f, 1f);
+                    return;
+                }
+
+                door.SetActive(false);
 
             }
         }
@@ -113,9 +122,18 @@ public class Quiz : MonoBehaviour, IInteractable
                     block.isCollectable = true;
                     Color alpha = Color.yellow;
                     block.GetComponent<SpriteRenderer>().color = alpha;
+                    return;
                 }
-                else
-                    door.SetActive(false);
+
+                if (door.TryGetComponent(out PlatformEffector2D platform) && door.TryGetComponent(out OneWayPlatform oneWayPlatform))
+                {
+                    platform.enabled = true;
+                    oneWayPlatform.enabled = true;
+                    door.GetComponent<SpriteRenderer>().color = new Color(0f, 0.30f, 1f);
+                    return;
+                }
+
+                door.SetActive(false);
             }
         }
 

@@ -8,5 +8,6 @@ narrator "The player jumps out to the finish line, and with a bright flash, they
 narrator "The white room wasn’t a design choice."
 narrator "It was syntax space — unindented, unshaped."
 narrator "They look out at the city, shrug, grab their trusty toolbox, and get ready for the next job."
+Load("Level 2/L2_Start" -enqueue true)
 
 [wait]HideDB()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L1_Final10
   m_EditorClassIdentifier: 
   codeLines:
-  - print({input}{input{input})
+  - print({input}{input}{input})
   expectedOutput: === PYTHON ===
   codeBlocks:
   - '"==='

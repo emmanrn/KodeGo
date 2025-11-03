@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - word1 = "AB"
-  - word2 = "XY
+  - word2 = "XY"
   - '{input}:'
   - "\t{input}:"
   - "\t\tprint(a+b, {input})"

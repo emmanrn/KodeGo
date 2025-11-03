@@ -77,11 +77,10 @@ public class AudioChannel
     {
         while ((activeTrack != null && (tracks.Count > 1 || activeTrack.volume != activeTrack.volumeCap)) || (activeTrack == null && tracks.Count > 0))
         {
-            List<AudioTrack> toRemove = null;
-            for (int i = tracks.Count - 1; i >= 0; i++)
+            for (int i = tracks.Count - 1; i >= 0; i--)
             {
+
                 AudioTrack track = tracks[i];
-                Debug.Log(tracks.Count);
 
                 float targetVolume = activeTrack == track ? track.volumeCap : 0;
 
@@ -92,17 +91,9 @@ public class AudioChannel
 
                 if (track != activeTrack && track.volume == 0)
                 {
-                    // DestroyTrack(track);
-                    // 2️⃣ Mark for removal (don’t remove yet)
-                    toRemove ??= new List<AudioTrack>();
-                    toRemove.Add(track);
+                    DestroyTrack(track);
                 }
 
-            }
-            if (toRemove != null)
-            {
-                foreach (var t in toRemove)
-                    DestroyTrack(t);
             }
 
             yield return null;

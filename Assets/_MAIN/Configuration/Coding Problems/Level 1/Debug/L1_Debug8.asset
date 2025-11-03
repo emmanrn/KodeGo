@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - print("New{input}Line{input}")
-  expectedOutput: 'New,
+  expectedOutput: 'New
 
     Line tech'
   prefilledBlocks:

@@ -25,3 +25,5 @@ MonoBehaviour:
     color: {r: 0.89599895, g: 1, b: 0, a: 1}
   - name: KodePurple
     color: {r: 0.9261813, g: 0, b: 1, a: 1}
+  - name: KodeOrange
+    color: {r: 1, g: 0.5615012, b: 0, a: 1}

@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - '{input} = 0'
   - '{input}:'
-  - "\t{input} += 1"
+  - "\t{input} += i"
   - print(total)
   expectedOutput: 55
   codeBlocks:

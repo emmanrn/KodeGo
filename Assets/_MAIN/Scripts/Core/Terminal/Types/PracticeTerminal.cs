@@ -37,40 +37,8 @@ namespace TERMINAL
 
         public override void BuildLine(Transform lineParent, string line)
         {
-            // int searchIndex = 0;
-            // while (true)
-            // {
-            //     int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
-            //     if (nextIndex == -1)
-            //     {
-            //         string textChunk = line.Substring(searchIndex);
-            //         if (!string.IsNullOrEmpty(textChunk))
-            //         {
-            //             var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-            //             chunk.GetComponentInChildren<TextMeshProUGUI>().text = textChunk;
-            //         }
-            //         break;
-            //     }
-
-            //     string beforeInput = line.Substring(searchIndex, nextIndex - searchIndex);
-            //     if (!string.IsNullOrEmpty(beforeInput))
-            //     {
-            //         var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-            //         chunk.GetComponentInChildren<TextMeshProUGUI>().text = beforeInput;
-            //     }
-
-            //     // Input field
-            //     var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-
-            //     inputChunk.transform.localScale = Vector3.one;
-            //     var input = inputChunk.GetComponent<TMP_InputField>();
-            //     input.text = "";
-            //     inputFields.Add(input);
-
-            //     searchIndex = nextIndex + INPUT_ID.Length;
-            // }
             int searchIndex = 0;
-            const float spaceWidth = 55f; // pixels per space
+            const float spaceWidth = 55f;
             const int tabSize = 4;
 
             bool hasInput = line.Contains(INPUT_ID);
@@ -93,8 +61,15 @@ namespace TERMINAL
                     indentWidth = indentCount * spaceWidth;
             }
 
+            // ✅ Spawn the indent spacer first (if needed)
+            if (indentWidth > 0)
+            {
+                var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                indentObj.transform.SetParent(lineParent, false);
+                indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
+            }
 
-            // now build chunks
+            // Now build chunks
             while (true)
             {
                 int nextIndex = line.IndexOf(INPUT_ID, searchIndex);
@@ -114,7 +89,6 @@ namespace TERMINAL
                 string before = line.Substring(searchIndex, nextIndex - searchIndex);
                 if (!string.IsNullOrEmpty(before))
                 {
-                    // Trim leading spaces if we already have an indent spacer
                     string trimmedBefore = before;
                     if (indentWidth > 0 && searchIndex == 0)
                         trimmedBefore = before.TrimStart(' ', '\t');
@@ -122,17 +96,8 @@ namespace TERMINAL
                     if (!string.IsNullOrEmpty(trimmedBefore))
                     {
                         var chunk = ObjectPoolManager.SpawnObject(codeChunkPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                        // chunk.GetComponentInChildren<TextMeshProUGUI>().text = before;
                         chunk.GetComponentInChildren<TextMeshProUGUI>().text = trimmedBefore;
                     }
-                }
-
-                // Add slot (and indent spacer if first one)
-                if (indentWidth > 0 && searchIndex == 0)
-                {
-                    var indentObj = ObjectPoolManager.SpawnObject(indentPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                    indentObj.transform.SetParent(lineParent, false);
-                    indentObj.GetComponent<LayoutElement>().preferredWidth = indentWidth;
                 }
 
                 // Spawn input field
