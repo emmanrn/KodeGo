@@ -16,6 +16,6 @@ MonoBehaviour:
   - print({input}, {input}, {input})
   expectedOutput: Hello Goodbye Later
   codeBlocks:
-  - Hello
-  - Goodbye
-  - Later
+  - '"Hello"'
+  - '"Goodbye"'
+  - '"Later"'

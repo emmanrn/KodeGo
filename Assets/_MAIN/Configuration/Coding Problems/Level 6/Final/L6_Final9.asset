@@ -22,6 +22,6 @@ MonoBehaviour:
   - print(multiply_list(numbers))
   expectedOutput: 120
   codeBlocks:
-  - numbers
+  - nums
   - num
-  - multiply_list
+  - multiply_list(nums)

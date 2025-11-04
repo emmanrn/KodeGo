@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L3_Practice7
   m_EditorClassIdentifier: 
   codeLines:
-  - '{input}'
-  - '{input}'
+  - tries = {input}
+  - limit = {input}
   - print("Tries <= limit:", {input})
   expectedOutput: 'Tries <= limit: True'
   hints:

@@ -19,7 +19,7 @@ MonoBehaviour:
   - print(total)
   expectedOutput: 15
   prefilledBlocks:
-  - 1
+  - i
   - total
   - i
   - total

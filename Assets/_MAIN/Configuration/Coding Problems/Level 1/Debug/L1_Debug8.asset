@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: L1_Debug8
   m_EditorClassIdentifier: 
   codeLines:
-  - print("New{input}Line{input}")
+  - print("New{input}Line {input}")
   expectedOutput: 'New
 
     Line tech'
   prefilledBlocks:
-  - ' tech '
+  - tech
   - \n
   hints:
   - '''\n'' means a Line break, it allows to split up strings into two without making

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: L3_Practice4
   m_EditorClassIdentifier: 
   codeLines:
-  - '{input}'
-  - '{input}'
+  - speed = {input}
+  - limit = {input}
   - print("Speed > Limit:", {input})
   expectedOutput: 'Speed > Limit: True'
   hints:

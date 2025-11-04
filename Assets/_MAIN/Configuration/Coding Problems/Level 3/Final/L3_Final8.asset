@@ -17,7 +17,7 @@ MonoBehaviour:
   - b = 10
   - '{input} = 15'
   - result = {input}
-  - print((result) {input} c)
+  - print(result {input} c)
   expectedOutput: True
   codeBlocks:
   - ==

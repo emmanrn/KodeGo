@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - value = "Vault"
-  - '{input}'
+  - print(type({input}))
   expectedOutput: <class 'str'>
   hints:
   - Use the special command type() to find out if the value box holds words, numbers,

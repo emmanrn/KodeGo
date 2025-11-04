@@ -18,6 +18,6 @@ MonoBehaviour:
   - print(squared {input} {input})
   expectedOutput: True
   codeBlocks:
-  - points * 2
+  - points ** 2
   - 50
   - '>'

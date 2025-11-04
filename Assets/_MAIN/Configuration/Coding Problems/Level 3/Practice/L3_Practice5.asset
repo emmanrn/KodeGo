@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: L3_Practice5
   m_EditorClassIdentifier: 
   codeLines:
-  - '{input}'
-  - '{input}'
+  - energy = {input}
   - print("Energy < 50:", {input})
   expectedOutput: 'Energy < 50: True'
   hints:

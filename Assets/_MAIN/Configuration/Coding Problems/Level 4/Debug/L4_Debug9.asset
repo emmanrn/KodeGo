@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1863079aa4eaf4191add542acd6f08, type: 3}
   m_Name: L4_Debug9
   m_EditorClassIdentifier: 
-  codeLines: []
-  expectedOutput: 
-  prefilledBlocks: []
-  hints: []
+  codeLines:
+  - num = 20 ** 2
+  - 'if {input} {input} {input}:'
+  - "\tprint(\"Nice\")"
+  expectedOutput: Nice
+  prefilledBlocks:
+  - num > 200
+  - and
+  - num == 400
+  hints:
+  - '''and'' is only true if both conditions are TRUE'

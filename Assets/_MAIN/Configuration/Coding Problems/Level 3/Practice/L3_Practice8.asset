@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - has_key = True
-  - door_locked = True
+  - door_locked = False
   - print({input} and {input})
   expectedOutput: False
   hints:

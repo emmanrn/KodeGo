@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: L6_Practice3
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Define a function that uses a for loop to multiply the numbers from 1 up to
+    n'
   - '{input}:'
   - "\tresult = 1"
   - "\tfor {input}:"
   - "\t\t{input}"
   - "\t{input}"
   - print(factorial(10))
-  expectedOutput: 
+  expectedOutput: 46
   hints:
   - Use a for loop to multiply the numbers from 1 up to n
   - Return the final result

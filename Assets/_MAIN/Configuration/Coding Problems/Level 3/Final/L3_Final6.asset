@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - num = 10
   - print({input}{input}{input})
-  expectedOutput: True
+  expectedOutput: False
   codeBlocks:
   - 5
   - < num <
