@@ -6,5 +6,6 @@ ShowDB()
 narrator "The hammer is now falling with the right force and speed, operating safely."
 narrator "The function is performing perfectly. After this, they head back and watch the glowing city below."
 narrator "It’s been a great day of work. A three-day vacation is definitely earned!"
+narrator "Thank you for playing our game goodbye! -Team Passione"
 
 [wait]HideDB()

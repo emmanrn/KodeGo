@@ -35,6 +35,22 @@ public class Transition : MonoBehaviour
 
         anim.SetTrigger("Start");
 
+
+        if (levelName == "Level6")
+        {
+            if (fileToRead != null)
+            {
+                yield return new WaitForSeconds(1.5f);
+                yield return StartCoroutine(StartConversation(fileToRead));
+                yield return new WaitForSeconds(1f);
+            }
+            else
+                yield return new WaitForSeconds(2f);
+
+            SceneManager.LoadScene("HomeScreen");
+            yield break;
+        }
+
         int levelIndex = LevelProgressManager.FindLevelIndex(levelName);
         string nextLevel = LevelProgressManager.GetNextLevelName(levelIndex);
 

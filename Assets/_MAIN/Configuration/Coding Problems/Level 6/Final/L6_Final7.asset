@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: L6_Final7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Welcome to FizzBuzz!'
+  - '# Replace any number divisible by 3 with "Fizz"'
+  - '# Replace any number divisible by 5 with "Buzz"'
+  - '# Replace any number divisible by both 3 and 5 with "FizzBuzz"'
   - 'def {input}:'
   - "\tfor i in range(1, n +1):"
   - "\t\tif i % 3 == 0 and i % 5 == 0:"
@@ -43,4 +47,7 @@ MonoBehaviour:
     Fizz
 
     Buzz'
-  codeBlocks: []
+  codeBlocks:
+  - fizzbuzz(n)
+  - elif i % 3 == 0
+  - elif i % 5 == 0
