@@ -1,11 +1,12 @@
+using UnityEngine;
 public class FilePaths
 {
     private const string HOME_DIRECTORY_SYMBOL = "~/";
 
-    public static readonly string root = $"{runtimePath}/gameData/";
+    public static string root = $"{runtimePath}/gameData/";
 
     //Runtime Paths
-    public static readonly string gameSaves = $"{runtimePath}Save Files/";
+    public static string gameSaves = $"{runtimePath}Save Files/";
 
     // Resources Paths
     // Graphics Path

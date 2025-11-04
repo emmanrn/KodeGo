@@ -47,7 +47,7 @@ public class InteractionDetector : MonoBehaviour
                 closeRoutine = null;
             }
 
-            if (this.gameObject.activeSelf)
+            if (gameObject.activeInHierarchy)
                 closeRoutine = StartCoroutine(CloseIcon());
         }
     }

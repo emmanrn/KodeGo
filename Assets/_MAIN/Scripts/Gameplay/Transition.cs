@@ -74,13 +74,16 @@ public class Transition : MonoBehaviour
     {
         // set the player control to the general so they can go to next line
         inputReader.SetGeneral();
-        string fullPath = AssetDatabase.GetAssetPath(fileToRead);
+        // string fullPath = AssetDatabase.GetAssetPath(fileToRead);
 
-        int resourcesIndex = fullPath.IndexOf("Resources/");
-        string relativePath = fullPath.Substring(resourcesIndex + 10);
-        string filePath = Path.ChangeExtension(relativePath, null);
-
-        LoadFile(filePath);
+        // int resourcesIndex = fullPath.IndexOf("Resources/");
+        // string relativePath = fullPath.Substring(resourcesIndex + 10);
+        // string filePath = Path.ChangeExtension(relativePath, null);
+        List<string> lines = FileManager.ReadTxtAsset(fileToRead);
+        DialogueSystem.instance.mainCanv.sortingLayerName = "UI";
+        DialogueSystem.instance.mainCanv.sortingOrder = 100;
+        yield return DialogueSystem.instance.Say(lines);
+        // LoadFile(filePath);
         while (GeneralManager.instance.isRunningDialogue)
         {
             yield return null;

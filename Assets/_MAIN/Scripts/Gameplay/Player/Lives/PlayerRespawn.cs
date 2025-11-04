@@ -12,7 +12,7 @@ namespace PLAYER
         private Transform startingPoint;
         private CircleTransition circleTransition;
         private CinemachineVirtualCamera roomCamera;
-        public bool isDying { get; set; } = false;
+        public bool isDying = false;
         private string levelName => GameManager.instance.LEVEL_NAME;
 
         void Start()

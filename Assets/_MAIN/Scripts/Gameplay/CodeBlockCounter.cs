@@ -13,12 +13,16 @@ public class CodeBlockCounter : MonoBehaviour
         foreach (var block in blocks)
             block.OnCollected += UpdateCounter;
 
-        UpdateCounter();
     }
 
     void Awake()
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
+    }
+
+    void Start()
+    {
+        UpdateCounter();
     }
 
     void OnDisable()

@@ -6,12 +6,12 @@ public class CharacterSelection : MonoBehaviour
 
     public void Next()
     {
-        skinManager.ChangeSkin(skinManager.selectedSkin + 1);
+        skinManager.ChangeSkin(+1);
     }
 
     public void Previous()
     {
-        skinManager.ChangeSkin(skinManager.selectedSkin - 1);
+        skinManager.ChangeSkin(-1);
     }
 
     public void Apply() => skinManager.ApplySkin();

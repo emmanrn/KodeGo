@@ -64,7 +64,7 @@ namespace Letterboxer
             int scaleFactor = GetScaleFactor(nearestWidth, nearestHeight);
             float xWidthFactor = targetWidth * scaleFactor / (float)currentScreenWidth;
             float yHeightFactor = targetHeight * scaleFactor / (float)currentScreenHeight;
- 
+
             Camera.rect = new Rect(GetRectPosition(xWidthFactor, currentScreenWidth), GetRectPosition(yHeightFactor, currentScreenHeight), xWidthFactor, yHeightFactor);
         }
 
