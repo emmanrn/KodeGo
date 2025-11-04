@@ -29,16 +29,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MAIN/Scenes/Level6.unity
     guid: 5d37ff6c0b61b804dbd6954c8a1d0e53
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MAIN/Scenes/Gameplay2.unity
     guid: ac9d03a7478361248a35331bd706f588
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MAIN/Scenes/Level2 test.unity
     guid: d1d809dd5483c364880c981da78b23b1
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MAIN/Scenes/Gameplay.unity
     guid: 8bb6f4d898a521a44acaa35ea03c4420
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MAIN/Scenes/CharacterSelect.unity
     guid: 5874d575747c77f41a7c9a9aa6135a7f
   m_configObjects:

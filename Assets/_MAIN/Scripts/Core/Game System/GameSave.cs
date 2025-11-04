@@ -14,7 +14,7 @@ namespace MAIN_GAME
         public const string FILE_TYPE = ".gmsv";
         public const bool ENCRYPT_FILES = true;
 
-        public string filePath = $"{FilePaths.gameSaves}save{FILE_TYPE}";
+        public string filePath => $"{FilePaths.gameSaves}save{FILE_TYPE}";
 
         public string playerName;
 

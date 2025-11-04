@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using MAIN_GAME;
 using UnityEngine;
@@ -17,6 +18,12 @@ public class CharacterSkinManager : MonoBehaviour
     public bool changePlayerSkin = false;
     public int skinsCount => GetSkinCount();
     public int selectedSkin { get; private set; } = 0;
+    private List<int> UnlockedSkinIndices =>
+    config.skins
+        .Select((s, i) => new { s, i })
+        .Where(x => IsSkinUnlocked(x.s.name))
+        .Select(x => x.i)
+        .ToList();
 
 
     void Start()
@@ -25,7 +32,7 @@ public class CharacterSkinManager : MonoBehaviour
 
         if (GameSave.activeFile.newGame)
         {
-            ChangeSkin(selectedSkin);
+            ChangeSkin(0);
             return;
         }
 
@@ -34,29 +41,36 @@ public class CharacterSkinManager : MonoBehaviour
         {
             int index = (int)savedSkin;
             Debug.Log(index);
-            if (index >= 0 && index < skinsCount)
+            if (index >= 0 && index < config.skins.Length)
                 selectedSkin = index;
         }
 
         // Apply the initial skin
-        ChangeSkin(selectedSkin);
+        ApplySkinColor(config.skins[selectedSkin].color);
 
     }
 
-    public void ChangeSkin(int index)
+    public void ChangeSkin(int direction = 1)
     {
-        selectedSkin = (skinsCount == 0)
-      ? 0
-      : (index < 0 ? index + skinsCount : (index >= skinsCount ? index - skinsCount : index));
-
-
-        if (selectedSkin == 0)
-        {
-            ApplySkinColor(Color.white);
+        if (config == null || config.skins == null || config.skins.Length == 0)
             return;
-        }
 
+        var unlocked = UnlockedSkinIndices;
+        if (unlocked.Count == 0)
+            return;
+
+        // Find the current position among unlocked skins
+        int currentUnlockedIndex = unlocked.IndexOf(selectedSkin);
+        if (currentUnlockedIndex == -1)
+            currentUnlockedIndex = 0;
+
+        // If direction = 0, just apply current
+        if (direction != 0)
+            currentUnlockedIndex = ((currentUnlockedIndex + direction) % unlocked.Count + unlocked.Count) % unlocked.Count;
+
+        selectedSkin = unlocked[currentUnlockedIndex];
         CharacterSkin skin = config.skins[selectedSkin];
+
         ApplySkinColor(skin.color);
     }
 
@@ -67,51 +81,44 @@ public class CharacterSkinManager : MonoBehaviour
         if (img != null)
             img.color = color;
     }
+
     public int GetSkinCount()
     {
-        if (config.skins == null || LevelProgressManager.runtime.Values == null)
+        if (config.skins == null)
             return 0;
 
-        int count = 1;
-
+        int count = 0;
         foreach (var skin in config.skins)
         {
-            // Check if any runtime value matches this skin's name
-            if (LevelProgressManager.runtime.Values.Any(r => r.skinUnlocked == skin.name))
+            if (IsSkinUnlocked(skin.name))
                 count++;
         }
 
         return count;
     }
 
-
-    public void ChangeSkinUI(int index)
+    public bool IsSkinUnlocked(string skinName)
     {
-        if (config.skins == null || skinsCount == 0 || img == null)
-            return;
+        if (config == null || config.skins == null)
+            return false;
 
-        if (index < 0 || index >= skinsCount)
-            return;
+        // Skin 0 is always unlocked
+        if (config.skins[0].name == skinName)
+            return true;
 
-        selectedSkin = index; // update the stored index
-        CharacterSkin skin = config.skins[index];
-        img.color = skin.color;
+        // Check all levels — since one level unlocks exactly one skin
+        foreach (var levelData in LevelProgressManager.runtime.Values)
+        {
+            if (!string.IsNullOrEmpty(levelData.skinUnlocked) &&
+                levelData.skinUnlocked == skinName)
+            {
+                return true;
+            }
+        }
 
+        return false;
     }
 
-    public void ChangeSkinPlayer(int index)
-    {
-        if (config.skins == null || skinsCount == 0 || sr == null)
-            return;
-
-        if (index < 0 || index >= skinsCount)
-            return;
-
-        selectedSkin = index; // update the stored index
-        CharacterSkin skin = config.skins[index];
-        sr.color = skin.color;
-
-    }
 
     public void ApplySkin()
     {

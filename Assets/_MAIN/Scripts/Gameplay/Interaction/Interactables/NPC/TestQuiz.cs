@@ -1,11 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEditor;
-using System.IO;
 using MAIN_GAME;
 using System.Collections.Generic;
 using DIALOGUE;
-using UnityEngine.InputSystem;
 
 public class TestQuiz : MonoBehaviour, IInteractable
 {
@@ -60,16 +57,15 @@ public class TestQuiz : MonoBehaviour, IInteractable
     {
         // set the player control to the general so they can go to next line
         inputReader.SetGeneral();
-        string fullPath = AssetDatabase.GetAssetPath(fileToRead);
+        // string fullPath = AssetDatabase.GetAssetPath(fileToRead);
 
-        int resourcesIndex = fullPath.IndexOf("Resources/");
-        string relativePath = fullPath.Substring(resourcesIndex + 10);
-        string filePath = Path.ChangeExtension(relativePath, null);
-        Debug.Log(filePath);
+        // int resourcesIndex = fullPath.IndexOf("Resources/");
+        // string relativePath = fullPath.Substring(resourcesIndex + 10);
+        // string filePath = Path.ChangeExtension(relativePath, null);
 
-        // List<string> lines = FileManager.ReadTxtAsset(fileToRead);
-        // yield return DialogueSystem.instance.Say(lines);
-        LoadFile(filePath);
+        List<string> lines = FileManager.ReadTxtAsset(fileToRead);
+        yield return DialogueSystem.instance.Say(lines);
+        // LoadFile(filePath);
         while (GeneralManager.instance.isRunningDialogue)
         {
             CheckAnswer();
