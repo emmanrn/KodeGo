@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L6_Final2
   m_EditorClassIdentifier: 
   codeLines:
-  - def {input}({input}, b)
+  - 'def {input}({input}, b):'
   - "\treturn {input}"
   - a, b = 10, 20
   - a, b = swap(a, b)

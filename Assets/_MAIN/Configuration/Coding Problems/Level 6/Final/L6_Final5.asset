@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L6_Final5
   m_EditorClassIdentifier: 
   codeLines:
-  - 'def {input}({input}:'
+  - 'def {input}({input}):'
   - "\treturn {input}"
   - print(in_range(10, 2, 11))
   expectedOutput: True

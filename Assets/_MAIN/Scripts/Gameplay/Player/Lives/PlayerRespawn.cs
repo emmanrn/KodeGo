@@ -17,17 +17,17 @@ namespace PLAYER
 
         void Start()
         {
-            var level = LevelProgressManager.GetLevel(levelName);
+            // var level = LevelProgressManager.GetLevel(levelName);
 
-            if (level.hasCheckpoint)
-            {
-                transform.position = level.checkpoint;
-            }
-            else
-            {
-                if (startingPoint != null)
-                    transform.position = startingPoint.position;
-            }
+            // if (level.hasCheckpoint)
+            // {
+            //     transform.position = level.checkpoint;
+            // }
+            // else
+            // {
+            if (startingPoint != null)
+                transform.position = startingPoint.position;
+            // }
         }
 
         public void Initialize(Rigidbody2D rbRef, Transform start, CircleTransition transition, CinemachineVirtualCamera cam)
