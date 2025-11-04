@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '{input}'
-  - print({input}
+  - print({input})
   - '{input}'
   - print(a + b)
-  expectedOutput: 30
+  expectedOutput: '10
+
+    30'
   codeBlocks:
   - a = 10
   - a

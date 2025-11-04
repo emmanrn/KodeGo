@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L6_Practice6
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Define a function that returns the number that is bigger than the other one'
   - '{input}:'
   - "\tif {input}:"
   - "\t\t{input}"

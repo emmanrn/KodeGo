@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L6_Practice2
   m_EditorClassIdentifier: 
   codeLines:
+  - '# [::-1] reverses a string!'
   - 'def {input}:'
   - "\treturn s{input}"
   - print({input})

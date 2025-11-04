@@ -17,7 +17,7 @@ MonoBehaviour:
   - '{input}{input}:'
   - "\tprint(\"Vowel\")"
   - '{input}:'
-  - "\tprint(\"Now a vowel\")"
+  - "\tprint(\"Not a vowel\")"
   expectedOutput: Vowel
   prefilledBlocks:
   - else

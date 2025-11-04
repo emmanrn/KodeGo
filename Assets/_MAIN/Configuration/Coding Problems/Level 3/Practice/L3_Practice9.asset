@@ -15,6 +15,6 @@ MonoBehaviour:
   codeLines:
   - is_dark = True
   - print("Is it dark?", {input})
-  expectedOutput: Is is dark? False
+  expectedOutput: Is is dark? True
   hints:
   - Use the word not in front of the variable to flip its True/False value.

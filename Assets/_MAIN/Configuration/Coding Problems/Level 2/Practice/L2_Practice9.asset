@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice9
   m_EditorClassIdentifier: 
   codeLines:
-  - '{input}'
+  - a = 10
   - '{input}'
   - print({input})
   expectedOutput: 15

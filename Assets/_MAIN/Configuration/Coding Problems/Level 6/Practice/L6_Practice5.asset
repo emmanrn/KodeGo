@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L6_Practice5
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Define a function that checks if a string a vowel'
   - '{input}:'
   - "\tfor {input}:"
   - "\t\t{input}:"

@@ -26,4 +26,5 @@ MonoBehaviour:
   - else
   - if a > b
   - elif b > a
-  hints: []
+  hints:
+  - elif is used to catch other specific cases if 'if' fails

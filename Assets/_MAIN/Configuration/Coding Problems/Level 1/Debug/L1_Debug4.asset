@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: L1_Debug4
   m_EditorClassIdentifier: 
   codeLines:
-  - print("{input},{input},{input}.")
+  - print("{input}, {input}, {input}.")
   expectedOutput: Code, Learn, Grow.
   prefilledBlocks:
   - Code
-  - ' Learn'
-  - ' Grow'
+  - Learn
+  - Grow
   hints:
   - The line you code, you then try to learn, and then you explore and grow!

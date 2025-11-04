@@ -18,4 +18,4 @@ MonoBehaviour:
   codeBlocks:
   - \\
   - \\
-  - System32
+  - '"System32"'

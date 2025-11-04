@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L6_Practice7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# If n is divisible by any number, return False. Otherwise, return True'
+  - '# Loop through numbers from 2 to n-1 to check for divisors'
   - '{input}:'
   - "\tfor {input}:"
   - "\t\tif n % i == 0:"

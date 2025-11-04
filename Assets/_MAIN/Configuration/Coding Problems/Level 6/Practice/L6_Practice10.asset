@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L6_Practice10
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Define a function that checks if n divided by m has no remainder using ''%'''
   - '{input}:'
   - "\tif {input}:"
   - "\t\treturn True"

@@ -18,9 +18,10 @@ MonoBehaviour:
   - "\tprint(\"Positive\")"
   - '{input}:'
   - "\tprint(\"Negative\")"
-  expectedOutput: Positive
+  expectedOutput: Negative
   prefilledBlocks:
   - 'num > 0:'
   - else
   - if
-  hints: []
+  hints:
+  - else is used to catch cases where if fails

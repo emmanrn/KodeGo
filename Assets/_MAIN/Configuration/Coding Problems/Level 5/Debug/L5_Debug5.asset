@@ -30,3 +30,5 @@ MonoBehaviour:
   - i
   hints:
   - Use range(start, stop, step) to skip odd numbers
+  - Remember 'stop' is not inclusive meaning whatever number you put there is not
+    going to be included in the count

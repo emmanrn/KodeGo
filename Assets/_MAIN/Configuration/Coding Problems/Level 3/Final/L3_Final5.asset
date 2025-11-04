@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L3_Final5
   m_EditorClassIdentifier: 
   codeLines:
-  - level - 7
+  - level = 7
   - print({input}{input}{input})
   expectedOutput: True
   codeBlocks:
