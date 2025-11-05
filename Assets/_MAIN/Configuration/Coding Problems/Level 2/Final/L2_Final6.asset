@@ -15,8 +15,8 @@ MonoBehaviour:
   codeLines:
   - '{input}'
   - '{input}'
-  - print("X =, x, ",", "Y =", {input})
-  expectedOutput: X = 10, Y = 20
+  - print("X =, x, "Y =", {input})
+  expectedOutput: X = 10 Y = 20
   codeBlocks:
   - y
   - x = 10

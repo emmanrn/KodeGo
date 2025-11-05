@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L5_Practice9
   m_EditorClassIdentifier: 
   codeLines:
+  - '# We need to iterate through the string language and print each character one
+    by one to show the word'
   - language = "Python"
   - 'for {input}:'
   - "\tprint(letter, end='')"

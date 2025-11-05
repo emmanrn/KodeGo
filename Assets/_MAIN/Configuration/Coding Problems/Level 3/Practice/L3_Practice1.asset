@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L3_Practice1
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use the double slash operator'
+  - '# Double slash is basically divide but it removes the decimal of the result'
   - print(17 {input} 3)
   expectedOutput: 5
   hints:

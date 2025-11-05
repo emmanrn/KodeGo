@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L5_Practice5
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use range() to start at 1, stop at 10'
+  - '# Only print odd numbers'
   - 'for i in {input}:'
   - "\tprint(i)"
   expectedOutput: '1

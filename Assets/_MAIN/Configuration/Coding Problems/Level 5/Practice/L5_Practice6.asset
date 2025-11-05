@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice6
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Loop from 2 to 10, skipping by 2'
   - total = 0
   - 'for {input}:'
   - "\ttotal += i"

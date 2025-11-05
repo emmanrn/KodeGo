@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice4
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Print the ''All your base are belong to us'' 3 times'
   - '{input} = 1'
   - '{input}'
   - "\tprint(\"All your base are belong to us\")"

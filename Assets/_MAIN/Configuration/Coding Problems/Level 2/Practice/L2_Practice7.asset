@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make variables for minutes and hours'
   - '{input}'
   - '{input}'
   - print(minutes, "minutes in", hours, "hours")

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: L6_Practice8
   m_EditorClassIdentifier: 
   codeLines:
-  - 'def {input}({input}, {input}):'
+  - '# Define a function that takes in a string, and a bool variable'
+  - '# Make a condition that checks the bool variable if its True then print something'
+  - '# Pass in a string on the first one'
+  - '# Pass a True or False on the second one'
+  - 'def {input}(string, active):'
   - "\tif ({input}:"
   - "\t\tprint(\"Hello, \" + name)"
   - greet_if_active({input}, {input})

@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L4_Practice6
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make conditions to see if the size is small, medium or large (use if, elif
+    and else)'
   - size = 67
   - '{input}'
   - "\tprint(\"Small\")"

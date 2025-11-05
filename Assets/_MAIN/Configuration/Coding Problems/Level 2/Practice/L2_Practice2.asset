@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice2
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Assign a variable to the word "CODEBOTS"'
   - '{input}'
   - print({input})
   expectedOutput: CODEBOTS

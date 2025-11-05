@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice8
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use fav and print it twice'
   - fav = 7
   - '{input}'
   - '{input}'

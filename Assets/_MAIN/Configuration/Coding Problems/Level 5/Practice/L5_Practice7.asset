@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# We need to loop from 10 to 1'
   - '{input}'
   - 'while {input}:'
   - "\tprint(countdown, end=' ')"

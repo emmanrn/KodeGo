@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice1
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Print the word Warning! 4 times'
   - '{input}'
   - 'while {input}:'
   - "\tprint({input})"

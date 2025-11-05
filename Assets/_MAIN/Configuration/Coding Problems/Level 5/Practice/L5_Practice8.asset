@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice8
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Loop and print 1 to 10'
   - 'for {input}:'
   - "\tif {input}:"
   - "\t\t{input}"

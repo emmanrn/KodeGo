@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L4_Practice7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# The secret code is ''XYZ123'' check if that''s the same as the code variable'
   - code = 'XYZ123'
   - '{input}'
   - "\tprint(\"Secret Unlocked\")"

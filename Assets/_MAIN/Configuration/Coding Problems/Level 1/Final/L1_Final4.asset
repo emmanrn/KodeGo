@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: L1_Final4
   m_EditorClassIdentifier: 
   codeLines:
-  - print({input}, {input}, {input})
+  - print("{input}, {input}, {input}")
   expectedOutput: Hello Goodbye Later
   codeBlocks:
-  - '"Hello"'
-  - '"Goodbye"'
-  - '"Later"'
+  - Hello
+  - Goodbye
+  - Later

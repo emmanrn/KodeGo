@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: L6_Practice4
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Define a function that takes a ''string'' as arguments'
+  - '# Then check if string contains a vowel ''aeiou'''
+  - '# Use the ''in'' keyword in the condition and compare it with ''aeiou'''
   - '{input}:'
   - "\tif {input}:"
   - "\t\t{input}"
   - "\treturn False"
-  - print(is_vowel('a')
+  - print(is_vowel('a'))
   expectedOutput: True
   hints:
   - Return True if the letter is a vowel
