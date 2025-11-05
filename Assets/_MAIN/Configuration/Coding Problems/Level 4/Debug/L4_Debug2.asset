@@ -15,14 +15,14 @@ MonoBehaviour:
   codeLines:
   - strength = 10
   - stone_weight = 8
-  - '{input} {input}'
+  - '{input} {input}:'
   - "\tprint(\"Strong Enough\")"
   - '{input}:'
   - "\tprint(\"Too weak...\")"
   expectedOutput: Strong Enough
   prefilledBlocks:
   - else
-  - 'strength > stone_weight:'
+  - strength > stone_weight
   - if
   hints:
   - Use `if` for the first choice and `else` for the alternative.

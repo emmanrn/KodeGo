@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: L4_Practice5
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use elif to see the status of health'
   - health = 35
   - 'if health >= 20:'
   - '{input}'
-  - "\t\tprint(\"Healthy\")"
+  - "\tprint(\"Healthy\")"
   - "\telse:"
   - "\t\tprint(\"Injured\")"
   - 'else:'

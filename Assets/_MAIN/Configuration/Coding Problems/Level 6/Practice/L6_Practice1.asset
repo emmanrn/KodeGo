@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: L6_Practice1
   m_EditorClassIdentifier: 
   codeLines:
+  - '# We''ve seen this one before, just loop a number of times to get the total
+    result we want'
+  - '# Don''t mind the global total there'
   - total = 0
   - '{input}:'
   - "\tglobal total"
   - "\tfor {input}:"
-  - "\t\t{input}"
+  - "\t\ttotal += {input}"
   - '{input}'
   - print(total)
   expectedOutput: 45

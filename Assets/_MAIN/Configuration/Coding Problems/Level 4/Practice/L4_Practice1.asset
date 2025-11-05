@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: L4_Practice1
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make a condition where to where the key is the same as the password so we
+    can get inside'
   - key = True
-  - password = "vaault123"
+  - password = "vault123"
   - '{input}:'
   - '{input}'
   - "\t\tprint(\"Access Granted\")"

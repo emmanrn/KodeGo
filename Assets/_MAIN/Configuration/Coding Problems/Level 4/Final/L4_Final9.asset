@@ -27,4 +27,4 @@ MonoBehaviour:
   codeBlocks:
   - if score > 90
   - if score > 70
-  - elif score > 60
+  - if score > 60

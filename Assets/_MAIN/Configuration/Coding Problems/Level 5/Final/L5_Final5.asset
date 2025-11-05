@@ -15,14 +15,14 @@ MonoBehaviour:
   codeLines:
   - n = 6
   - a, b = 0, 1
-  - next, count = b, 1
+  - nextNum, count = b, 1
   - '{input}:'
-  - "\tprint(next, end=\" \")"
+  - "\tprint(nextNum, end=\" \")"
+  - "\ta, b = b, nextNum"
   - "\t{input}"
-  - "\ta, b = b, next"
   - "\t{input}"
-  expectedOutput: 1 2 3 5 13
+  expectedOutput: 1 2 3 5 8 13
   codeBlocks:
   - while count <= n
-  - next = a + b
-  - a, b = b, next
+  - nextNum = a + b
+  - count += 1

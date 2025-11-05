@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice10
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Loop 4 times to show the rectangle'
   - 'for {input}:'
   - "\tprint(\"****\")"
   expectedOutput: '****

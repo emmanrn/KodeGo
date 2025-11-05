@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L3_Practice6
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make two variables score and required and try to compare and get the expected
+    output'
   - '{input}'
   - '{input}'
   - print("Score >= required:", {input})

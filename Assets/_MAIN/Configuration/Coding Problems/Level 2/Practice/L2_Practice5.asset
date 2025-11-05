@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice5
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make a variable that stores a False boolean'
   - '{input}'
   - print("Online status:", {input})
   expectedOutput: 'Online status: False'

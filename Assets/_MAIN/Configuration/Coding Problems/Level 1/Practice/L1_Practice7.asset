@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: L1_Practice7
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use the hash symbol (#) at the start of a line to write a note that the computer
+    ignores.'
   - '{input}'
   - print({input})
   expectedOutput: Hello Syntax!

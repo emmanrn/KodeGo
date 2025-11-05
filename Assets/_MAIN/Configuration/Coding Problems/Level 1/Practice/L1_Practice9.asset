@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L1_Practice9
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use a simple statement to print the expected output'
   - '{input}'
   expectedOutput: C:\new_folder
   hints:

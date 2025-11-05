@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice9
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Make another variable and print the result when you add them together'
   - a = 10
   - '{input}'
   - print({input})

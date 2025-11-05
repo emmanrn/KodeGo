@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L3_Practice3
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Double asterisks is the operator that raises a number to a power'
   - print( 2 {input} 3)
   expectedOutput: 8
   hints:

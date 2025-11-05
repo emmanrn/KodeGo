@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# Define a function that checks if a string a vowel'
+  - '# Use the ''in'' keyword in the condition and compare it with ''aeiou'''
   - '{input}:'
   - "\tfor {input}:"
   - "\t\t{input}:"

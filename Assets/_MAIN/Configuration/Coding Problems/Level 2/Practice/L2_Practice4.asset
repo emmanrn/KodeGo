@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L2_Practice4
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Combine the phrase with a variable to store your number of points!'
   - '{input}'
   - print("You earned", {input}, "points!")
   expectedOutput: You earned 300 points!

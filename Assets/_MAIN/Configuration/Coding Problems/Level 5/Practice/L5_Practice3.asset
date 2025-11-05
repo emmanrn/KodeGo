@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice3
   m_EditorClassIdentifier: 
   codeLines:
+  - '# We need to loop through 5 times and print the square of the current number'
   - '{input}'
   - "\tprint({input})"
   expectedOutput: '1

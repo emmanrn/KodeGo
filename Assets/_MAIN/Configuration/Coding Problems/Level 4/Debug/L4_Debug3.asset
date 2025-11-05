@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - num = -2
-  - '{input} {input}'
+  - '{input} {input}:'
   - "\tprint(\"Positive\")"
   - '{input}:'
   - "\tprint(\"Negative\")"
   expectedOutput: Negative
   prefilledBlocks:
-  - 'num > 0:'
+  - num > 0
   - else
   - if
   hints:

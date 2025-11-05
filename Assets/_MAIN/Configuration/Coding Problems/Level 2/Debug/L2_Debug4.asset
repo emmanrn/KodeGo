@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - '{input}'
   - '{input}'
-  - print({input + {input})
+  - print({input} + {input})
   expectedOutput: 70
   prefilledBlocks:
   - score

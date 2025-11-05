@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L3_Practice2
   m_EditorClassIdentifier: 
   codeLines:
+  - '# Use the % operator to find the remainder'
   - print(22 {input} 5)
   expectedOutput: 2
   hints:

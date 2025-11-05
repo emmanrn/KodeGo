@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice2
   m_EditorClassIdentifier: 
   codeLines:
+  - '# We need to print numbers that always increases by 3 and starts at 3'
   - '{input}'
   - "\tprint(i)"
   expectedOutput: '3
