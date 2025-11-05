@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - ch = 'a'
-  - '{input}{input}:'
+  - '{input} {input}:'
   - "\tprint(\"Vowel\")"
   - '{input}:'
   - "\tprint(\"Not a vowel\")"

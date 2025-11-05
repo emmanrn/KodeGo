@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# Define a function that returns the number that is bigger than the other one'
-  - '{input}:'
+  - 'def {input}:'
   - "\tif {input}:"
   - "\t\t{input}"
-  - "\t{input}:\n\t\t{input}"
+  - "\t{input}:"
+  - "\t\t{input}"
   - print(max_of_two(7, 6))
   expectedOutput: 7
   hints:

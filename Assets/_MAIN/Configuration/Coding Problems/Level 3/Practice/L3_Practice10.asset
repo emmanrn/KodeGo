@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# You can use the plus sign on two strings to combine them together'
-  - print{{input})
+  - print({input})
   expectedOutput: HelloKode
   hints:
   - Use the plus sign to stick the two words together. This is whats called concatenation

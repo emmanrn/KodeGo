@@ -19,7 +19,7 @@ MonoBehaviour:
   - "\t\t{input}:"
   - "\t\t\tcount += 1"
   - "\treturn count"
-  - print(count_vowels("Hello")
+  - print(count_vowels("Hello"))
   expectedOutput: 2
   codeBlocks:
   - count_vowel(string)

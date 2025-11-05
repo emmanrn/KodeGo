@@ -17,7 +17,7 @@ MonoBehaviour:
   - '# Try using the ''and'' keyword to see if both are true'
   - level = 5
   - points = 80
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Level Passed\")"
   - 'else:'
   - "\tprint(\"Try Again\")"

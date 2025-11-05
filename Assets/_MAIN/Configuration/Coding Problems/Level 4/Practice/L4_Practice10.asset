@@ -16,9 +16,9 @@ MonoBehaviour:
   - '# Check our health if it''s below 50, so we know if we need to use a health
     potion'
   - health = 40
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Use Health Potion\")"
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Use Strength Potion\")"
   expectedOutput: Use Health Potion
   hints:

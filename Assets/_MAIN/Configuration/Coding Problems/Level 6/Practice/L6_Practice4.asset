@@ -16,7 +16,7 @@ MonoBehaviour:
   - '# Define a function that takes a ''string'' as arguments'
   - '# Then check if string contains a vowel ''aeiou'''
   - '# Use the ''in'' keyword in the condition and compare it with ''aeiou'''
-  - '{input}:'
+  - 'def {input}:'
   - "\tif {input}:"
   - "\t\t{input}"
   - "\treturn False"
