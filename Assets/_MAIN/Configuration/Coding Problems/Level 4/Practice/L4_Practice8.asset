@@ -16,9 +16,9 @@ MonoBehaviour:
   - '# Check if the num is positive/negative and odd/even'
   - '# Use the % and compare it to 0 to see if it''s odd or even'
   - num = 7
-  - '{input}'
+  - '{input}:'
   - "\tprint('Positive Even')"
-  - '{input}'
+  - '{input}:'
   - "\tprint('Positive Odd')"
   - 'else:'
   - "\tprint('Negative Number')"

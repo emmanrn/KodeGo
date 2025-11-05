@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - 'def {input}:'
   - "\treturn {input} * {input}"
-  - print(repeat_word('Kode', 3)
+  - print(repeat_word('Kode', 3))
   expectedOutput: KodeKodeKode
   codeBlocks:
   - repeat_word(word, n)

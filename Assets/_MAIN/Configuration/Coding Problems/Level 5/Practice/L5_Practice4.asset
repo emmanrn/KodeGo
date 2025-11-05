@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - '# Print the ''All your base are belong to us'' 3 times'
   - '{input} = 1'
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"All your base are belong to us\")"
   - "\t{input}"
   expectedOutput: 'All your base are belong to us

@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - '# The secret code is ''XYZ123'' check if that''s the same as the code variable'
   - code = 'XYZ123'
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Secret Unlocked\")"
   - 'else:'
   - "\tprint(\"Incorrect Code\")"

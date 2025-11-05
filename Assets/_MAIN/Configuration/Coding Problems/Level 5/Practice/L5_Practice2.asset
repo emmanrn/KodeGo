@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# We need to print numbers that always increases by 3 and starts at 3'
-  - '{input}'
+  - '{input}:'
   - "\tprint(i)"
   expectedOutput: '3
 

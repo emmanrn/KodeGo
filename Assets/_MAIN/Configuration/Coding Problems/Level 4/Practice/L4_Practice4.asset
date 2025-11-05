@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - coins = 120
   - level = 6
-  - 'if ({input} and {input]):'
+  - 'if ({input} and {input}):'
   - "\tprint(\"Treasure Found!\")"
   - 'else:'
   - "\tprint(\"No Treasure\")"

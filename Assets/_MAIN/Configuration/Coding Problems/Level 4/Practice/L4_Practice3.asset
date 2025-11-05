@@ -15,8 +15,8 @@ MonoBehaviour:
   codeLines:
   - '# Make sure to compare the password to ''open123'' and see if we get the correct
     password'
-  - password = 'open123''
-  - '{input}'
+  - password = 'open123'
+  - '{input}:'
   - "\tprint('Correct Password')"
   - 'else:'
   - "\tprint(\"Incorrect Password\")"

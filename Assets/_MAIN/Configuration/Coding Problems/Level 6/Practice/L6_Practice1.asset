@@ -17,7 +17,7 @@ MonoBehaviour:
     result we want'
   - '# Don''t mind the global total there'
   - total = 0
-  - '{input}:'
+  - 'def {input}:'
   - "\tglobal total"
   - "\tfor {input}:"
   - "\t\ttotal += {input}"

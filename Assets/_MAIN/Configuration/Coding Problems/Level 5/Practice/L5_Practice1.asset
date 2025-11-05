@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# Print the word Warning! 4 times'
-  - '{input}'
+  - '{input}:'
   - 'while {input}:'
   - "\tprint({input})"
   - "\t{input}"

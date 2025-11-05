@@ -16,8 +16,8 @@ MonoBehaviour:
   - '# Use elif to see the status of health'
   - health = 35
   - 'if health >= 20:'
-  - '{input}'
-  - "\tprint(\"Healthy\")"
+  - "\t{input}:"
+  - "\t\tprint(\"Healthy\")"
   - "\telse:"
   - "\t\tprint(\"Injured\")"
   - 'else:'

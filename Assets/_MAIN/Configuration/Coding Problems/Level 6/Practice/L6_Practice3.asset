@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - '# Define a function that uses a for loop to multiply the numbers from 1 up to
     n'
-  - '{input}:'
+  - 'def {input}:'
   - "\tresult = 1"
   - "\tfor {input}:"
   - "\t\t{input}"

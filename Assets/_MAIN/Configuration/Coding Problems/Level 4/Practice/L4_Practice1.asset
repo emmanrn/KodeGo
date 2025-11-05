@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: L4_Practice1
   m_EditorClassIdentifier: 
   codeLines:
-  - '# Make a condition where to where the key is the same as the password so we
-    can get inside'
+  - '# Make a condition where to where if a person has a key and then if they also
+    know the password we let them in'
   - key = True
   - password = "vault123"
   - '{input}:'
-  - '{input}'
+  - "\t{input}:"
   - "\t\tprint(\"Access Granted\")"
   - "\telse:"
   - "\t\tprint(\"Wrong Password')"

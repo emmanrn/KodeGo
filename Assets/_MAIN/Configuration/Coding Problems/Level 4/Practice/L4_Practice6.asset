@@ -16,11 +16,11 @@ MonoBehaviour:
   - '# Make conditions to see if the size is small, medium or large (use if, elif
     and else)'
   - size = 67
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Small\")"
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Medium\")"
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Large\")"
   expectedOutput: Medium
   hints:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - num = 5
-  - '{input}{input}:'
+  - '{input} {input}:'
   - "\tprint(\"Even\")"
   - '{input}:'
   - "\tprint(\"Odd\")"
