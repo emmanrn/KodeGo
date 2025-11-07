@@ -29,3 +29,9 @@ MonoBehaviour:
   - Start a counter at 0.
   - 'The while condition should be counter < 4. '
   - "Don't forget to increase the counter by doing variable += 1\r"
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

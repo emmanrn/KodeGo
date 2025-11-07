@@ -25,3 +25,9 @@ MonoBehaviour:
   - Remember if, elif, and else all end with a colon
   - Compare the string variable to the correct value using `==`.
   - Quotes are required around the string.
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

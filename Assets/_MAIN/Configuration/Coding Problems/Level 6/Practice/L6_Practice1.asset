@@ -28,3 +28,9 @@ MonoBehaviour:
   - Make sure to call the function to use it before printing the total!
   - global just makes it so we can access the total at the top
   - We need to loop the addition n times
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 1
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '{input} = 12'
-  - print(num{input}{input})
+  - print(num {input} {input})
   expectedOutput: 144
   codeBlocks:
   - num

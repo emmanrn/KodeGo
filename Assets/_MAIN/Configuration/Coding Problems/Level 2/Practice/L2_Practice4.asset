@@ -19,3 +19,7 @@ MonoBehaviour:
   expectedOutput: You earned 300 points!
   hints:
   - Combine the phrase with a variable to store your number of points!
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

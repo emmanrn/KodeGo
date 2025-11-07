@@ -26,3 +26,9 @@ MonoBehaviour:
   - Loop through the string
   - As soon as you find a vowel, immediately return True.
   - If the loop finishes without finding one, return False
+  requiresIf: 1
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

@@ -18,3 +18,7 @@ MonoBehaviour:
   expectedOutput: Is is dark? True
   hints:
   - Use the word not in front of the variable to flip its True/False value.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

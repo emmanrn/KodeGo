@@ -23,3 +23,9 @@ MonoBehaviour:
   hints:
   - Both coin and level requirements must be met
   - Use `and` to combine them in a single if statement
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

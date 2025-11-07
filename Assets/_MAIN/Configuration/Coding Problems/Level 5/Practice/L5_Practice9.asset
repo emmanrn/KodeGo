@@ -21,3 +21,9 @@ MonoBehaviour:
   expectedOutput: Python
   hints:
   - 'Use a for loop that cycles through the letters '
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

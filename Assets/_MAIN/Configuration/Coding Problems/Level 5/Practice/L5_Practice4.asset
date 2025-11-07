@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L5_Practice4
   m_EditorClassIdentifier: 
   codeLines:
-  - '# Print the ''All your base are belong to us'' 3 times'
+  - '# Print the ''All your base are belong to us'' 3 times using while loop'
   - '{input} = 1'
   - '{input}:'
   - "\tprint(\"All your base are belong to us\")"
@@ -28,3 +28,9 @@ MonoBehaviour:
   - Start a counter variable at 1
   - Loop while it's less than or equal to 3
   - Add 1 to it at the end of the loop
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

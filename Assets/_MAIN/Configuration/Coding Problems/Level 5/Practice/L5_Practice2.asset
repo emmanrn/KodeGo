@@ -27,3 +27,9 @@ MonoBehaviour:
     15'
   hints:
   - Use range() starting at 3 and stepping by 3 to automatically hit only the multiples.
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

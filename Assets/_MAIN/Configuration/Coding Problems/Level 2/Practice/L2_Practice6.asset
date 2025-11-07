@@ -20,3 +20,7 @@ MonoBehaviour:
   expectedOutput: 'Score: 20'
   hints:
   - Use the = sign again to replace 10 with 20.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

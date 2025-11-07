@@ -21,7 +21,7 @@ MonoBehaviour:
   - "\t{input}:"
   - "\t\tprint(\"Access Granted\")"
   - "\telse:"
-  - "\t\tprint(\"Wrong Password')"
+  - "\t\tprint(\"Wrong Password\")"
   - 'else:'
   - "\tprint(\"No Key\")"
   expectedOutput: Access Granted
@@ -29,3 +29,9 @@ MonoBehaviour:
   - You need an outer if for the key and an inner if for the password.
   - Use nested indentation for the inner if and else blocks
   - Don't forget that all if, elif and else end with a colon
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

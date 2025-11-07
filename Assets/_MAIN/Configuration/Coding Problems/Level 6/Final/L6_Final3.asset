@@ -22,6 +22,6 @@ MonoBehaviour:
   - print(count_vowels("Hello"))
   expectedOutput: 2
   codeBlocks:
-  - count_vowel(string)
+  - count_vowels(string)
   - for letter in string
   - if letter in 'aeiou'

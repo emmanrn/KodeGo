@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using DIALOGUE;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +9,7 @@ public class Transition : MonoBehaviour
     [SerializeField] private Animator anim;
     public static Transition instance { get; private set; }
     [SerializeField] private InputReader inputReader;
-    // [SerializeField] private TextAsset fileToRead;
+    [SerializeField] private Animator credits;
 
     void Awake()
     {
@@ -43,6 +41,10 @@ public class Transition : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
                 yield return StartCoroutine(StartConversation(fileToRead));
                 yield return new WaitForSeconds(1f);
+                if (credits != null)
+                {
+                    yield return StartCoroutine(CreditsRoll());
+                }
             }
             else
                 yield return new WaitForSeconds(2f);
@@ -129,5 +131,13 @@ public class Transition : MonoBehaviour
         DialogueSystem.instance.mainCanv.sortingLayerName = "UI";
         DialogueSystem.instance.mainCanv.sortingOrder = 100;
         DialogueSystem.instance.Say(lines, filePath);
+    }
+
+    private IEnumerator CreditsRoll()
+    {
+        credits.Play("CreditsScroll");
+        yield return new WaitForSeconds(10f);
+        SceneManager.LoadScene("HomeScreen");
+        yield break;
     }
 }

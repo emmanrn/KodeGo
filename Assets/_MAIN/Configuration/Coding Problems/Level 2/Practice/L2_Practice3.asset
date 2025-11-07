@@ -23,3 +23,7 @@ MonoBehaviour:
   hints:
   - Assign numbers to variables
   - Remember you dont need quotes for storing numbers in variables
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

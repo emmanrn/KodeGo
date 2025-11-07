@@ -21,3 +21,7 @@ MonoBehaviour:
   expectedOutput: 'Score >= required: True'
   hints:
   - Use the "greater than or equal to" symbol.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

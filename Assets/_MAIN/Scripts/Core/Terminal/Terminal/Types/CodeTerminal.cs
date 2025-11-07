@@ -13,7 +13,6 @@ namespace TERMINAL
         protected const string INPUT_ID = "{input}";
 
         [Header("Code Terminal Config")]
-        [SerializeField] protected T[] configs;
         protected T currentConfig;
         [SerializeField] protected Transform codeContainer; // Vertical layout group
         [SerializeField] protected GameObject codeLinePrefab; // Horizontal line prefab

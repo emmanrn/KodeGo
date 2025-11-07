@@ -22,3 +22,7 @@ MonoBehaviour:
   - Make sure the word is inside double quotes!
   - Remember words should always be inside quotation marks even when assigning it
     to a variable
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

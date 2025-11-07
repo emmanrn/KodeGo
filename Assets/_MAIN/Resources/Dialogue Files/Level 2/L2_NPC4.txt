@@ -1,0 +1,22 @@
+CreateCharacter(NPC), CreateCharacter(Kode)
+
+ShowDB()
+
+
+Kode.Show()
+Kode [0:Default] "Wait, how do I make two pieces of text show up together?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Easy! You can link different text blocks together — sometimes with a comma, sometimes with a little “+” trickery."
+NPC.Hide()
+
+Kode.Show()
+Kode [0:Default] "Oh, so that’s how you make it say “Hello, World”?"
+Kode.Hide()
+
+NPC.Show()
+NPC as NPC 3 "Exactly. A simple combo of strings — but a powerful one."
+NPC.Hide()
+
+[wait]HideDB()

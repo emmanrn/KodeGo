@@ -23,3 +23,9 @@ MonoBehaviour:
   expectedOutput: Use Health Potion
   hints:
   - Use a simple if-else to check if the health is below 50.
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

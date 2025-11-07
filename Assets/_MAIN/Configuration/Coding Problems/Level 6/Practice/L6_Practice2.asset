@@ -22,3 +22,9 @@ MonoBehaviour:
   - '[::-1] reverses a string!'
   - 'Use the neat Python trick: s[::-1] on the string input to get its reversed version,
     and return that.'
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

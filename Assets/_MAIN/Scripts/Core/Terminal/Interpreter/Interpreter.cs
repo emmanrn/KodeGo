@@ -3,7 +3,7 @@ using Python.Runtime;
 using System;
 using Unity.VisualScripting;
 
-public class Interpreter : MonoBehaviour
+public partial class Interpreter : MonoBehaviour
 {
     [DoNotSerialize] private PythonOutputRedirector pythonOutputRedirector;
     [DoNotSerialize] dynamic np;

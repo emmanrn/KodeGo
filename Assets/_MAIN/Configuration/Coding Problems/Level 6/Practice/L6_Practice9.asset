@@ -21,3 +21,9 @@ MonoBehaviour:
   hints:
   - Use the + sign to join the first string
   - Add the second string to the first string
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 1

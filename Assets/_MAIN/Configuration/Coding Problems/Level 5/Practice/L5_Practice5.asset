@@ -30,3 +30,9 @@ MonoBehaviour:
   - Use range() to start at 1, stop at 10
   - "Use a step of 2 to skip the even numbers.\r"
   - "Only print the first 5 odd numbers\r"
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: L5_Practice7
   m_EditorClassIdentifier: 
   codeLines:
-  - '# We need to loop from 10 to 1'
+  - '# We need to loop from 10 to 1 using a while loop'
+  - '# Make a variable starting at 0 then increase it every loop'
   - '{input}'
   - 'while {input}:'
   - "\tprint(countdown, end=' ')"
@@ -23,3 +24,9 @@ MonoBehaviour:
   - Start a counter at 10.
   - The while condition is counter > 0.
   - Remember to subtract 1 from the counter (-= 1) each turn
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

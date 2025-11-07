@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - 'def {input}:'
-  - "\treturn{input}{input}"
+  - "\treturn {input}{input}"
   - print(first_char("All your base are belong to us"))
   expectedOutput: A
   codeBlocks:

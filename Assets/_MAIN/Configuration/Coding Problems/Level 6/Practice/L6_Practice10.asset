@@ -23,3 +23,9 @@ MonoBehaviour:
   hints:
   - Check if n divided by m has no remainder using '%'
   - Return True if divisible, otherwise return False
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

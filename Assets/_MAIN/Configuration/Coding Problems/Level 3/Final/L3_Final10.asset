@@ -15,7 +15,7 @@ MonoBehaviour:
   codeLines:
   - greet = "Hello"
   - name = "Vault"
-  - print({input}{input}{input})
+  - print({input} {input} {input})
   expectedOutput: HelloVault
   codeBlocks:
   - +

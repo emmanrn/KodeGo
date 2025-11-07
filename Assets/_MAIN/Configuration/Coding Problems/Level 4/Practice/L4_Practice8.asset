@@ -26,3 +26,9 @@ MonoBehaviour:
   hints:
   - Combine two conditions using `and` for the first and second cases
   - The else catches all negative numbers
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

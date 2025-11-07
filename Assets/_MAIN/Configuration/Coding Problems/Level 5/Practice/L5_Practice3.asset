@@ -28,3 +28,9 @@ MonoBehaviour:
   hints:
   - Inside the loop, use the double asterisk (** 2) to calculate the square of the
     current number.
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

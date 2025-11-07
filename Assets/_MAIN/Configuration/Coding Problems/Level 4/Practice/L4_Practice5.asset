@@ -26,3 +26,9 @@ MonoBehaviour:
   hints:
   - Use nested if-else for mid-range health checks
   - The outer else is for health below 20
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

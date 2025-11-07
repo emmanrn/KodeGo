@@ -18,3 +18,9 @@ MonoBehaviour:
   expectedOutput: 2
   hints:
   - "The % symbol finds what\u2019s left after dividing one number by another."
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 1
+  requiresConcatenation: 0

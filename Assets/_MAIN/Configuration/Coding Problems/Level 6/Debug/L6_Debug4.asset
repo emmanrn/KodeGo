@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '{input} goodbye(name):'
-  - "\t{input}('Goodbye, ' + name + \"!\")"
-  - '{input}(''Alice'')'
+  - "\t{input}(\"Goodbye, \" + name + \"!\")"
+  - '{input}("Alice")'
   expectedOutput: Goodbye, Alice!
   prefilledBlocks:
   - print
