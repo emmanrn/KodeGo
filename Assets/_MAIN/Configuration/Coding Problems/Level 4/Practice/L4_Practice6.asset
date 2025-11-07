@@ -25,3 +25,9 @@ MonoBehaviour:
   expectedOutput: Medium
   hints:
   - Use if for Small, elif for Medium, and else for Large
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - level = 7
-  - print({input}{input}{input})
+  - print({input} {input} {input})
   expectedOutput: True
   codeBlocks:
   - level > 5

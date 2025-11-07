@@ -20,3 +20,9 @@ MonoBehaviour:
   expectedOutput: 15
   hints:
   - Print the result of the a + b math operation.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 1
+  requiresConcatenation: 0

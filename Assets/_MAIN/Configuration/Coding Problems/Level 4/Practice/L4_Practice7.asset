@@ -22,3 +22,9 @@ MonoBehaviour:
   expectedOutput: Secret Unlocked
   hints:
   - Comapring the code if its the correct one
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

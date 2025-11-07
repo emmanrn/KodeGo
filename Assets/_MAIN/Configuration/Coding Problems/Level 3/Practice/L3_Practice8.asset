@@ -20,3 +20,7 @@ MonoBehaviour:
   hints:
   - Use the word "and" to make sure both checks are successful and not to flip the
     door_locked status.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

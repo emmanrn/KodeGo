@@ -19,3 +19,7 @@ MonoBehaviour:
   hints:
   - Use the special command type() to find out if the value box holds words, numbers,
     or decimals.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

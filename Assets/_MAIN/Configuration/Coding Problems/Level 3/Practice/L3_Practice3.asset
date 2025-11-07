@@ -18,3 +18,9 @@ MonoBehaviour:
   expectedOutput: 8
   hints:
   - Use ** to raise a number to a power.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 1
+  requiresConcatenation: 0

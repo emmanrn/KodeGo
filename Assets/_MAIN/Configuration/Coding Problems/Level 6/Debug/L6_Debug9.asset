@@ -16,7 +16,7 @@ MonoBehaviour:
   - names = ["Alice", "Bob", "Charlie"]
   - '{input} greet_players(names):'
   - "\tfor {input}:"
-  - "\t\tprint('Hello, ' + name + \"!\")"
+  - "\t\tprint(\"Hello, \" + name + \"!\")"
   - '{input}'
   expectedOutput: 'Hello, Alice!
 

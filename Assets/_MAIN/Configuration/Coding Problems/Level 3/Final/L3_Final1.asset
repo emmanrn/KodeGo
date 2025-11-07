@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - word = {input}
-  - print(word{input}{input})
+  - print(word {input} {input})
   expectedOutput: VaultVault
   codeBlocks:
   - '"Vault"'

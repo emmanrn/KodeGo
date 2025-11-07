@@ -34,3 +34,9 @@ MonoBehaviour:
   hints:
   - 'Loop from 1 to 10. '
   - "Check if the number has a remainder of 0 when divided by 3, if so, use continue.\r"
+  requiresIf: 1
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

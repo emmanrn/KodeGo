@@ -19,3 +19,7 @@ MonoBehaviour:
   expectedOutput: 'Speed > Limit: True'
   hints:
   - Use the standard "greater than" symbol.
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

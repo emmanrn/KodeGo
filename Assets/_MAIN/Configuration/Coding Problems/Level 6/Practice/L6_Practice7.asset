@@ -26,3 +26,9 @@ MonoBehaviour:
   - Use 'def' to define the function
   - Loop through numbers from 2 to n-1 to check for divisors
   - If n is divisible by any number, return False. Otherwise, return True
+  requiresIf: 1
+  requiresLoop: 1
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

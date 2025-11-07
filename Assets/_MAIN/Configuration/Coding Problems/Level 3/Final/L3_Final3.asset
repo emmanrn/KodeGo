@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L3_Final3
   m_EditorClassIdentifier: 
   codeLines:
-  - print({input}{input}{input})
+  - print({input} {input} {input})
   expectedOutput: 4
   codeBlocks:
   - 19

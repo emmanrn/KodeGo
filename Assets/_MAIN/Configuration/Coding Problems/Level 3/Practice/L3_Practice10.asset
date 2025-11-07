@@ -18,3 +18,9 @@ MonoBehaviour:
   expectedOutput: HelloKode
   hints:
   - Use the plus sign to stick the two words together. This is whats called concatenation
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 1

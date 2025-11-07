@@ -20,3 +20,7 @@ MonoBehaviour:
   hints:
   - False is a boolean keyword in Python
   - Store a boolean to a variable
+  requiresIf: 0
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0

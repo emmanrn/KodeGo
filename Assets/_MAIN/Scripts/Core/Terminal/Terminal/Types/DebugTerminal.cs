@@ -69,6 +69,7 @@ namespace TERMINAL
             {
                 outputTerminal.color = Color.yellow;
                 outputTerminal.text = "Error: recursion not allowed.";
+                attempts++;
                 return;
             }
 
@@ -83,6 +84,9 @@ namespace TERMINAL
             else
             {
                 attempts++; // increment only once per run
+                outputTerminal.color = new Color(1, 0.33f, 0.33f);
+                outputTerminal.text = output;
+
                 CheckHintThreshold();
                 StartErrorPopup();
             }
@@ -106,7 +110,7 @@ namespace TERMINAL
                     ShowHint();
 
 
-                outputTerminal.color = Color.red;
+                outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
 
             }

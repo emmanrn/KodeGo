@@ -18,8 +18,15 @@ MonoBehaviour:
   - 'for {input}:'
   - "\ttotal += i"
   - print(total)
-  expectedOutput: 20
+  expectedOutput: 30
   hints:
   - 'Use a variable named total set to 0. '
   - Loop from 2 to 10, skipping by 2
   - "Add each number to the total.\r"
+  - "Remember that stop in range() is not inclusive!\r"
+  requiresIf: 0
+  requiresLoop: 1
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

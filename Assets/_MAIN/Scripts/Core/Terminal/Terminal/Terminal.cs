@@ -116,6 +116,7 @@ namespace TERMINAL
         }
         protected void StartErrorPopup()
         {
+
             if (currentPopup != null)
                 StopCoroutine(currentPopup);
 

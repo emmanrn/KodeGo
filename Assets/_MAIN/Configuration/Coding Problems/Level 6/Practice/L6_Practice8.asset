@@ -24,3 +24,9 @@ MonoBehaviour:
   expectedOutput: Hello, Kode
   hints:
   - Check if 'active' is True before printing the greeting
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

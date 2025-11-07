@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '# Make sure we let people in that has a key and knows the code only'
-  - has_key = False
+  - has_key = True
   - knows_code = True
   - '{input}:'
   - "\tprint(\"Door Opened!\")"
-  - '{input}'
+  - '{input}:'
   - "\tprint(\"Door Locked\")"
   expectedOutput: Door Opened!
   hints:
   - Only one of the two conditions needs to be true.
   - Use `or` to combine the conditions.
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

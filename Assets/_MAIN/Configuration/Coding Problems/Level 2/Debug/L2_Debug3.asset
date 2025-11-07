@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   codeLines:
   - '{input} = {input}'
-  - '{input}({input}{input})'
+  - '{input}({input} {input})'
   expectedOutput: I'm learning Python
   prefilledBlocks:
   - print
-  - '"I''m learning", '
+  - '"I''m learning",'
   - language
   - language
   - '"Python"'

@@ -25,3 +25,9 @@ MonoBehaviour:
   hints:
   - Both conditions must be true to pass
   - Use `and` to combine them
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 1
+  requiresFunction: 0
+  requiresArithmetic: 0
+  requiresConcatenation: 0

@@ -23,3 +23,9 @@ MonoBehaviour:
   expectedOutput: 7
   hints:
   - Use an if-else statement to compare the two inputs and return the larger one.
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0

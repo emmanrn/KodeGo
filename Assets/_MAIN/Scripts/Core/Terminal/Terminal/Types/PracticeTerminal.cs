@@ -1,71 +1,38 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using MAIN_GAME;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace TERMINAL
 {
-    public class FinalTerminal : CodeTerminal<FinalTerminalConfig>
+    public class PracticeTerminal : CodeTerminal<PracticeTermConfig>
     {
-        [Header("Sidebar & Prefabs")]
-        [SerializeField] private Transform sidebarContainer;
-        [SerializeField] private GameObject codeBlockPrefab;
-        [SerializeField] private GameObject slotPrefab; // drop target
-        [SerializeField] private int totalBlocks = 3;
-        [SerializeField] protected GameObject blockCounter;
 
-        private List<CodeDropTarget> slots;
-
+        [SerializeField] protected GameObject inputFieldPrefab; // Input field prefab (TMP_InputField)
+        protected List<TMP_InputField> inputFields;
+        private int attempts;
+        private int prevHintIndex = -1;
         protected override void InitializeTerminal()
         {
             runBtn.onClick.RemoveAllListeners();
-            slots = new List<CodeDropTarget>();
+            inputFields = new List<TMP_InputField>();
             runBtn.onClick.AddListener(Run);
 
             base.InitializeTerminal();
 
-            BuildSidebar();
-
             expectedOutputTerminal.text = currentConfig.expectedOutput;
+
+            attempts = 0;
+            prevHintIndex = -1;
             outputTerminal.text = "";
 
-        }
-
-        private void OnEnable()
-        {
-            GameEvents.OnPlayerDied += PlayerDied;
-        }
-
-        private void OnDisable()
-        {
-            GameEvents.OnPlayerDied -= PlayerDied;
-        }
-
-        private void BuildSidebar()
-        {
-            int collectedCodeBlocks = CountCollectedBlocks();
-
-            for (int i = 0; i < currentConfig.codeBlocks.Length; i++)
-            // foreach (string block in config.codeBlocks)
+            if (currentPopup != null)
             {
-                var block = currentConfig.codeBlocks[i];
-                var go = ObjectPoolManager.SpawnObject(codeBlockPrefab, sidebarContainer, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-
-                go.GetComponentInChildren<TextMeshProUGUI>().text = block;
-                go.GetComponent<CodeBlock>().code = block;
-
-                bool unlocked = i < collectedCodeBlocks;
-                go.SetActive(unlocked);
+                StopCoroutine(currentPopup);
+                currentPopup = null;
             }
-        }
 
-        private int CountCollectedBlocks()
-        {
-            return LevelProgressManager.runtime[GameManager.instance.LEVEL_NAME].collectedBlocks;
         }
 
         public override void BuildLine(Transform lineParent, string line)
@@ -133,22 +100,65 @@ namespace TERMINAL
                     }
                 }
 
-                var slotGO = ObjectPoolManager.SpawnObject(slotPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
-                var slot = slotGO.GetComponent<CodeDropTarget>();
-                slots.Add(slot);
+                // Spawn input field
+                var inputChunk = ObjectPoolManager.SpawnObject(inputFieldPrefab, lineParent, Quaternion.identity, ObjectPoolManager.PoolType.GameObjects);
+                inputChunk.transform.localScale = Vector3.one;
+                var input = inputChunk.GetComponent<TMP_InputField>();
+                input.text = "";
+                inputFields.Add(input);
 
                 searchIndex = nextIndex + INPUT_ID.Length;
             }
 
         }
 
+
         public override string GetFullCode()
         {
             List<string> inputs = new List<string>();
-            foreach (var slot in slots)
-                inputs.Add(slot.currentCode ?? "");
+            foreach (var field in inputFields)
+                inputs.Add(field.text);
 
             return BuildFullCode(inputs);
+
+        }
+
+        public override void Run()
+        {
+            string code = GetFullCode();
+
+            if (!interpreter.AnalyzeCodeStructure(code, currentConfig, out string feedback))
+            {
+                outputTerminal.color = Color.yellow;
+                outputTerminal.text = feedback;
+                attempts++;
+                return;
+            }
+
+            if (ContainsRecursion(code))
+            {
+                outputTerminal.color = Color.yellow;
+                outputTerminal.text = "Error: Recursion is not allowed.";
+                return;
+            }
+
+            bool success = interpreter.TryExecuteCode(code, out string output);
+            Debug.Log("Success " + success);
+
+            outputTerminal.text = "";
+
+            if (success)
+            {
+                CheckOutput(output, currentConfig.expectedOutput);
+            }
+            else
+            {
+                outputTerminal.color = new Color(1, 0.33f, 0.33f);
+                outputTerminal.text = output;
+                attempts++; // increment only once per run
+                CheckHintThreshold();
+                StartErrorPopup();
+            }
         }
 
         public override void CheckOutput(string output, string outputCode)
@@ -160,68 +170,49 @@ namespace TERMINAL
                 Debug.Log("Correct");
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
-                StartCoroutine(OnPlayerWin());
             }
             else
             {
-                outputTerminal.color = Color.red;
+                output = string.IsNullOrEmpty(output) ? "None" : output;
+
+                attempts++;
+
+                CheckHintThreshold();
+
+                outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
 
-
-                GeneralManager.instance.Player?.TakeDamage(1);
             }
+
         }
-
-        public override void Run()
+        private void CheckHintThreshold()
         {
-            string code = GetFullCode();
-
-            if (ContainsRecursion(code))
-            {
-                outputTerminal.color = Color.yellow;
-                outputTerminal.text = "Error: Recursion is not allowed.";
+            if (attempts % MAX_WRONG_ATTEMPTS == 0)
+                ShowHint();
+        }
+        private void ShowHint()
+        {
+            if (currentConfig.hints == null || currentConfig.hints.Length == 0)
                 return;
-            }
 
-            bool success = interpreter.TryExecuteCode(code, out string output);
-            outputTerminal.text = "";
+            int randomHintIndex;
 
-            if (success)
+            // If there’s only one hint, just show it.
+            if (currentConfig.hints.Length == 1)
             {
-                CheckOutput(output, currentConfig.expectedOutput);
+                randomHintIndex = 0;
             }
             else
             {
-                StartErrorPopup();
+                do
+                {
+                    randomHintIndex = Random.Range(0, currentConfig.hints.Length);
+                }
+                while (randomHintIndex == prevHintIndex);
             }
 
-        }
-
-
-        private IEnumerator OnPlayerWin()
-        {
-            blockCounter.SetActive(false);
-            LevelProgressManager.SetPlayerLevelWin(levelName);
-            LevelProgressManager.UnlockTitle(levelName, GameManager.instance.titleToBeUnlocked);
-            GameSave.activeFile.Save();
-
-            yield return StartCoroutine(ShowVictory());
-            Transition.instance.LoadLevel(levelName, GameManager.instance.fileToRead);
-        }
-
-        private void PlayerDied()
-        {
-            ClickCloseWindow();
-            outputTerminal.text = "";
-        }
-
-        private IEnumerator ShowVictory()
-        {
-            PopupMenuManager.instance.ShowVictoryPopup("PASSED");
-            yield return new WaitForSeconds(1.25f);
-            PopupMenuManager.instance.HideVictoryPopup();
-            ClickCloseWindow();
-            yield return new WaitForSeconds(1f);
+            prevHintIndex = randomHintIndex;
+            PopupMenuManager.instance.ShowHintPopup(currentConfig.hints[randomHintIndex]);
         }
 
         protected override void OnClose()
@@ -231,13 +222,20 @@ namespace TERMINAL
                 Transform child = codeContainer.GetChild(i);
                 ObjectPoolManager.ReleaseRecursive(child.gameObject);
             }
-            for (int i = sidebarContainer.childCount - 1; i >= 0; i--)
+            inputFields.Clear();
+
+            if (currentPopup != null)
             {
-                Transform child = sidebarContainer.GetChild(i);
-                ObjectPoolManager.ReleaseRecursive(child.gameObject);
+                StopCoroutine(currentPopup);
+                currentPopup = null;
             }
-            slots.Clear();
+
         }
+
+
+
+
+
     }
 
 }

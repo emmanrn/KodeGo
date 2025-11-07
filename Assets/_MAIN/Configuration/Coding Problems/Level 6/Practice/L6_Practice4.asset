@@ -25,3 +25,9 @@ MonoBehaviour:
   hints:
   - Return True if the letter is a vowel
   - Return False if the letter is not a vowel
+  requiresIf: 1
+  requiresLoop: 0
+  requiresVariable: 0
+  requiresFunction: 1
+  requiresArithmetic: 0
+  requiresConcatenation: 0
