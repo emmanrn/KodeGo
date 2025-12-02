@@ -73,6 +73,6 @@ public class Game_Configuration
 
     public void Save()
     {
-        FileManager.Save(FILE_PATH, JsonUtility.ToJson(this));
+        FileManager.Save(FILE_PATH, JsonUtility.ToJson(this), useHMAC: false);
     }
 }

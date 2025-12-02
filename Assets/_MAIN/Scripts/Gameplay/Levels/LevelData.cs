@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelData
@@ -12,6 +13,16 @@ public class LevelData
     public string skinUnlocked;
     public int deathCount;
     public string title;
+
+    public bool secretSkinCollected;
+    public int practiceTerminalsSolved;
+    public int debugTerminalsSolved;
+    public int finalTerminalsSolved;
+
+    public int TotalTerminalSolved => practiceTerminalsSolved + debugTerminalsSolved + finalTerminalsSolved;
+
+    public float explorationPercent;
+    public HashSet<string> visitedRooms = new HashSet<string>();
 
     public Vector3 checkpoint;
     public bool hasCheckpoint;

@@ -15,3 +15,7 @@ MonoBehaviour:
   levelName: Level6
   totalBlocks: 3
   previewImg: {fileID: 0}
+  practiceTerminals: 2
+  debugTerminals: 2
+  finalTerminals: 1
+  totalRooms: 33

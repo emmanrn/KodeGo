@@ -7,5 +7,8 @@ public class LevelData_SO : ScriptableObject
     public string levelName;
     public int totalBlocks = 3;
     public Sprite previewImg;
-
+    public int practiceTerminals;
+    public int debugTerminals;
+    public int finalTerminals;
+    public int totalRooms;
 }

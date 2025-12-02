@@ -26,7 +26,8 @@ namespace MAIN_GAME
 
         public static GameSave Load(string filePath, bool activateOnLoad = false)
         {
-            GameSave save = FileManager.Load<GameSave>(filePath, ENCRYPT_FILES);
+            GameSave defaultSave = new GameSave();
+            GameSave save = FileManager.Load<GameSave>(filePath, defaultSave, ENCRYPT_FILES);
 
             activeFile = save;
 
@@ -44,8 +45,11 @@ namespace MAIN_GAME
             if (string.IsNullOrEmpty(playerName))
                 playerName = "Kode";
 
-            historyLogs = HistoryManager.instance.history.ToArray();
-            activeConversations = GetConversationData();
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "LevelSelection")
+            {
+                historyLogs = HistoryManager.instance.history.ToArray();
+                activeConversations = GetConversationData();
+            }
             levelProgress = GetLevelData();
             variables = GetVariableData();
 
@@ -182,6 +186,16 @@ namespace MAIN_GAME
                 levelData.skinUnlocked = level.skinUnlocked;
                 levelData.deathCount = level.deathCount;
                 levelData.title = level.title;
+
+                levelData.secretSkinCollected = level.secretSkinCollected;
+                levelData.practiceTerminalsSolved = level.practiceTerminalsSolved;
+                levelData.debugTerminalsSolved = level.debugTerminalsSolved;
+                levelData.finalTerminalsSolved = level.finalTerminalsSolved;
+                levelData.explorationPercent = level.explorationPercent;
+
+                levelData.visitedRooms = level.visitedRooms;
+                levelData.PrepareForSave();
+
                 levelData.checkpoint = level.checkpoint;
                 levelData.hasCheckpoint = level.hasCheckpoint;
                 levelData.completionPrecent = level.completionPrecent;
@@ -197,6 +211,8 @@ namespace MAIN_GAME
             {
                 if (LevelProgressManager.runtime.ContainsKey(data.levelName))
                 {
+                    data.RestoreAfterLoad();
+
                     var level = LevelProgressManager.runtime[data.levelName];
                     level.collectedBlocks = data.collectedBlocks;
                     level.quizPassed = data.quizPassed;
@@ -206,9 +222,19 @@ namespace MAIN_GAME
                     level.skinUnlocked = data.skinUnlocked;
                     level.deathCount = data.deathCount;
                     level.title = data.title;
+
+                    level.secretSkinCollected = data.secretSkinCollected;
+                    level.practiceTerminalsSolved = data.practiceTerminalsSolved;
+                    level.debugTerminalsSolved = data.debugTerminalsSolved;
+                    level.finalTerminalsSolved = data.finalTerminalsSolved;
+
+                    level.explorationPercent = data.explorationPercent;
+
                     level.checkpoint = data.checkpoint;
                     level.hasCheckpoint = data.hasCheckpoint;
                     level.completionPrecent = data.completionPrecent;
+
+                    level.visitedRooms = data.visitedRooms;
                 }
             }
         }
