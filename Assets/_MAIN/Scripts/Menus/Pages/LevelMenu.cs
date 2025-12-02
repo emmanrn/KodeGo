@@ -13,6 +13,10 @@ public class LevelMenu : MonoBehaviour
     [SerializeField] private InputReader inputReader;
     [SerializeField] private LevelDatabase_SO levelDB;
     [SerializeField] private TextMeshProUGUI levelNameText;
+    [SerializeField] private TextMeshProUGUI completionText;
+    [SerializeField] private TextMeshProUGUI terminalsText;
+    [SerializeField] private TextMeshProUGUI explorationText;
+    [SerializeField] private TextMeshProUGUI deathCountText;
     [SerializeField] private string[] levelNames;
     [SerializeField] private TextAsset[] filesToRead;
 
@@ -36,6 +40,7 @@ public class LevelMenu : MonoBehaviour
         inputReader.NextLevelEvent -= Next;
         inputReader.PrevLevelEvent -= Previous;
     }
+
 
     void Update()
     {
@@ -195,6 +200,38 @@ public class LevelMenu : MonoBehaviour
                     int levelNumber = i + 1; // assuming your first level is index 0
 
                     levelNameText.text = $"LEVEL {levelNumber}: {displayName}";
+                }
+
+                if (unlocked)
+                {
+                    var levelName = levelDB.levels[i].levelName;
+                    var levelData = LevelProgressManager.runtime[levelName];
+
+                    // Completion %
+                    completionText.text = $"{levelData.completionPrecent * 100:F0}%";
+
+                    // Blocks
+
+                    // Terminals solved
+                    int solved = levelData.TotalTerminalSolved;
+                    int total = levelDB.levels[i].practiceTerminals +
+                                levelDB.levels[i].debugTerminals +
+                                levelDB.levels[i].finalTerminals;
+                    terminalsText.text = $"{solved}/{total}";
+
+                    // Secret skin
+
+                    // Exploration
+                    explorationText.text = $"{levelData.explorationPercent * 100:F0}%";
+                    deathCountText.text = $"{levelData.deathCount}";
+                }
+                else
+                {
+                    // Fallback for locked levels
+                    completionText.text = "0%";
+                    terminalsText.text = "0/0";
+                    explorationText.text = "0%";
+                    deathCountText.text = "0";
                 }
             }
             else

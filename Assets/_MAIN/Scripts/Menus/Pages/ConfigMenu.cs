@@ -38,8 +38,9 @@ public class ConfigMenu : MenuPage
 
     private void LoadConfig()
     {
+        Game_Configuration defaultConfig = new Game_Configuration();
         if (File.Exists(Game_Configuration.FILE_PATH))
-            Game_Configuration.activeConfig = FileManager.Load<Game_Configuration>(Game_Configuration.FILE_PATH);
+            Game_Configuration.activeConfig = FileManager.Load<Game_Configuration>(defaultInstance: defaultConfig, filePath: Game_Configuration.FILE_PATH, useHMAC: false);
         else
             Game_Configuration.activeConfig = new Game_Configuration();
 

@@ -16,6 +16,7 @@ public class Boot : MonoBehaviour
             return;
 
         save = GameSave.Load($"{FilePaths.gameSaves}save{GameSave.FILE_TYPE}", activateOnLoad: false);
+        AudioManager.instance.PlayTrack(FilePaths.GetPathToResource(FilePaths.resources_music, "HSBG"), loop: true, startingVolume: 0f, volumeCap: 0.7f);
         if (save != null)
         {
             Debug.Log("Reloaded save file");

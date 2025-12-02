@@ -77,6 +77,34 @@ public class LevelProgressManager
         RecalculateCompletion(level);
     }
 
+    public static void AddPracticeTerminalSolved(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.practiceTerminalsSolved++;
+        RecalculateCompletion(level);
+    }
+
+    public static void AddDebugTerminalSolved(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.debugTerminalsSolved++;
+        RecalculateCompletion(level);
+    }
+
+    public static void AddFinalTerminalSolved(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.finalTerminalsSolved++;
+        RecalculateCompletion(level);
+    }
+
+    public static void SetExplorationPercent(string levelName, float value)
+    {
+        var level = GetLevel(levelName);
+        level.explorationPercent = Mathf.Clamp01(value);
+        RecalculateCompletion(level);
+    }
+
     public static void SetPlayerLevelWin(string levelName)
     {
         var level = GetLevel(levelName);
@@ -122,12 +150,78 @@ public class LevelProgressManager
 
     private static void RecalculateCompletion(LevelData level)
     {
-        // Example: compute progress %
         float percent = 0f;
-        if (level.quizPassed) percent += 0.3f;
-        if (level.secretFound) percent += 0.2f;
-        percent += Mathf.Clamp01(level.collectedBlocks / 3f) * 0.5f;
+
+        // Exploration
+        percent += level.explorationPercent * 0.4f;
+
+        // Blocks
+        percent += Mathf.Clamp01(level.collectedBlocks / 3f) * 0.2f;
+
+        // Quiz
+        if (level.quizPassed) percent += 0.1f;
+
+        // Secret Skin
+        if (level.secretSkinCollected) percent += 0.1f;
+
+        // Terminal solve progress
+        var levelInfo = Array.Find(levels.levels, x => x.levelName == level.levelName);
+        int totalPossible =
+            levelInfo.practiceTerminals +
+            levelInfo.debugTerminals +
+            levelInfo.finalTerminals;
+
+        int solved = level.practiceTerminalsSolved +
+                     level.debugTerminalsSolved +
+                     level.finalTerminalsSolved;
+
+        float terminalPercent = (totalPossible > 0)
+            ? Mathf.Clamp01((float)solved / totalPossible)
+            : 0f;
+
+        percent += terminalPercent * 0.2f;
+
         level.completionPrecent = percent;
+    }
+
+    // GETTERS
+
+    public static float GetCompletionPercent(string levelName)
+    {
+        return runtime.ContainsKey(levelName) ? runtime[levelName].completionPrecent : 0f;
+    }
+
+    public static int GetTerminalsSolved(string levelName)
+    {
+        return runtime.ContainsKey(levelName) ? runtime[levelName].TotalTerminalSolved : 0;
+    }
+
+    public static int GetDeathCount(string levelName)
+    {
+        return runtime.ContainsKey(levelName) ? runtime[levelName].deathCount : 0;
+    }
+
+    public static float GetExplorationPercent(string levelName)
+    {
+        return runtime.ContainsKey(levelName) ? runtime[levelName].explorationPercent : 0f;
+    }
+
+    public static int GetTotalTerminals(string levelName)
+    {
+        if (levels == null) return 0;
+
+        var levelInfo = Array.Find(levels.levels, l => l.levelName == levelName);
+        if (levelInfo == null) return 0;
+
+        return levelInfo.practiceTerminals + levelInfo.debugTerminals + levelInfo.finalTerminals;
+    }
+
+    public static int GetSolvedTerminals(string levelName)
+    {
+        if (!runtime.ContainsKey(levelName)) return 0;
+
+        var levelData = runtime[levelName];
+        return levelData.TotalTerminalSolved; // already sums practice+debug+final
     }
 
     // BEWARE OF THIS

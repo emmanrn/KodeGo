@@ -18,10 +18,12 @@ public class Transition : MonoBehaviour
 
     public void LoadLevel(string levelName, TextAsset fileToRead = null)
     {
+        AudioManager.instance.StopAllTracks();
         StartCoroutine(TransitionToNextLevel(levelName, fileToRead));
     }
     public void LoadNextScene(string levelName, bool playCutscene = false, TextAsset fileToRead = null)
     {
+        AudioManager.instance.StopAllTracks();
         StartCoroutine(TransitionToNextScene(levelName, playCutscene, fileToRead));
     }
 

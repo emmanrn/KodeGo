@@ -1,3 +1,4 @@
+using MAIN_GAME;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,10 @@ public class SceneManagerScript : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         Game_Configuration.activeConfig.Save();
+        GameSave.activeFile.Save();
+
+        AudioManager.instance.StopAllTracks();
+        AudioManager.instance.PlayTrack(FilePaths.GetPathToResource(FilePaths.resources_music, "HSBG"), loop: true, startingVolume: 0f, volumeCap: 0.7f);
         SceneManager.LoadScene(sceneName);
     }
 

@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
 public class FileManager
 {
     private const string KEY = "VERYSCRETKEY";
+    private static readonly byte[] HMACKey = Encoding.UTF8.GetBytes("MORESUPERSECRETKEY123!");
     public static List<string> ReadTxtFiles(string filePath, bool includeBlankLines = true)
     {
         // checking if the file path is like relative or absolute path
@@ -95,7 +97,7 @@ public class FileManager
         }
     }
 
-    public static void Save(string filePath, string JSONData, bool encrypt = false)
+    public static void Save(string filePath, string JSONData, bool encrypt = false, bool useHMAC = true)
     {
         if (!TryCreateDirectoryFromPath(filePath))
         {
@@ -103,53 +105,94 @@ public class FileManager
             return;
         }
 
-        // for the encryption of the files we're going to use a simple encryption with XOR
-        // first we get the bytes of the data we want to save and the bytes of the KEY
+        byte[] dataBytes = Encoding.UTF8.GetBytes(JSONData);
+
         if (encrypt)
         {
-            byte[] dataBytes = Encoding.UTF8.GetBytes(JSONData);
             byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
-            byte[] encryptedBytes = XOR(dataBytes, keyBytes);
+            dataBytes = XOR(dataBytes, keyBytes);
+        }
 
-            File.WriteAllBytes(filePath, encryptedBytes);
+        if (useHMAC)
+        {
+            byte[] hmacBytes = ComputeHMAC(dataBytes);
+
+            byte[] finalBytes = new byte[hmacBytes.Length + dataBytes.Length];
+            Buffer.BlockCopy(hmacBytes, 0, finalBytes, 0, hmacBytes.Length);
+            Buffer.BlockCopy(dataBytes, 0, finalBytes, hmacBytes.Length, dataBytes.Length);
+
+            File.WriteAllBytes(filePath, finalBytes);
         }
         else
         {
+            // Save without HMAC
+            // File.WriteAllBytes(filePath, dataBytes);
             StreamWriter sw = new StreamWriter(filePath);
             sw.Write(JSONData);
             sw.Close();
         }
 
-
-
         Debug.Log($"Saved at {filePath}");
+
     }
 
-    public static T Load<T>(string filePath, bool encrypt = false)
+    public static T Load<T>(string filePath, T defaultInstance, bool encrypt = false, bool useHMAC = true)
     {
-        if (File.Exists(filePath))
+        if (!File.Exists(filePath))
         {
-            if (encrypt)
+            Debug.LogWarning("Save file not found. Creating a new one...");
+            Save(filePath, JsonUtility.ToJson(defaultInstance), encrypt, useHMAC);
+            return defaultInstance;
+        }
+
+        try
+        {
+            if (!encrypt && !useHMAC)
             {
-                byte[] encryptedBytes = File.ReadAllBytes(filePath);
-                byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
+                // Plain text file
+                string readData = File.ReadAllText(filePath);
+                return JsonUtility.FromJson<T>(readData);
+            }
 
-                byte[] decryptedBytes = XOR(encryptedBytes, keyBytes);
+            // Encrypted / HMAC file
+            byte[] allBytes = File.ReadAllBytes(filePath);
+            int hmacLength = 32;
 
-                string decryptedString = Encoding.UTF8.GetString(decryptedBytes);
+            if (allBytes.Length < hmacLength && useHMAC)
+                throw new Exception("Save file too small/corrupted.");
 
-                return JsonUtility.FromJson<T>(decryptedString);
+            byte[] dataBytes;
+
+            if (useHMAC)
+            {
+                byte[] hmacBytes = new byte[hmacLength];
+                dataBytes = new byte[allBytes.Length - hmacLength];
+
+                Buffer.BlockCopy(allBytes, 0, hmacBytes, 0, hmacLength);
+                Buffer.BlockCopy(allBytes, hmacLength, dataBytes, 0, dataBytes.Length);
+
+                if (!VerifyHMAC(dataBytes, hmacBytes))
+                    throw new Exception("HMAC verification failed.");
             }
             else
             {
-                string JSONData = File.ReadAllLines(filePath)[0];
-                return JsonUtility.FromJson<T>(JSONData);
+                dataBytes = allBytes; // no HMAC, just the raw bytes
             }
+
+            if (encrypt)
+            {
+                byte[] keyBytes = Encoding.UTF8.GetBytes(KEY);
+                dataBytes = XOR(dataBytes, keyBytes);
+            }
+
+            string JSONData = Encoding.UTF8.GetString(dataBytes);
+            return JsonUtility.FromJson<T>(JSONData);
         }
-        else
+        catch (Exception e)
         {
-            Debug.LogError($"Error file does not exist '{filePath}");
-            return default(T);
+            Debug.LogError($"Save file error: {e.Message}. Using default instance...");
+            Save(filePath, JsonUtility.ToJson(defaultInstance), encrypt, useHMAC);
+            return defaultInstance;
         }
     }
 
@@ -166,4 +209,26 @@ public class FileManager
 
         return output;
     }
+
+    private static byte[] ComputeHMAC(byte[] data)
+    {
+        using (var hmac = new HMACSHA256(HMACKey))
+        {
+            return hmac.ComputeHash(data);
+        }
+    }
+
+    private static bool VerifyHMAC(byte[] data, byte[] hmacToCheck)
+    {
+        byte[] computed = ComputeHMAC(data);
+        if (computed.Length != hmacToCheck.Length) return false;
+
+        for (int i = 0; i < computed.Length; i++)
+        {
+            if (computed[i] != hmacToCheck[i])
+                return false;
+        }
+        return true;
+    }
+
 }
