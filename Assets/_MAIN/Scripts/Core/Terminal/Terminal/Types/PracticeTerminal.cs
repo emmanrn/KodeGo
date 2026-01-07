@@ -143,7 +143,6 @@ namespace TERMINAL
             }
 
             bool success = interpreter.TryExecuteCode(code, out string output);
-            Debug.Log("Success " + success);
 
             outputTerminal.text = "";
 
@@ -156,6 +155,8 @@ namespace TERMINAL
                 outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
                 attempts++; // increment only once per run
+                LevelProgressManager.AddFailedAttempts(levelName);
+                LevelProgressManager.AddPracticeTerminalSolved(levelName);
                 CheckHintThreshold();
                 StartErrorPopup();
             }
@@ -168,6 +169,17 @@ namespace TERMINAL
             if (output == outputCode)
             {
                 Debug.Log("Correct");
+                bool firstSolve = LevelProgressManager.TrySolveTerminal(levelName, terminalType, terminalID);
+
+                if (firstSolve)
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' solved for the first time!");
+                    LevelProgressManager.RecalculateCompletion(LevelProgressManager.GetLevel(levelName));
+                }
+                else
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' was already solved.");
+                }
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
             }
@@ -176,6 +188,8 @@ namespace TERMINAL
                 output = string.IsNullOrEmpty(output) ? "None" : output;
 
                 attempts++;
+                Debug.Log($"{levelName} Practice Terminal faield");
+                LevelProgressManager.AddFailedAttempts(levelName);
 
                 CheckHintThreshold();
 

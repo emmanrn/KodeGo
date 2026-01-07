@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TERMINAL;
 using UnityEngine;
 
 [System.Serializable]
@@ -77,24 +78,78 @@ public class LevelProgressManager
         RecalculateCompletion(level);
     }
 
+    public static void AddFailedAttempts(string levelName)
+    {
+        var level = GetLevel(levelName);
+        level.failedAttempts++;
+        RecalculateCompletion(level);
+    }
+    public static bool TrySolveTerminal(
+    string levelName,
+    Terminal.TerminalType type,
+    string terminalID
+)
+    {
+        if (!runtime.TryGetValue(levelName, out var level))
+        {
+            Debug.LogError($"Level '{levelName}' not found");
+            return false;
+        }
+
+        HashSet<string> set = GetTerminalSet(level, type);
+
+        // Already solved → do nothing
+        if (set.Contains(terminalID))
+            return false;
+
+        set.Add(terminalID);
+        Debug.Log($"Solved {type} terminal '{terminalID}' in {levelName}");
+
+        return true;
+    }
+
+    // ─────────────────────────────────────
+    // Accessors
+    // ─────────────────────────────────────
+    private static HashSet<string> GetTerminalSet(
+        LevelData level,
+        Terminal.TerminalType type
+    )
+    {
+        return type switch
+        {
+            Terminal.TerminalType.PRACTICE => level.solvedPracticeTerminals,
+            Terminal.TerminalType.DEBUG => level.solvedDebugTerminals,
+            Terminal.TerminalType.FINAL => level.solvedFinalTerminals,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+    public static int GetTotalSolved(string levelName)
+    {
+        if (!runtime.TryGetValue(levelName, out var level))
+            return 0;
+
+        return level.TotalTerminalSolved;
+    }
+
     public static void AddPracticeTerminalSolved(string levelName)
     {
         var level = GetLevel(levelName);
-        level.practiceTerminalsSolved++;
+        // level.practiceTerminalsSolved++;
         RecalculateCompletion(level);
     }
 
     public static void AddDebugTerminalSolved(string levelName)
     {
         var level = GetLevel(levelName);
-        level.debugTerminalsSolved++;
+        // level.debugTerminalsSolved++;
         RecalculateCompletion(level);
     }
 
     public static void AddFinalTerminalSolved(string levelName)
     {
         var level = GetLevel(levelName);
-        level.finalTerminalsSolved++;
+        // level.finalTerminalsSolved++;
         RecalculateCompletion(level);
     }
 
@@ -148,7 +203,7 @@ public class LevelProgressManager
         return levels.levels[currentIndex + 1].name;
     }
 
-    private static void RecalculateCompletion(LevelData level)
+    public static void RecalculateCompletion(LevelData level)
     {
         float percent = 0f;
 

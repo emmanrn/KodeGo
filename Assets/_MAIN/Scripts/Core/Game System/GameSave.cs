@@ -188,17 +188,18 @@ namespace MAIN_GAME
                 levelData.title = level.title;
 
                 levelData.secretSkinCollected = level.secretSkinCollected;
-                levelData.practiceTerminalsSolved = level.practiceTerminalsSolved;
-                levelData.debugTerminalsSolved = level.debugTerminalsSolved;
-                levelData.finalTerminalsSolved = level.finalTerminalsSolved;
+                levelData.practiceSet = new HashSet<string>(level.solvedPracticeTerminals);
+                levelData.debugSet = new HashSet<string>(level.solvedDebugTerminals);
+                levelData.finalSet = new HashSet<string>(level.solvedFinalTerminals);
                 levelData.explorationPercent = level.explorationPercent;
 
-                levelData.visitedRooms = level.visitedRooms;
+                levelData.visitedRooms = new HashSet<string>(level.visitedRooms);
                 levelData.PrepareForSave();
 
                 levelData.checkpoint = level.checkpoint;
                 levelData.hasCheckpoint = level.hasCheckpoint;
                 levelData.completionPrecent = level.completionPrecent;
+                levelData.failedAttempts = level.failedAttempts;
 
                 returnData.Add(levelData);
             }
@@ -224,15 +225,16 @@ namespace MAIN_GAME
                     level.title = data.title;
 
                     level.secretSkinCollected = data.secretSkinCollected;
-                    level.practiceTerminalsSolved = data.practiceTerminalsSolved;
-                    level.debugTerminalsSolved = data.debugTerminalsSolved;
-                    level.finalTerminalsSolved = data.finalTerminalsSolved;
 
+                    level.solvedPracticeTerminals = new HashSet<string>(data.practiceSet);
+                    level.solvedDebugTerminals = new HashSet<string>(data.debugSet);
+                    level.solvedFinalTerminals = new HashSet<string>(data.finalSet);
                     level.explorationPercent = data.explorationPercent;
 
                     level.checkpoint = data.checkpoint;
                     level.hasCheckpoint = data.hasCheckpoint;
                     level.completionPrecent = data.completionPrecent;
+                    level.failedAttempts = data.failedAttempts;
 
                     level.visitedRooms = data.visitedRooms;
                 }

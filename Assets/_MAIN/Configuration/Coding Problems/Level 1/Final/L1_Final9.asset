@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L1_Final9
   m_EditorClassIdentifier: 
   codeLines:
-  - print("C:{input}Windows{input}{input}")
+  - print("C:{input}Users{input}{input}")
   expectedOutput: C:\Users\Documents
   codeBlocks:
   - \\

@@ -156,12 +156,24 @@ namespace TERMINAL
             if (output == outputCode)
             {
                 Debug.Log("Correct");
+                bool firstSolve = LevelProgressManager.TrySolveTerminal(levelName, terminalType, terminalID);
+
+                if (firstSolve)
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' solved for the first time!");
+                    LevelProgressManager.RecalculateCompletion(LevelProgressManager.GetLevel(levelName));
+                }
+                else
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' was already solved.");
+                }
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
                 StartCoroutine(OnPlayerWin());
             }
             else
             {
+                LevelProgressManager.AddFailedAttempts(levelName);
                 outputTerminal.color = Color.red;
                 outputTerminal.text = output;
 
@@ -191,6 +203,7 @@ namespace TERMINAL
             }
             else
             {
+                LevelProgressManager.AddFailedAttempts(levelName);
                 outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
 

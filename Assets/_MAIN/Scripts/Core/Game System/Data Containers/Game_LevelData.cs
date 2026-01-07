@@ -18,11 +18,22 @@ namespace MAIN_GAME
         public string title;
 
         public bool secretSkinCollected;
-        public int practiceTerminalsSolved;
-        public int debugTerminalsSolved;
-        public int finalTerminalsSolved;
+        // ✅ Serializable terminal sets
+        [SerializeField] private List<string> solvedPracticeTerminals = new();
+        [SerializeField] private List<string> solvedDebugTerminals = new();
+        [SerializeField] private List<string> solvedFinalTerminals = new();
 
-        public int TotalTerminalSolved => practiceTerminalsSolved + debugTerminalsSolved + finalTerminalsSolved;
+        // Runtime versions
+        [NonSerialized] public HashSet<string> practiceSet = new();
+        [NonSerialized] public HashSet<string> debugSet = new();
+        [NonSerialized] public HashSet<string> finalSet = new();
+
+        // Derived counts
+        public int practiceTerminalsSolved => practiceSet.Count;
+        public int debugTerminalsSolved => debugSet.Count;
+        public int finalTerminalsSolved => finalSet.Count;
+        public int TotalTerminalSolved =>
+            practiceTerminalsSolved + debugTerminalsSolved + finalTerminalsSolved;
 
         public float explorationPercent;
 
@@ -37,16 +48,25 @@ namespace MAIN_GAME
         public bool hasCheckpoint;
 
         public float completionPrecent;
+        public int failedAttempts;
 
         // Call this before saving
         public void PrepareForSave()
         {
+            solvedPracticeTerminals = new List<string>(practiceSet);
+            solvedDebugTerminals = new List<string>(debugSet);
+            solvedFinalTerminals = new List<string>(finalSet);
+
             visitedRoomsList = new List<string>(visitedRooms);
         }
 
         // Call this after loading
         public void RestoreAfterLoad()
         {
+            practiceSet = new HashSet<string>(solvedPracticeTerminals);
+            debugSet = new HashSet<string>(solvedDebugTerminals);
+            finalSet = new HashSet<string>(solvedFinalTerminals);
+
             visitedRooms = new HashSet<string>(visitedRoomsList);
         }
 
