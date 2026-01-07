@@ -20,6 +20,7 @@ namespace TERMINAL
         [SerializeField] protected GameObject indentPrefab;
         [SerializeField] protected Button closeBtn;
         [SerializeField] protected Button runBtn;
+        [SerializeField] protected string terminalID;
 
         protected const int MAX_WRONG_ATTEMPTS = 5;
         void Start()

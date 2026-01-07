@@ -15,9 +15,12 @@ public class LevelData
     public string title;
 
     public bool secretSkinCollected;
-    public int practiceTerminalsSolved;
-    public int debugTerminalsSolved;
-    public int finalTerminalsSolved;
+    public HashSet<string> solvedPracticeTerminals = new HashSet<string>();
+    public HashSet<string> solvedDebugTerminals = new HashSet<string>();
+    public HashSet<string> solvedFinalTerminals = new HashSet<string>();
+    public int practiceTerminalsSolved => solvedPracticeTerminals.Count;
+    public int debugTerminalsSolved => solvedDebugTerminals.Count;
+    public int finalTerminalsSolved => solvedFinalTerminals.Count;
 
     public int TotalTerminalSolved => practiceTerminalsSolved + debugTerminalsSolved + finalTerminalsSolved;
 
@@ -28,4 +31,5 @@ public class LevelData
     public bool hasCheckpoint;
 
     public float completionPrecent;
+    public int failedAttempts;
 }

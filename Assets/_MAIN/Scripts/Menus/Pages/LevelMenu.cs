@@ -17,6 +17,7 @@ public class LevelMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI terminalsText;
     [SerializeField] private TextMeshProUGUI explorationText;
     [SerializeField] private TextMeshProUGUI deathCountText;
+    [SerializeField] private TextMeshProUGUI failedAttemptsText;
     [SerializeField] private string[] levelNames;
     [SerializeField] private TextAsset[] filesToRead;
 
@@ -213,7 +214,7 @@ public class LevelMenu : MonoBehaviour
                     // Blocks
 
                     // Terminals solved
-                    int solved = levelData.TotalTerminalSolved;
+                    int solved = LevelProgressManager.GetTotalSolved(levelName);
                     int total = levelDB.levels[i].practiceTerminals +
                                 levelDB.levels[i].debugTerminals +
                                 levelDB.levels[i].finalTerminals;
@@ -224,6 +225,8 @@ public class LevelMenu : MonoBehaviour
                     // Exploration
                     explorationText.text = $"{levelData.explorationPercent * 100:F0}%";
                     deathCountText.text = $"{levelData.deathCount}";
+                    failedAttemptsText.text = $"{levelData.failedAttempts}";
+
                 }
                 else
                 {
@@ -232,6 +235,7 @@ public class LevelMenu : MonoBehaviour
                     terminalsText.text = "0/0";
                     explorationText.text = "0%";
                     deathCountText.text = "0";
+                    failedAttemptsText.text = "0";
                 }
             }
             else

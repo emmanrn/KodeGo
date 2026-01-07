@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MAIN_GAME;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -76,7 +77,6 @@ namespace TERMINAL
             bool success = interpreter.TryExecuteCode(code, out string output);
             outputTerminal.text = "";
 
-            CheckOutput(output, currentConfig.expectedOutput);
             if (success)
             {
                 CheckOutput(output, currentConfig.expectedOutput);
@@ -84,6 +84,8 @@ namespace TERMINAL
             else
             {
                 attempts++; // increment only once per run
+                Debug.Log($"{levelName} Debug Terminal faield");
+                LevelProgressManager.AddFailedAttempts(levelName);
                 outputTerminal.color = new Color(1, 0.33f, 0.33f);
                 outputTerminal.text = output;
 
@@ -98,12 +100,25 @@ namespace TERMINAL
             if (output == outputCode)
             {
                 Debug.Log("Correct");
+                // ✅ Mark the terminal as solved, only once
+                bool firstSolve = LevelProgressManager.TrySolveTerminal(levelName, terminalType, terminalID);
+
+                if (firstSolve)
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' solved for the first time!");
+                    LevelProgressManager.RecalculateCompletion(LevelProgressManager.GetLevel(levelName));
+                }
+                else
+                {
+                    Debug.Log($"Debug terminal '{terminalID}' was already solved.");
+                }
                 outputTerminal.color = Color.green;
                 outputTerminal.text = output;
             }
             else
             {
                 attempts++;
+                LevelProgressManager.AddFailedAttempts(levelName);
                 bool thresholdReached = (attempts % MAX_WRONG_ATTEMPTS == 0) ? true : false;
 
                 if (thresholdReached)
